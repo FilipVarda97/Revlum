@@ -85,19 +85,21 @@ public final class MainViewController: UIViewController {
         brandBackgroundImageView.image = .topBGImage
         brandBackgroundImageView.contentMode = .scaleToFill
         brandLogoImageView.image = .revlumLogo
+        brandLogoImageView.contentMode = .scaleAspectFit
 
         add(childViewController: offersViewController)
     }
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            brandBackgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            brandBackgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             brandBackgroundImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             brandBackgroundImageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             brandBackgroundImageView.bottomAnchor.constraint(equalTo: segmentedControl.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
             brandLogoImageView.heightAnchor.constraint(equalToConstant: 43),
+            brandLogoImageView.widthAnchor.constraint(equalToConstant: 200),
             brandLogoImageView.centerYAnchor.constraint(equalTo: brandBackgroundImageView.centerYAnchor, constant: -30),
             brandLogoImageView.centerXAnchor.constraint(equalTo: brandBackgroundImageView.centerXAnchor)
         ])
