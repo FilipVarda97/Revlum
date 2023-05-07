@@ -7,8 +7,7 @@
 
 import UIKit
 
-
-final class MainViewController: UIViewController {
+public final class MainViewController: UIViewController {
     // MARK: - Properties
     private let apiKey: String
     private let userId: String
@@ -47,7 +46,7 @@ final class MainViewController: UIViewController {
     }
 
     // MARK: - Implementation
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
