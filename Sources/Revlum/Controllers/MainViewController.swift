@@ -38,7 +38,7 @@ public final class MainViewController: UIViewController {
     public init(apiKey: String, userId: String) {
         self.apiKey = apiKey
         self.userId = userId
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
