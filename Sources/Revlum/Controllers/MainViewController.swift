@@ -83,6 +83,8 @@ public final class MainViewController: UIViewController {
                          segmentedControl)
 
         brandBackgroundImageView.image = .topBGImage
+        brandBackgroundImageView.contentMode = .scaleToFill
+        brandLogoImageView.image = .revlumLogo
 
         add(childViewController: offersViewController)
     }

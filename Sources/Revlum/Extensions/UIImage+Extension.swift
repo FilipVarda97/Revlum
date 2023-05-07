@@ -13,4 +13,9 @@ extension UIImage {
         let image = UIImage(named: "backgroundImage", in: bundle, compatibleWith: nil)
         return image!
     }()
+    static let revlumLogo: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "revlumLogo", in: bundle, compatibleWith: nil)
+        return image!
+    }()
 }
