@@ -18,7 +18,10 @@ let package = Package(
     targets: [
         .target(
             name: "Revlum",
-            dependencies: []),
+            dependencies: [],
+            resources: [
+                .process("Resources")
+            ]),
         .testTarget(
             name: "RevlumTests",
             dependencies: ["Revlum"]),
