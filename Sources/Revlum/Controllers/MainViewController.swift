@@ -109,8 +109,8 @@ public final class MainViewController: UIViewController {
         NSLayoutConstraint.activate([
             dissmissButton.heightAnchor.constraint(equalToConstant: 40),
             dissmissButton.widthAnchor.constraint(equalToConstant: 40),
-            dissmissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            dissmissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 20)
+            dissmissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            dissmissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
         ])
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 124),
