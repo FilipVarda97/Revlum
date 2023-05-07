@@ -82,6 +82,8 @@ public final class MainViewController: UIViewController {
                          containerView,
                          segmentedControl)
 
+        brandBackgroundImageView.image = .topBGImage
+
         add(childViewController: offersViewController)
     }
 
