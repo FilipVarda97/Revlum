@@ -35,7 +35,7 @@ public final class MainViewController: UIViewController {
     }()
 
     // MARK: - Init
-    init(apiKey: String, userId: String) {
+    public init(apiKey: String, userId: String) {
         self.apiKey = apiKey
         self.userId = userId
         super.init()
