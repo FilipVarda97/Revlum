@@ -26,6 +26,7 @@ final class OffersViewController: UIViewController {
         view.addSubviews(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
     }
 
     private func setUpConstraints() {

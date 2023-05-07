@@ -27,7 +27,7 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func setupControl() {
         selectedSegmentIndex = 0
-        backgroundColor = .white
+        backgroundColor = .bgColor
         setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         setTitleTextAttributes([.foregroundColor: UIColor.black,
                                 .underlineStyle: NSUnderlineStyle.single.rawValue,
