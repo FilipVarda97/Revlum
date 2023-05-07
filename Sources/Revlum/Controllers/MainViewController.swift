@@ -70,6 +70,8 @@ public final class MainViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
 
+        brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
