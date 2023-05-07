@@ -9,6 +9,8 @@ import UIKit
 
 final class OffersViewController: UIViewController {
     // MARK: - Properties
+    private let viewModel = OffersViewModel()
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
@@ -20,6 +22,7 @@ final class OffersViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
+        viewModel.fetchOffers()
     }
 
     private func setUpViews() {

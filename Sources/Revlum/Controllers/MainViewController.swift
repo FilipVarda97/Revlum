@@ -51,6 +51,8 @@ public final class MainViewController: UIViewController {
     public init(apiKey: String, userId: String) {
         self.apiKey = apiKey
         self.userId = userId
+        RevlumUserDefaultsService.setValue(apiKey, for: .apiKey)
+        RevlumUserDefaultsService.setValue(userId, for: .userId)
         super.init(nibName: nil, bundle: nil)
     }
 

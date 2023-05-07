@@ -9,6 +9,6 @@ import Foundation
 
 /// Example enpoints for APIRequest. Return string coresponding to enpoint
 enum APIEndpoint: String {
-    case category
-    case survey
+    case base = ""
+    case config
 }

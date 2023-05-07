@@ -69,7 +69,7 @@ final class APIRequest {
     // MARK: - Init
     /// Create APIRequest with provided enpoint. Path Components and Query Parametars are optional.
     public init(httpMethod: HttpMethod = .get,
-                enpoint: APIEndpoint,
+                enpoint: APIEndpoint = .base,
                 pathComponents: [String] = [],
                 queryParams: [URLQueryItem] = []) {
         self.endpoint = enpoint
