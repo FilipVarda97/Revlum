@@ -12,9 +12,8 @@ public final class MainViewController: UIViewController {
     private let apiKey: String
     private let userId: String
 
-    private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Offers", "Surveys"])
-        control.selectedSegmentIndex = 0
+    private let segmentedControl: RevlumSegmentedControl = {
+        let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
         return control
     }()
     private lazy var offersViewController: OffersViewController = {
@@ -63,7 +62,7 @@ public final class MainViewController: UIViewController {
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
             segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
