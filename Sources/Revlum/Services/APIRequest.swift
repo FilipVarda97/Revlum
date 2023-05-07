@@ -22,7 +22,7 @@ final class APIRequest {
         case trace = "TRACE"
     }
 
-    static let baseUrl = "https://revlum.com/sdk/ios.php"
+    static let baseUrl = "https://revlum.com/sdk/ios"
 
     /// Endpoint returns string to create URL from baseUrl
     /// (Example: "https://revlum.com/sdk/ios.php/search/repositories")
