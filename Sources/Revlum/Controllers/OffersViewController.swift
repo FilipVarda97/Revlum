@@ -18,9 +18,23 @@ final class OffersViewController: UIViewController {
     // MARK: - Implementation
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpViews()
+        setUpConstraints()
+    }
+
+    private func setUpViews() {
         view.addSubviews(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+    }
+
+    private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 

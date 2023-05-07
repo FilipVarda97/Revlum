@@ -12,10 +12,30 @@ public final class MainViewController: UIViewController {
     private let apiKey: String
     private let userId: String
 
+    // MARK: Views
+    private let brandBackgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    private let brandLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    private let dissmissButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    private let containerView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        return view
+    }()
     private let segmentedControl: RevlumSegmentedControl = {
         let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
         return control
     }()
+
+    // MARK: Child Controllers
     private lazy var offersViewController: OffersViewController = {
         let viewController = OffersViewController()
         viewController.view.backgroundColor = .systemRed
@@ -25,11 +45,6 @@ public final class MainViewController: UIViewController {
         let viewController = SurveyViewController()
         viewController.view.backgroundColor = .systemBlue
         return viewController
-    }()
-    private let containerView: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        return view
     }()
 
     // MARK: - Init
@@ -53,20 +68,46 @@ public final class MainViewController: UIViewController {
     
     private func setupViews() {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
-        view.addSubviews(segmentedControl, containerView)
+        dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
+
+        dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubviews(brandBackgroundImageView,
+                         brandLogoImageView,
+                         dissmissButton,
+                         containerView,
+                         segmentedControl)
 
         add(childViewController: offersViewController)
     }
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
-            segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            brandBackgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            brandBackgroundImageView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            brandBackgroundImageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            brandBackgroundImageView.bottomAnchor.constraint(equalTo: segmentedControl.centerYAnchor)
         ])
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            brandLogoImageView.heightAnchor.constraint(equalToConstant: 43),
+            brandLogoImageView.centerYAnchor.constraint(equalTo: brandBackgroundImageView.centerYAnchor, constant: -30),
+            brandLogoImageView.centerXAnchor.constraint(equalTo: brandBackgroundImageView.centerXAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            dissmissButton.heightAnchor.constraint(equalToConstant: 40),
+            dissmissButton.widthAnchor.constraint(equalToConstant: 40),
+            dissmissButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            dissmissButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 20)
+        ])
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 124),
+            segmentedControl.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 12),
+            segmentedControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -12)
+        ])
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -82,6 +123,10 @@ public final class MainViewController: UIViewController {
         default:
             break
         }
+    }
+
+    @objc private func dismissPressed() {
+        dismiss(animated: true)
     }
 
     private func add(childViewController: UIViewController) {
