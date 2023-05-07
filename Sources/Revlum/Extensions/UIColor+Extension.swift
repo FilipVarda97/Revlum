@@ -12,5 +12,5 @@ extension UIColor {
     static let secondaryColor = UIColor(named: "secondaryColor")!
     static let textMainColor = UIColor(named: "textMainColor")!
     static let textDescriptionColor = UIColor(named: "textDescriptionColor")!
-    static let whiteColor = UIColor(named: "whiteColor")!
+    static let whiteColor = UIColor(named: "bgColor")!
 }
