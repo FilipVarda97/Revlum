@@ -15,15 +15,14 @@ public final class MainViewController: UIViewController {
     private let segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Offers", "Surveys"])
         control.selectedSegmentIndex = 0
-        control.addTarget(MainViewController.self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         return control
     }()
-    private lazy var childViewController1: OffersViewController = {
+    private lazy var offersViewController: OffersViewController = {
         let viewController = OffersViewController()
         viewController.view.backgroundColor = .systemRed
         return viewController
     }()
-    private lazy var childViewController2: SurveyViewController = {
+    private lazy var surveyViewController: SurveyViewController = {
         let viewController = SurveyViewController()
         viewController.view.backgroundColor = .systemBlue
         return viewController
@@ -50,13 +49,19 @@ public final class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupViews()
-        add(childViewController: childViewController1)
+        setUpConstraints()
     }
     
     private func setupViews() {
+        segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         view.addSubviews(segmentedControl, containerView)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        add(childViewController: offersViewController)
+    }
+
+    private func setUpConstraints() {
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -68,13 +73,13 @@ public final class MainViewController: UIViewController {
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
+    
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            switchTo(childViewController: childViewController1)
+            switchTo(childViewController: offersViewController)
         case 1:
-            switchTo(childViewController: childViewController2)
+            switchTo(childViewController: surveyViewController)
         default:
             break
         }
