@@ -46,6 +46,8 @@ final class OffersViewController: UIViewController {
 
 extension OffersViewController: OffersViewModelDelegate {
     func didFetchOffers() {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
