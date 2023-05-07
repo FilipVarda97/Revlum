@@ -8,5 +8,9 @@
 import UIKit
 
 extension UIImage {
-    static let topBGImage = UIImage(named: "backgroundImage")!
+    static let topBGImage: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "backgroundImage", in: bundle, compatibleWith: nil)
+        return image!
+    }()
 }

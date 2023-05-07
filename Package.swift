@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Revlum",
     platforms: [
-        .iOS(.v14) // Specifies the minimum platform version as iOS 14
+        .iOS(.v14)
     ],
     products: [
         .library(
