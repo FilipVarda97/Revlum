@@ -22,7 +22,7 @@ class RevlumSegmentedControl: UISegmentedControl {
     // MARK: - Implementation
     override var intrinsicContentSize: CGSize {
         let originalSize = super.intrinsicContentSize
-        return CGSize(width: originalSize.width, height: 170)
+        return CGSize(width: originalSize.width, height: 85)
     }
 
     private func setupControl() {
