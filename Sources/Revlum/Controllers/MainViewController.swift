@@ -100,7 +100,7 @@ public final class MainViewController: UIViewController {
         NSLayoutConstraint.activate([
             brandLogoImageView.heightAnchor.constraint(equalToConstant: 43),
             brandLogoImageView.widthAnchor.constraint(equalToConstant: 200),
-            brandLogoImageView.centerYAnchor.constraint(equalTo: brandBackgroundImageView.centerYAnchor, constant: -30),
+            brandLogoImageView.centerYAnchor.constraint(equalTo: brandBackgroundImageView.centerYAnchor),
             brandLogoImageView.centerXAnchor.constraint(equalTo: brandBackgroundImageView.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
