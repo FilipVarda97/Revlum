@@ -17,7 +17,9 @@ class OffersViewModel {
 
     public func fetchOffers() {
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
-        let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey)])
+        let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
+                                                                 URLQueryItem(name: "category", value: "offer"),
+                                                                 URLQueryItem(name: "platform", value: "ios,desktop,all")])
         apiService.execute(request, expected: [Offer].self) { result in
             switch result {
             case .success(let offers):
