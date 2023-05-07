@@ -36,10 +36,16 @@ final class OfferTableViewCell: UITableViewCell {
 
     private func setUpConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 40)
+        ])
     }
 
     public func configure(with offer: String?) {
         titleLabel.text = offer ?? "-"
+        titleLabel.textColor = .white
     }
 }
