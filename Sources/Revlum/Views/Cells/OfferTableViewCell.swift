@@ -40,6 +40,12 @@ final class OfferTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = .bgColor
 
+        titleLabel.textColor = .textMainColor
+        descriptionLabel.textColor = .textDescriptionColor
+        offerButton.layer.cornerRadius = 10
+        offerButton.backgroundColor = .primaryColor
+        offerButton.setTitleColor(.white, for: .normal)
+
         contentView.addSubview(containerView)
         containerView.addSubviews(offerImageView,
                                 titleLabel,
@@ -75,14 +81,15 @@ final class OfferTableViewCell: UITableViewCell {
         ])
         NSLayoutConstraint.activate([
             offerButton.bottomAnchor.constraint(equalTo: offerImageView.bottomAnchor),
-            descriptionLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: 10)
+            offerButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10)
         ])
     }
 
     private func updateCell() {
-        titleLabel.text = offer?.title
-        descriptionLabel.text = offer?.description
-        offerButton.setTitle("+ \(String(describing: offer?.revenue))", for: .normal)
+        guard let offer = offer else { return }
+        titleLabel.text = offer.title
+        descriptionLabel.text = offer.description
+        offerButton.setTitle("+ \(offer.revenue)", for: .normal)
     }
 
     public func configure(with offer: Offer) {
