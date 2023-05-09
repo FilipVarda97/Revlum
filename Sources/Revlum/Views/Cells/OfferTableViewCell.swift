@@ -97,7 +97,13 @@ final class OfferTableViewCell: UITableViewCell {
         guard let offer = offer else { return }
         titleLabel.text = offer.title
         descriptionLabel.text = offer.description
-        offerButton.setTitle("+ \(offer.revenue)", for: .normal)
+        offerButton.setTitle(offer.revenue, for: .normal)
+        guard let imageURL = URL(string: offer.image) else { return }
+        RevlumImageLoader.shared.downloadImage(from: imageURL) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.offerImageView.image = image
+            }
+        }
     }
 
     public func configure(with offer: Offer) {
