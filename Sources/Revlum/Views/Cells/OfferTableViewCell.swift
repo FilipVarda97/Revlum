@@ -36,16 +36,18 @@ final class OfferTableViewCell: UITableViewCell {
 
     // MARK: - Implementation
     private func setUpViews() {
-        contentView.layer.cornerRadius = 5
-        contentView.clipsToBounds = true
         contentView.backgroundColor = .clear
+        containerView.layer.cornerRadius = 5
+        containerView.clipsToBounds = true
         containerView.backgroundColor = .bgColor
 
         titleLabel.textColor = .textMainColor
         descriptionLabel.textColor = .textDescriptionColor
+
         offerButton.layer.cornerRadius = 10
         offerButton.backgroundColor = .primaryColor
         offerButton.setTitleColor(.white, for: .normal)
+
         offerImageView.layer.cornerRadius = 5
         offerImageView.clipsToBounds = true
 
@@ -80,7 +82,7 @@ final class OfferTableViewCell: UITableViewCell {
             titleLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -6),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             descriptionLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
             descriptionLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10)
         ])
