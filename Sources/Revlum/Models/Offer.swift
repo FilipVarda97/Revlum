@@ -18,10 +18,3 @@ struct Offer: Codable {
     let platform: String
     let url: String
 }
-
-struct Survey {
-    let title: String
-    let description: String
-    let image: String
-    let revenue: String
-}
