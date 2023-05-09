@@ -28,10 +28,13 @@ final class OffersViewController: UIViewController {
 
     private func setUpViews() {
         tableView.backgroundColor = .secondaryColor
-        view.addSubviews(tableView)
+        view.backgroundColor = .secondaryColor
+
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         viewModel.delegate = self
+
+        view.addSubviews(tableView)
     }
 
     private func setUpConstraints() {
