@@ -11,7 +11,7 @@ final class OfferTableViewCell: UITableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
 
     private let containerView = UIView()
-    private let offerImageView = UIImageView()
+    private let offerImageView = UIImageView(image: .topBGImage)
     private let titleLabel = UILabel(text: "")
     private let descriptionLabel = UILabel(text: "")
     private let platforms: [UIImage] = [UIImage]()
