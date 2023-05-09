@@ -26,7 +26,7 @@ public final class MainViewController: UIViewController {
         button.tintColor = .white
         return button
     }()
-    private let containerView: UIView = {
+    private let childControllersContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.clipsToBounds = true
@@ -76,12 +76,12 @@ public final class MainViewController: UIViewController {
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        childControllersContainerViewte.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
                          dissmissButton,
-                         containerView,
+                         childControllersContainerView,
                          segmentedControl)
 
         dissmissButton.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -118,10 +118,10 @@ public final class MainViewController: UIViewController {
             segmentedControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            childControllersContainerView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            childControllersContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            childControllersContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            childControllersContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -142,8 +142,8 @@ public final class MainViewController: UIViewController {
 
     private func add(childViewController: UIViewController) {
         addChild(childViewController)
-        containerView.addSubview(childViewController.view)
-        childViewController.view.frame = containerView.bounds
+        childControllersContainerView.addSubview(childViewController.view)
+        childViewController.view.frame = childControllersContainerView.bounds
         childViewController.didMove(toParent: self)
     }
 

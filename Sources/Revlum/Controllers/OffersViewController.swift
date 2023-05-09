@@ -30,7 +30,7 @@ final class OffersViewController: UIViewController {
     }
 
     private func setUpViews() {
-        view.backgroundColor = .bgColor
+        view.backgroundColor = .clear
         view.addSubviews(tableView)
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
