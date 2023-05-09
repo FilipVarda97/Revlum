@@ -47,7 +47,7 @@ final class OfferTableViewCell: UITableViewCell {
         offerButton.layer.cornerRadius = 10
         offerButton.backgroundColor = .primaryColor
         offerButton.setTitleColor(.white, for: .normal)
-        offerButton.safeAreaInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        offerButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
 
         offerImageView.layer.cornerRadius = 5
         offerImageView.clipsToBounds = true
