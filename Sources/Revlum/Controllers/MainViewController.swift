@@ -40,12 +40,10 @@ public final class MainViewController: UIViewController {
     // MARK: Child Controllers
     private lazy var offersViewController: OffersViewController = {
         let viewController = OffersViewController()
-        viewController.view.backgroundColor = .systemRed
         return viewController
     }()
     private lazy var surveyViewController: SurveyViewController = {
         let viewController = SurveyViewController()
-        viewController.view.backgroundColor = .systemBlue
         return viewController
     }()
 
