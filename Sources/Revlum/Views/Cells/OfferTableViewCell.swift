@@ -82,7 +82,7 @@ final class OfferTableViewCell: UITableViewCell {
             titleLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
             descriptionLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
             descriptionLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10)
         ])
