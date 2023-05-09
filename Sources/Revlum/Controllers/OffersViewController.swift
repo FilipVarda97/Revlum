@@ -13,8 +13,11 @@ final class OffersViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-        tableView.backgroundColor = .gray
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.backgroundView = UIView()
+        tableView.backgroundView?.backgroundColor = .clear
         return tableView
     }()
 
