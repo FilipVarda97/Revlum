@@ -10,7 +10,6 @@ import UIKit
 final class OffersViewController: UIViewController {
     // MARK: - Properties
     private let viewModel = OffersViewModel()
-
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
@@ -26,10 +25,12 @@ final class OffersViewController: UIViewController {
     }
 
     private func setUpViews() {
+        view.backgroundColor = .bgColor
         view.addSubviews(tableView)
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .clear
         viewModel.delegate = self
     }
 
