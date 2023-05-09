@@ -36,8 +36,6 @@ final class OfferTableViewCell: UITableViewCell {
 
     // MARK: - Implementation
     private func setUpViews() {
-        backgroundView?.backgroundColor = .clear
-        contentView.backgroundColor = .clear
         containerView.layer.cornerRadius = 5
         containerView.clipsToBounds = true
         containerView.backgroundColor = .bgColor

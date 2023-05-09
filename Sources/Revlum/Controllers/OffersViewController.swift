@@ -15,9 +15,6 @@ final class OffersViewController: UIViewController {
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.backgroundView = UIView()
-        tableView.backgroundView?.backgroundColor = .clear
         return tableView
     }()
 
@@ -30,7 +27,6 @@ final class OffersViewController: UIViewController {
     }
 
     private func setUpViews() {
-        view.backgroundColor = .clear
         view.addSubviews(tableView)
         tableView.delegate = viewModel
         tableView.dataSource = viewModel

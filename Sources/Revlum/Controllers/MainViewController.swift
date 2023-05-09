@@ -28,7 +28,7 @@ public final class MainViewController: UIViewController {
     }()
     private let childControllersContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear
+        view.backgroundColor = .secondaryColor
         view.clipsToBounds = true
         return view
     }()
