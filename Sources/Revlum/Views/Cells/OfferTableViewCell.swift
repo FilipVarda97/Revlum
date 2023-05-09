@@ -10,6 +10,7 @@ import UIKit
 final class OfferTableViewCell: UITableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
 
+    private let containerView = UIView()
     private let offerImageView = UIImageView()
     private let titleLabel = UILabel(text: "")
     private let descriptionLabel = UILabel(text: "")
@@ -39,21 +40,28 @@ final class OfferTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = .bgColor
 
-        contentView.addSubviews(offerImageView,
+        contentView.addSubview(containerView)
+        containerView.addSubviews(offerImageView,
                                 titleLabel,
                                 descriptionLabel,
                                 offerButton)
     }
 
     private func setUpConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         offerImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         offerButton.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            offerImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            offerImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 3),
+            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10)
+        ])
+        NSLayoutConstraint.activate([
+            offerImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            offerImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
             offerImageView.widthAnchor.constraint(equalToConstant: 85),
             offerImageView.heightAnchor.constraint(equalToConstant: 85)
         ])
@@ -67,7 +75,7 @@ final class OfferTableViewCell: UITableViewCell {
         ])
         NSLayoutConstraint.activate([
             offerButton.bottomAnchor.constraint(equalTo: offerImageView.bottomAnchor),
-            descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 10)
+            descriptionLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: 10)
         ])
     }
 
