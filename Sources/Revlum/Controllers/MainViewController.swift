@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MainViewController.swift
 //  
 //
 //  Created by Filip Varda on 07.05.2023..
@@ -28,6 +28,7 @@ public final class MainViewController: UIViewController {
     }()
     private let childControllersContainerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .secondaryColor
         view.clipsToBounds = true
         return view
     }()
@@ -70,8 +71,6 @@ public final class MainViewController: UIViewController {
     private func setupViews() {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
-
-        childControllersContainerView.backgroundColor = .clear
 
         brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -156,7 +155,21 @@ public final class MainViewController: UIViewController {
 
     private func switchTo(childViewController: UIViewController) {
         let currentChild = children.first
-        remove(childViewController: currentChild!)
-        add(childViewController: childViewController)
+        guard currentChild != childViewController else { return }
+
+        currentChild?.willMove(toParent: nil)
+        addChild(childViewController)
+        childViewController.view.frame = childControllersContainerView.bounds
+
+        if let currentChildView = currentChild?.view {
+            transition(from: currentChild!, to: childViewController, duration: 0.3, options: .transitionCrossDissolve, animations: nil) { _ in
+                currentChild?.view.removeFromSuperview()
+                currentChild?.removeFromParent()
+                childViewController.didMove(toParent: self)
+            }
+        } else {
+            childControllersContainerView.addSubview(childViewController.view)
+            childViewController.didMove(toParent: self)
+        }
     }
 }

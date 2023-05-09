@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  OffersViewController.swift
 //  
 //
 //  Created by Filip Varda on 07.05.2023..
@@ -28,12 +28,9 @@ final class OffersViewController: UIViewController {
 
     private func setUpViews() {
         tableView.backgroundColor = .secondaryColor
-        view.backgroundColor = .secondaryColor
-
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         viewModel.delegate = self
-
         view.addSubviews(tableView)
     }
 
