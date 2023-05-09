@@ -76,7 +76,7 @@ public final class MainViewController: UIViewController {
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        childControllersContainerViewte.translatesAutoresizingMaskIntoConstraints = false
+        childControllersContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
