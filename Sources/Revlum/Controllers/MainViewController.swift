@@ -28,6 +28,7 @@ public final class MainViewController: UIViewController {
     }()
     private let containerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .clear
         view.clipsToBounds = true
         return view
     }()
