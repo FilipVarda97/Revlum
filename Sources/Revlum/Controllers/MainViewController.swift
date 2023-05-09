@@ -23,6 +23,7 @@ public final class MainViewController: UIViewController {
     }()
     private let dissmissButton: UIButton = {
         let button = UIButton()
+        button.tintColor = .white
         return button
     }()
     private let containerView: UIView = {

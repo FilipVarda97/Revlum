@@ -19,3 +19,16 @@ extension UIImage {
         return image!
     }()
 }
+
+extension UIImage {
+    static let iosIcon: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "ios-icon", in: bundle, compatibleWith: nil)
+        return image!
+    }()
+    static let desktopIcon: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "desktop-icon", in: bundle, compatibleWith: nil)
+        return image!
+    }()
+}
