@@ -158,9 +158,6 @@ public final class RevlumViewController: UIViewController {
         default:
             break
         }
-
-        tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
-        tableView.reloadData()
     }
 
     @objc private func dismissPressed() {

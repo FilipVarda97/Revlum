@@ -71,7 +71,8 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewOffset = scrollView.contentOffset
+        if scrollViewOffset.y == scrollView.contentOffset.y.rounded() { return }
+        scrollViewOffset = CGPoint(x: 0, y: scrollView.contentOffset.y.rounded())
         print("Offers offset: \(scrollView.contentOffset)")
     }
 }
