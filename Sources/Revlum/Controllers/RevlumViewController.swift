@@ -139,6 +139,14 @@ public final class RevlumViewController: UIViewController {
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        transition.fillMode = CAMediaTimingFillMode.forwards
+        transition.duration = 0.5
+        self.tableView.layer.add(transition, forKey: "UITableViewReloadDataAnimationKey")
+
         switch sender.selectedSegmentIndex {
         case 0:
             tableView.delegate = offersViewModel
