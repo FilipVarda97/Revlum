@@ -11,6 +11,7 @@ protocol OffersViewModelDelegate: AnyObject {
     func didLoadOffers()
     func didFailToLoadOffers()
     func didStartLoadingOffers()
+    func didSelectOffer(_ offer: Offer)
 }
 
 class OffersViewModel: NSObject {
@@ -62,7 +63,8 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-        cell.configure(with: cellViewModels[indexPath.row])
+        cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
+        cell.delegate = self
         return cell
     }
 
@@ -73,6 +75,12 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollViewOffset.y == scrollView.contentOffset.y.rounded() { return }
         scrollViewOffset = CGPoint(x: 0, y: scrollView.contentOffset.y.rounded())
-        print("Offers offset: \(scrollView.contentOffset)")
+    }
+}
+
+// MARK: - OfferTableViewCellDelegate
+extension OffersViewModel: OfferTableViewCellDelegate {
+    func offerButtonPressed(_ indexPath: IndexPath) {
+        delegate?.didSelectOffer(offers[indexPath.row])
     }
 }

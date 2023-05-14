@@ -11,6 +11,7 @@ protocol SurveysViewModelDelegate: AnyObject {
     func didLoadSurveys()
     func didFailToLoadSurveys()
     func didStartLoadingSurveys()
+    func selectedSurvey(_ survey: Survey)
 }
 
 class SurveysViewModel: NSObject {
@@ -61,7 +62,8 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SurveyTableViewCell.reuseIdentifier) as? SurveyTableViewCell else { return UITableViewCell() }
-        cell.configure(with: cellViewModels[indexPath.row])
+        cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
+        cell.delegate = self
         return cell
     }
 
@@ -72,7 +74,12 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollViewOffset.y == scrollView.contentOffset.y.rounded() { return }
         scrollViewOffset = CGPoint(x: 0, y: scrollView.contentOffset.y.rounded())
-        print("Surveys offset: \(scrollView.contentOffset)")
     }
 }
 
+// MARK: - SurveyTableViewCellDelegate
+extension SurveysViewModel: SurveyTableViewCellDelegate {
+    func surveyButtonPressed(_ indexPath: IndexPath) {
+        delegate?.selectedSurvey(surveys[indexPath.row])
+    }
+}

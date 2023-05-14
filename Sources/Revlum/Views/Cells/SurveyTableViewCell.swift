@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SurveyTableViewCellDelegate: AnyObject {
+    func surveyButtonPressed(_ indexPath: IndexPath)
+}
+
 final class SurveyTableViewCell: UITableViewCell {
     static let reuseIdentifier = "SurveyTableViewCell"
 
@@ -15,6 +19,9 @@ final class SurveyTableViewCell: UITableViewCell {
     private let titleLabel = UILabel(text: "")
     private let descriptionLabel = UILabel(text: "")
     private let surveyButton = UIButton()
+
+    weak var delegate: SurveyTableViewCellDelegate?
+    var indexPath: IndexPath?
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,6 +39,7 @@ final class SurveyTableViewCell: UITableViewCell {
         containerView.backgroundColor = .white
         contentView.backgroundColor = .clear
         backgroundColor = .clear
+        surveyButton.addTarget(self, action: #selector(surveyButtonPressed), for: .touchUpInside)
 
         containerView.layer.cornerRadius = 5
         containerView.clipsToBounds = true
@@ -90,7 +98,8 @@ final class SurveyTableViewCell: UITableViewCell {
         ])
     }
 
-    public func configure(with viewModel: SurveyCellViewModel) {
+    public func configure(with viewModel: SurveyCellViewModel, indexPath: IndexPath) {
+        self.indexPath = indexPath
         titleLabel.text = viewModel.surveyTitle
         descriptionLabel.text = viewModel.surveyDescription
         surveyButton.setTitle(viewModel.surveyRevenue, for: .normal)
@@ -106,5 +115,10 @@ final class SurveyTableViewCell: UITableViewCell {
                 break
             }
         }
+    }
+
+    @objc private func surveyButtonPressed() {
+        guard let indexPath = indexPath else { return }
+        delegate?.surveyButtonPressed(indexPath)
     }
 }

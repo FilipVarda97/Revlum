@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol OfferTableViewCellDelegate: AnyObject {
+    func offerButtonPressed(_ indexPath: IndexPath)
+}
+
 final class OfferTableViewCell: UITableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
 
@@ -16,6 +20,9 @@ final class OfferTableViewCell: UITableViewCell {
     private let descriptionLabel = UILabel(text: "")
     private let platforms: [UIImage] = [UIImage]()
     private let offerButton = UIButton()
+    var indexPath: IndexPath?
+
+    weak var delegate: OfferTableViewCellDelegate?
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -33,6 +40,7 @@ final class OfferTableViewCell: UITableViewCell {
         containerView.backgroundColor = .white
         contentView.backgroundColor = .clear
         backgroundColor = .clear
+        offerButton.addTarget(self, action: #selector(offerButtonPressed), for: .touchUpInside)
 
         containerView.layer.cornerRadius = 5
         containerView.clipsToBounds = true
@@ -90,10 +98,12 @@ final class OfferTableViewCell: UITableViewCell {
         ])
     }
 
-    public func configure(with viewModel: OfferCellViewModel) {
+    public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath) {
+        self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
         offerButton.setTitle(viewModel.offerRevenue, for: .normal)
+
         viewModel.fetchImage { [weak self] result in
             switch result {
             case .success(let imageData):
@@ -105,5 +115,10 @@ final class OfferTableViewCell: UITableViewCell {
                 break
             }
         }
+    }
+
+    @objc func offerButtonPressed() {
+        guard let indexPath = indexPath else { return }
+        delegate?.offerButtonPressed(indexPath)
     }
 }
