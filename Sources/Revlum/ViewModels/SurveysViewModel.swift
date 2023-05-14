@@ -71,6 +71,7 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollViewOffset = scrollView.contentOffset
+        print("Surveys offset: \(scrollView.contentOffset)")
     }
 }
 

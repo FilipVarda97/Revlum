@@ -147,11 +147,13 @@ public final class RevlumViewController: UIViewController {
             tableView.delegate = offersViewModel
             tableView.dataSource = offersViewModel
             tableView.contentOffset = offersViewModel.getScrollViewOffset()
+            print("Loaded Offers oofset: \(offersViewModel.getScrollViewOffset())")
             offersViewModel.loadOffers()
         case 1:
             tableView.delegate = surveysViewModel
             tableView.dataSource = surveysViewModel
             tableView.contentOffset = surveysViewModel.getScrollViewOffset()
+            print("Loaded Surveys oofset: \(surveysViewModel.getScrollViewOffset())")
             surveysViewModel.loadSurveys()
         default:
             break
