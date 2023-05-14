@@ -42,6 +42,7 @@ public final class RevlumViewController: UIViewController {
         tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .blue
         return tableView
     }()
 
@@ -52,8 +53,6 @@ public final class RevlumViewController: UIViewController {
     public init(apiKey: String, userId: String) {
         self.apiKey = apiKey
         self.userId = userId
-        RevlumUserDefaultsService.setValue(apiKey, for: .apiKey)
-        RevlumUserDefaultsService.setValue(userId, for: .userId)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -119,7 +118,7 @@ public final class RevlumViewController: UIViewController {
         NSLayoutConstraint.activate([
             dissmissButton.heightAnchor.constraint(equalToConstant: 40),
             dissmissButton.widthAnchor.constraint(equalToConstant: 40),
-            dissmissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            dissmissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             dissmissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20)
         ])
         NSLayoutConstraint.activate([
