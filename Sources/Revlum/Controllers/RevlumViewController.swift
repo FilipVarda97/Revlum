@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum TransitionType: Int {
+    case offer = 0
+    case survey = 1
+}
+
 public final class RevlumViewController: UIViewController {
     // MARK: - Properties
     private let apiKey: String
@@ -139,13 +144,8 @@ public final class RevlumViewController: UIViewController {
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        let transition = CATransition()
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromRight
-        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        transition.fillMode = CAMediaTimingFillMode.forwards
-        transition.duration = 0.5
-        self.tableView.layer.add(transition, forKey: "UITableViewReloadDataAnimationKey")
+        guard let type = TransitionType(rawValue: sender.selectedSegmentIndex) else { return }
+        let transition = transition(type: type)
 
         switch sender.selectedSegmentIndex {
         case 0:
@@ -159,6 +159,8 @@ public final class RevlumViewController: UIViewController {
         default:
             break
         }
+
+        tableView.layer.add(transition, forKey: "UITableViewReloadDataAnimationKey")
         tableView.reloadData()
     }
 
@@ -167,6 +169,7 @@ public final class RevlumViewController: UIViewController {
     }
 }
 
+// MARK: - OffersViewModelDelegate
 extension RevlumViewController: OffersViewModelDelegate {
     func didLoadOffers() {
         DispatchQueue.main.async {
@@ -176,11 +179,32 @@ extension RevlumViewController: OffersViewModelDelegate {
     }
 }
 
+// MARK: - SurveysViewModelDelegate
 extension RevlumViewController: SurveysViewModelDelegate {
     func didLoadSurveys() {
         DispatchQueue.main.async {
             self.spinner.stopAnimating()
             self.tableView.reloadData()
         }
+    }
+}
+
+// MARK: - Transition animation
+extension RevlumViewController {
+    private func transition(type: TransitionType) -> CATransition {
+        let transition = CATransition()
+        transition.type = CATransitionType.push
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        transition.fillMode = CAMediaTimingFillMode.forwards
+        transition.duration = 0.5
+
+        switch type {
+        case .offer:
+            transition.subtype = CATransitionSubtype.fromRight
+        case .survey:
+            transition.subtype = CATransitionSubtype.fromLeft
+        }
+
+        return transition
     }
 }
