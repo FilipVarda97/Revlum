@@ -36,16 +36,17 @@ public final class MainViewController: UIViewController {
         let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
         return control
     }()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
+        tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
+        tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
 
-    // MARK: Child Controllers
-    private lazy var offersViewController: OffersViewController = {
-        let viewController = OffersViewController()
-        return viewController
-    }()
-    private lazy var surveyViewController: SurveyViewController = {
-        let viewController = SurveyViewController()
-        return viewController
-    }()
+    private var offersViewModel = OffersViewModel()
+    private var surveysViewModel = SurveysViewModel()
 
     // MARK: - Init
     public init(apiKey: String, userId: String) {
@@ -72,25 +73,29 @@ public final class MainViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
 
-        brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        dissmissButton.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        childControllersContainerView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubviews(brandBackgroundImageView,
-                         brandLogoImageView,
-                         dissmissButton,
-                         childControllersContainerView,
-                         segmentedControl)
-
-        dissmissButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        dissmissButton.tintColor = .white
         brandBackgroundImageView.image = .topBGImage
         brandBackgroundImageView.contentMode = .scaleToFill
         brandLogoImageView.image = .revlumLogo
         brandLogoImageView.contentMode = .scaleAspectFit
 
-        add(childViewController: offersViewController)
+        tableView.delegate = offersViewModel
+        tableView.dataSource = offersViewModel
+        offersViewModel.loadOffers()
+
+        brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        dissmissButton.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        childControllersContainerView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubviews(brandBackgroundImageView,
+                         brandLogoImageView,
+                         dissmissButton,
+                         tableView,
+                         segmentedControl)
     }
 
     private func setUpConstraints() {
@@ -118,58 +123,30 @@ public final class MainViewController: UIViewController {
             segmentedControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
-            childControllersContainerView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
-            childControllersContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            childControllersContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            childControllersContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            switchTo(childViewController: offersViewController)
+            tableView.delegate = offersViewModel
+            tableView.dataSource = offersViewModel
+            offersViewModel.loadOffers()
         case 1:
-            switchTo(childViewController: surveyViewController)
+            tableView.delegate = surveysViewModel
+            tableView.dataSource = surveysViewModel
+            surveysViewModel.loadSurveys()
         default:
             break
         }
+        tableView.reloadData()
     }
 
     @objc private func dismissPressed() {
         dismiss(animated: true)
-    }
-
-    private func add(childViewController: UIViewController) {
-        addChild(childViewController)
-        childControllersContainerView.addSubview(childViewController.view)
-        childViewController.view.frame = childControllersContainerView.bounds
-        childViewController.didMove(toParent: self)
-    }
-
-    private func remove(childViewController: UIViewController) {
-        childViewController.willMove(toParent: nil)
-        childViewController.view.removeFromSuperview()
-        childViewController.removeFromParent()
-    }
-
-    private func switchTo(childViewController: UIViewController) {
-        let currentChild = children.first
-        guard currentChild != childViewController else { return }
-
-        currentChild?.willMove(toParent: nil)
-        addChild(childViewController)
-        childViewController.view.frame = childControllersContainerView.bounds
-
-        if let currentChildView = currentChild?.view {
-            transition(from: currentChild!, to: childViewController, duration: 0.3, options: .transitionCrossDissolve, animations: nil) { _ in
-                currentChild?.view.removeFromSuperview()
-                currentChild?.removeFromParent()
-                childViewController.didMove(toParent: self)
-            }
-        } else {
-            childControllersContainerView.addSubview(childViewController.view)
-            childViewController.didMove(toParent: self)
-        }
     }
 }

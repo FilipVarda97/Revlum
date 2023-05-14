@@ -8,15 +8,16 @@
 import UIKit
 
 protocol SurveysViewModelDelegate: AnyObject {
-    func didFetchSurveys()
+    func didLoadSurveys()
 }
 
 class SurveysViewModel: NSObject {
     private let apiService = APIService.shared
-    private var offers: [Offer] = [Offer]()
-    weak var delegate: OffersViewModelDelegate?
+    weak var delegate: SurveysViewModelDelegate?
 
-    public func fetchOffers() {
+    private var offers: [Offer] = [Offer]()
+
+    public func loadSurveys() {
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
@@ -25,7 +26,7 @@ class SurveysViewModel: NSObject {
             switch result {
             case .success(let offers):
                 self?.offers = offers
-                self?.delegate?.didFetchOffers()
+                self?.delegate?.didLoadSurveys()
             case .failure(let error):
                 print(error)
             }
@@ -40,9 +41,7 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-        cell.configure(with: offers[indexPath.row])
-        return cell
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

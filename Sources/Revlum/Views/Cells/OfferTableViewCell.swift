@@ -17,12 +17,6 @@ final class OfferTableViewCell: UITableViewCell {
     private let platforms: [UIImage] = [UIImage]()
     private let offerButton = UIButton()
 
-    private var offer: Offer? {
-        didSet {
-            updateCell()
-        }
-    }
-
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -92,20 +86,20 @@ final class OfferTableViewCell: UITableViewCell {
         ])
     }
 
-    private func updateCell() {
-        guard let offer = offer else { return }
-        titleLabel.text = offer.title
-        descriptionLabel.text = offer.description
-        offerButton.setTitle(offer.revenue, for: .normal)
-        guard let imageURL = URL(string: offer.image) else { return }
-        RevlumImageLoader.shared.downloadImage(from: imageURL) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.offerImageView.image = image
+    public func configure(with viewModel: OfferCellViewModel) {
+        titleLabel.text = viewModel.offerTitle
+        descriptionLabel.text = viewModel.offerDescription
+        offerButton.setTitle(viewModel.offerRevenue, for: .normal)
+        viewModel.fetchImage { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    self?.offerImageView.image = UIImage(data: imageData)
+                }
+            case .failure:
+                print("Error Loading Image")
+                break
             }
         }
-    }
-
-    public func configure(with offer: Offer) {
-        self.offer = offer
     }
 }

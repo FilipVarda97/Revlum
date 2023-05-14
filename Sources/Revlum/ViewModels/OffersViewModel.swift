@@ -8,15 +8,25 @@
 import UIKit
 
 protocol OffersViewModelDelegate: AnyObject {
-    func didFetchOffers()
+    func didLoadOffers()
 }
 
 class OffersViewModel: NSObject {
     private let apiService = APIService.shared
-    private var offers: [Offer] = [Offer]()
     weak var delegate: OffersViewModelDelegate?
 
-    public func fetchOffers() {
+    private var cellViewModels: [OfferCellViewModel] = []
+    private var offers: [Offer] = [] {
+        didSet {
+            cellViewModels.removeAll()
+            for offer in offers {
+                let viewModel = OfferCellViewModel(offer: offer)
+                cellViewModels.append(viewModel)
+            }
+        }
+    }
+
+    public func loadOffers() {
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
@@ -25,11 +35,15 @@ class OffersViewModel: NSObject {
             switch result {
             case .success(let offers):
                 self?.offers = offers
-                self?.delegate?.didFetchOffers()
+                self?.delegate?.didLoadOffers()
             case .failure(let error):
                 print(error)
             }
         }
+    }
+
+    private func loadCachedOffers() {
+        
     }
 }
 
@@ -41,7 +55,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-        cell.configure(with: offers[indexPath.row])
+        cell.configure(with: cellViewModels[indexPath.row])
         return cell
     }
 
