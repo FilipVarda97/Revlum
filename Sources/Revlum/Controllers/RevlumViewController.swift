@@ -33,7 +33,7 @@ public final class RevlumViewController: UIViewController {
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.hidesWhenStopped = true
-        spinner.style = .medium
+        spinner.style = .large
         return spinner
     }()
     private let tableView: UITableView = {
