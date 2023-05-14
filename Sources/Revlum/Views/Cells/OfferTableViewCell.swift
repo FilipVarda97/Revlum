@@ -30,9 +30,12 @@ final class OfferTableViewCell: UITableViewCell {
 
     // MARK: - Implementation
     private func setUpViews() {
+        containerView.backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+
         containerView.layer.cornerRadius = 5
         containerView.clipsToBounds = true
-        containerView.backgroundColor = .bgColor
 
         titleLabel.textColor = .textMainColor
         descriptionLabel.textColor = .textDescriptionColor
@@ -58,6 +61,7 @@ final class OfferTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         offerButton.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
