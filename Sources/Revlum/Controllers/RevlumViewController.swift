@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum TransitionType: Int {
-    case offer = 0
-    case survey = 1
-}
-
 public final class RevlumViewController: UIViewController {
     // MARK: - Properties
     private let apiKey: String
@@ -160,7 +155,7 @@ public final class RevlumViewController: UIViewController {
             break
         }
 
-        tableView.layer.add(transition, forKey: "UITableViewReloadDataAnimationKey")
+        tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
         tableView.reloadData()
     }
 
@@ -172,9 +167,13 @@ public final class RevlumViewController: UIViewController {
 // MARK: - OffersViewModelDelegate
 extension RevlumViewController: OffersViewModelDelegate {
     func didLoadOffers() {
-        DispatchQueue.main.async {
-            self.spinner.stopAnimating()
-            self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
+            guard let type = TransitionType(rawValue: weakSelf.segmentedControl.selectedSegmentIndex) else { return }
+            let transition = weakSelf.transition(type: type)
+            weakSelf.spinner.stopAnimating()
+            weakSelf.tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
+            weakSelf.tableView.reloadData()
         }
     }
 }
@@ -182,15 +181,26 @@ extension RevlumViewController: OffersViewModelDelegate {
 // MARK: - SurveysViewModelDelegate
 extension RevlumViewController: SurveysViewModelDelegate {
     func didLoadSurveys() {
-        DispatchQueue.main.async {
-            self.spinner.stopAnimating()
-            self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
+            guard let type = TransitionType(rawValue: weakSelf.segmentedControl.selectedSegmentIndex) else { return }
+            let transition = weakSelf.transition(type: type)
+            weakSelf.spinner.stopAnimating()
+            weakSelf.tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
+            weakSelf.tableView.reloadData()
         }
     }
 }
 
 // MARK: - Transition animation
 extension RevlumViewController {
+    enum TransitionType: Int {
+        case offer = 0
+        case survey = 1
+    }
+
+    static let tableViewReloadDataAnimationKey = "UITableViewReloadDataAnimationKey"
+
     private func transition(type: TransitionType) -> CATransition {
         let transition = CATransition()
         transition.type = CATransitionType.push
@@ -200,9 +210,9 @@ extension RevlumViewController {
 
         switch type {
         case .offer:
-            transition.subtype = CATransitionSubtype.fromRight
-        case .survey:
             transition.subtype = CATransitionSubtype.fromLeft
+        case .survey:
+            transition.subtype = CATransitionSubtype.fromRight
         }
 
         return transition
