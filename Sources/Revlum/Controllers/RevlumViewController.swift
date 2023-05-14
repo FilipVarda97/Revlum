@@ -171,13 +171,17 @@ extension RevlumViewController: OffersViewModelDelegate {
     }
 
     func didFailToLoadOffers() {
-        spinner.stopAnimating()
-        print("Error: Failed to load Offers")
+        DispatchQueue.main.async { [weak self] in
+            print("Error: Failed to load Offers")
+            self?.spinner.stopAnimating()
+        }
     }
 
     func didLoadOffers() {
-        spinner.stopAnimating()
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.spinner.stopAnimating()
+            self?.tableView.reloadData()
+        }
     }
 }
 
@@ -189,7 +193,10 @@ extension RevlumViewController: SurveysViewModelDelegate {
     }
 
     func didFailToLoadSurveys() {
-        print("Error: Failed to load Surveys")
+        DispatchQueue.main.async { [weak self] in
+            print("Error: Failed to load Surveys")
+            self?.spinner.stopAnimating()
+        }
     }
 
     func didLoadSurveys() {
