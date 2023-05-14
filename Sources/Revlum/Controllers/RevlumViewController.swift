@@ -98,6 +98,7 @@ public final class RevlumViewController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         childControllersContainerView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
