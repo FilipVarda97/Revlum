@@ -147,10 +147,14 @@ public final class RevlumViewController: UIViewController {
             tableView.delegate = offersViewModel
             tableView.dataSource = offersViewModel
             offersViewModel.loadOffers()
+            spinner.isHidden = false
+            spinner.startAnimating()
         case 1:
             tableView.delegate = surveysViewModel
             tableView.dataSource = surveysViewModel
             surveysViewModel.loadSurveys()
+            spinner.isHidden = false
+            spinner.startAnimating()
         default:
             break
         }
