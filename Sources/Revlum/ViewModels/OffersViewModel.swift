@@ -27,10 +27,12 @@ class OffersViewModel: NSObject {
     }
 
     public func loadOffers() {
+        if cellViewModels.count > 0 && cellViewModels.count == offers.count { return }
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
+
         apiService.execute(request, expected: [Offer].self) { [weak self] result in
             switch result {
             case .success(let offers):
@@ -40,10 +42,6 @@ class OffersViewModel: NSObject {
                 print(error)
             }
         }
-    }
-
-    private func loadCachedOffers() {
-        
     }
 }
 

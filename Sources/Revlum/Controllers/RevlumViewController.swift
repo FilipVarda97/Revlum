@@ -42,7 +42,7 @@ public final class RevlumViewController: UIViewController {
         tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .blue
+        tableView.backgroundColor = .secondaryColor
         return tableView
     }()
 

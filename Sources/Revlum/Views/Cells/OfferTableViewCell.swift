@@ -11,7 +11,7 @@ final class OfferTableViewCell: UITableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
 
     private let containerView = UIView()
-    private let offerImageView = UIImageView(image: .topBGImage)
+    private let offerImageView = UIImageView()
     private let titleLabel = UILabel(text: "")
     private let descriptionLabel = UILabel(text: "")
     private let platforms: [UIImage] = [UIImage]()
@@ -30,7 +30,7 @@ final class OfferTableViewCell: UITableViewCell {
 
     // MARK: - Implementation
     private func setUpViews() {
-        containerView.backgroundColor = .clear
+        containerView.backgroundColor = .white
         contentView.backgroundColor = .clear
         backgroundColor = .clear
 
@@ -50,9 +50,9 @@ final class OfferTableViewCell: UITableViewCell {
 
         contentView.addSubview(containerView)
         containerView.addSubviews(offerImageView,
-                                titleLabel,
-                                descriptionLabel,
-                                offerButton)
+                                  titleLabel,
+                                  descriptionLabel,
+                                  offerButton)
     }
 
     private func setUpConstraints() {

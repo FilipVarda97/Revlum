@@ -15,17 +15,28 @@ class SurveysViewModel: NSObject {
     private let apiService = APIService.shared
     weak var delegate: SurveysViewModelDelegate?
 
-    private var offers: [Offer] = [Offer]()
+    private var cellViewModels: [SurveyCellViewModel] = []
+    private var surveys: [Survey] = [] {
+        didSet {
+            cellViewModels.removeAll()
+            for survey in surveys {
+                let viewModel = SurveyCellViewModel(survey: survey)
+                cellViewModels.append(viewModel)
+            }
+        }
+    }
 
     public func loadSurveys() {
+        if cellViewModels.count > 0 && cellViewModels.count == surveys.count { return }
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
-        apiService.execute(request, expected: [Offer].self) { [weak self] result in
+
+        apiService.execute(request, expected: [Survey].self) { [weak self] result in
             switch result {
-            case .success(let offers):
-                self?.offers = offers
+            case .success(let surveys):
+                self?.surveys = surveys
                 self?.delegate?.didLoadSurveys()
             case .failure(let error):
                 print(error)
@@ -37,7 +48,7 @@ class SurveysViewModel: NSObject {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return offers.count
+        return surveys.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,7 +56,7 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
+        return 155
     }
 }
 
