@@ -17,7 +17,7 @@ class OffersViewModel: NSObject {
     private let apiService = APIService.shared
     weak var delegate: OffersViewModelDelegate?
 
-    private var scrollViewOffset: CGPoint? = nil
+    private var scrollViewOffset: CGPoint = CGPoint(x: 0, y: 40)
     private var cellViewModels: [OfferCellViewModel] = []
     private var offers: [Offer] = [] {
         didSet {
@@ -49,7 +49,7 @@ class OffersViewModel: NSObject {
         }
     }
 
-    public func getScrollViewOffset() -> CGPoint? {
+    public func getScrollViewOffset() -> CGPoint {
         return self.scrollViewOffset
     }
 }

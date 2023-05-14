@@ -17,7 +17,7 @@ class SurveysViewModel: NSObject {
     private let apiService = APIService.shared
     weak var delegate: SurveysViewModelDelegate?
 
-    private var scrollViewOffset: CGPoint? = nil
+    private var scrollViewOffset: CGPoint = CGPoint(x: 0, y: 40)
     private var cellViewModels: [SurveyCellViewModel] = []
     private var surveys: [Survey] = [] {
         didSet {
@@ -48,7 +48,7 @@ class SurveysViewModel: NSObject {
         }
     }
 
-    func getScrollViewOffset() -> CGPoint? {
+    func getScrollViewOffset() -> CGPoint {
         return scrollViewOffset
     }
 }
