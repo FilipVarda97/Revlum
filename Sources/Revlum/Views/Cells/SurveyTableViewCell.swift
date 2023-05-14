@@ -69,7 +69,7 @@ final class SurveyTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             surveyImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 21),
             surveyImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 21),
-            surveyImageView.bottomAnchor.constraint(equalTo: surveyButton.topAnchor, constant: 21),
+            surveyImageView.bottomAnchor.constraint(equalTo: surveyButton.topAnchor, constant: -21),
             surveyImageView.widthAnchor.constraint(equalTo: surveyImageView.heightAnchor)
         ])
         NSLayoutConstraint.activate([
