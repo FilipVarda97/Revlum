@@ -34,7 +34,7 @@ public final class RevlumViewController: UIViewController {
         let spinner = UIActivityIndicatorView()
         spinner.hidesWhenStopped = true
         spinner.style = .large
-        spinner.tintColor = .darkGray
+        spinner.color = .textMainColor
         return spinner
     }()
     private let tableView: UITableView = {
