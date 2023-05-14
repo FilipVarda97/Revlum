@@ -166,7 +166,6 @@ public final class RevlumViewController: UIViewController {
 
 extension RevlumViewController: OffersViewModelDelegate {
     func didLoadOffers() {
-        
         DispatchQueue.main.async {
             self.spinner.stopAnimating()
             self.tableView.reloadData()
