@@ -90,10 +90,10 @@ final class SurveyTableViewCell: UITableViewCell {
         ])
     }
 
-    public func configure(with viewModel: OfferCellViewModel) {
-        titleLabel.text = viewModel.offerTitle
-        descriptionLabel.text = viewModel.offerDescription
-        surveyButton.setTitle(viewModel.offerRevenue, for: .normal)
+    public func configure(with viewModel: SurveyCellViewModel) {
+        titleLabel.text = viewModel.surveyTitle
+        descriptionLabel.text = viewModel.surveyDescription
+        surveyButton.setTitle(viewModel.surveyRevenue, for: .normal)
 
         viewModel.fetchImage { [weak self] result in
             switch result {
