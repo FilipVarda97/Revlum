@@ -146,10 +146,16 @@ public final class RevlumViewController: UIViewController {
         case 0:
             tableView.delegate = offersViewModel
             tableView.dataSource = offersViewModel
+            if let offset = offersViewModel.getScrollViewOffset() {
+                tableView.contentOffset = offset
+            }
             offersViewModel.loadOffers()
         case 1:
             tableView.delegate = surveysViewModel
             tableView.dataSource = surveysViewModel
+            if let offset = surveysViewModel.getScrollViewOffset() {
+                tableView.contentOffset = offset
+            }
             surveysViewModel.loadSurveys()
         default:
             break

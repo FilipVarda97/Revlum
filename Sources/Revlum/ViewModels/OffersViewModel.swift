@@ -17,6 +17,7 @@ class OffersViewModel: NSObject {
     private let apiService = APIService.shared
     weak var delegate: OffersViewModelDelegate?
 
+    private var scrollViewOffset: CGPoint? = nil
     private var cellViewModels: [OfferCellViewModel] = []
     private var offers: [Offer] = [] {
         didSet {
@@ -47,6 +48,10 @@ class OffersViewModel: NSObject {
             }
         }
     }
+
+    public func getScrollViewOffset() -> CGPoint? {
+        return self.scrollViewOffset
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -66,6 +71,6 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.y)
+        scrollViewOffset = scrollView.contentOffset
     }
 }

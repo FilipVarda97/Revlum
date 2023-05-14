@@ -17,6 +17,7 @@ class SurveysViewModel: NSObject {
     private let apiService = APIService.shared
     weak var delegate: SurveysViewModelDelegate?
 
+    private var scrollViewOffset: CGPoint? = nil
     private var cellViewModels: [SurveyCellViewModel] = []
     private var surveys: [Survey] = [] {
         didSet {
@@ -28,7 +29,7 @@ class SurveysViewModel: NSObject {
         }
     }
 
-    public func loadSurveys() {
+    func loadSurveys() {
         if cellViewModels.count > 0 && cellViewModels.count == surveys.count { return }
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
@@ -46,6 +47,10 @@ class SurveysViewModel: NSObject {
             }
         }
     }
+
+    func getScrollViewOffset() -> CGPoint? {
+        return scrollViewOffset
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -62,6 +67,10 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 155
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewOffset = scrollView.contentOffset
     }
 }
 
