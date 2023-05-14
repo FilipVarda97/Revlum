@@ -9,6 +9,8 @@ import UIKit
 
 protocol SurveysViewModelDelegate: AnyObject {
     func didLoadSurveys()
+    func didFailToLoadSurveys()
+    func didStartLoadingSurveys()
 }
 
 class SurveysViewModel: NSObject {
@@ -33,6 +35,7 @@ class SurveysViewModel: NSObject {
                                                                  URLQueryItem(name: "category", value: "offer"),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
 
+        delegate?.didStartLoadingSurveys()
         apiService.execute(request, expected: [Survey].self) { [weak self] result in
             switch result {
             case .success(let surveys):

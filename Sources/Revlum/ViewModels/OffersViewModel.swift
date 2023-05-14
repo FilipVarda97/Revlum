@@ -9,6 +9,8 @@ import UIKit
 
 protocol OffersViewModelDelegate: AnyObject {
     func didLoadOffers()
+    func didFailToLoadOffers()
+    func didStartLoadingOffers()
 }
 
 class OffersViewModel: NSObject {
@@ -33,6 +35,7 @@ class OffersViewModel: NSObject {
                                                                  URLQueryItem(name: "category", value: "offer"),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
 
+        delegate?.didStartLoadingOffers()
         apiService.execute(request, expected: [Offer].self) { [weak self] result in
             switch result {
             case .success(let offers):
@@ -40,6 +43,7 @@ class OffersViewModel: NSObject {
                 self?.delegate?.didLoadOffers()
             case .failure(let error):
                 print(error)
+                self?.delegate?.didFailToLoadOffers()
             }
         }
     }

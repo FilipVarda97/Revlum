@@ -67,7 +67,7 @@ public final class RevlumViewController: UIViewController {
         setupViews()
         setUpConstraints()
     }
-    
+
     private func setupViews() {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
@@ -85,7 +85,6 @@ public final class RevlumViewController: UIViewController {
         spinner.startAnimating()
         offersViewModel.delegate = self
         surveysViewModel.delegate = self
-        
 
         brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +136,7 @@ public final class RevlumViewController: UIViewController {
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
+
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         guard let type = TransitionType(rawValue: sender.selectedSegmentIndex) else { return }
         let transition = transition(type: type)
@@ -147,14 +146,10 @@ public final class RevlumViewController: UIViewController {
             tableView.delegate = offersViewModel
             tableView.dataSource = offersViewModel
             offersViewModel.loadOffers()
-            spinner.isHidden = false
-            spinner.startAnimating()
         case 1:
             tableView.delegate = surveysViewModel
             tableView.dataSource = surveysViewModel
             surveysViewModel.loadSurveys()
-            spinner.isHidden = false
-            spinner.startAnimating()
         default:
             break
         }
@@ -170,6 +165,15 @@ public final class RevlumViewController: UIViewController {
 
 // MARK: - OffersViewModelDelegate
 extension RevlumViewController: OffersViewModelDelegate {
+    func didStartLoadingOffers() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+
+    func didFailToLoadOffers() {
+        print("Error: Failed to load Offers")
+    }
+
     func didLoadOffers() {
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
@@ -184,6 +188,15 @@ extension RevlumViewController: OffersViewModelDelegate {
 
 // MARK: - SurveysViewModelDelegate
 extension RevlumViewController: SurveysViewModelDelegate {
+    func didStartLoadingSurveys() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+
+    func didFailToLoadSurveys() {
+        print("Error: Failed to load Surveys")
+    }
+
     func didLoadSurveys() {
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
