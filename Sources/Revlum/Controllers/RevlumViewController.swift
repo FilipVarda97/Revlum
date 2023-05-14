@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  RevlumViewController.swift
 //  
 //
 //  Created by Filip Varda on 07.05.2023..
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class MainViewController: UIViewController {
+public final class RevlumViewController: UIViewController {
     // MARK: - Properties
     private let apiKey: String
     private let userId: String
@@ -35,6 +35,12 @@ public final class MainViewController: UIViewController {
     private let segmentedControl: RevlumSegmentedControl = {
         let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
         return control
+    }()
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.hidesWhenStopped = true
+        spinner.style = .medium
+        return spinner
     }()
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -83,6 +89,8 @@ public final class MainViewController: UIViewController {
         tableView.delegate = offersViewModel
         tableView.dataSource = offersViewModel
         offersViewModel.loadOffers()
+        spinner.startAnimating()
+        
 
         brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +103,8 @@ public final class MainViewController: UIViewController {
                          brandLogoImageView,
                          dissmissButton,
                          tableView,
-                         segmentedControl)
+                         segmentedControl,
+                         spinner)
     }
 
     private func setUpConstraints() {
@@ -128,6 +137,10 @@ public final class MainViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        NSLayoutConstraint.activate([
+            spinner.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 50),
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
@@ -148,5 +161,24 @@ public final class MainViewController: UIViewController {
 
     @objc private func dismissPressed() {
         dismiss(animated: true)
+    }
+}
+
+extension RevlumViewController: OffersViewModelDelegate {
+    func didLoadOffers() {
+        
+        DispatchQueue.main.async {
+            self.spinner.stopAnimating()
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension RevlumViewController: SurveysViewModelDelegate {
+    func didLoadSurveys() {
+        DispatchQueue.main.async {
+            self.spinner.stopAnimating()
+            self.tableView.reloadData()
+        }
     }
 }
