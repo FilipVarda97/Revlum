@@ -26,12 +26,6 @@ public final class RevlumViewController: UIViewController {
         button.tintColor = .white
         return button
     }()
-    private let childControllersContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .secondaryColor
-        view.clipsToBounds = true
-        return view
-    }()
     private let segmentedControl: RevlumSegmentedControl = {
         let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
         return control
@@ -90,13 +84,14 @@ public final class RevlumViewController: UIViewController {
         tableView.dataSource = offersViewModel
         offersViewModel.loadOffers()
         spinner.startAnimating()
+        offersViewModel.delegate = self
+        surveysViewModel.delegate = self
         
 
         brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        childControllersContainerView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
 
