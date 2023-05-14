@@ -73,19 +73,18 @@ public final class RevlumViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
 
+        offersViewModel.delegate = self
+        surveysViewModel.delegate = self
+        tableView.delegate = offersViewModel
+        tableView.dataSource = offersViewModel
+        offersViewModel.loadOffers()
+
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .white
         brandBackgroundImageView.image = .topBGImage
         brandBackgroundImageView.contentMode = .scaleToFill
         brandLogoImageView.image = .revlumLogo
         brandLogoImageView.contentMode = .scaleAspectFit
-
-        tableView.delegate = offersViewModel
-        tableView.dataSource = offersViewModel
-        offersViewModel.loadOffers()
-        spinner.startAnimating()
-        offersViewModel.delegate = self
-        surveysViewModel.delegate = self
 
         brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,18 +171,13 @@ extension RevlumViewController: OffersViewModelDelegate {
     }
 
     func didFailToLoadOffers() {
+        spinner.stopAnimating()
         print("Error: Failed to load Offers")
     }
 
     func didLoadOffers() {
-        DispatchQueue.main.async { [weak self] in
-            guard let weakSelf = self else { return }
-            guard let type = TransitionType(rawValue: weakSelf.segmentedControl.selectedSegmentIndex) else { return }
-            let transition = weakSelf.transition(type: type)
-            weakSelf.spinner.stopAnimating()
-            weakSelf.tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
-            weakSelf.tableView.reloadData()
-        }
+        spinner.stopAnimating()
+        tableView.reloadData()
     }
 }
 
@@ -218,13 +212,14 @@ extension RevlumViewController {
     }
 
     static let tableViewReloadDataAnimationKey = "UITableViewReloadDataAnimationKey"
+    static let transitionDuration = 0.5
 
     private func transition(type: TransitionType) -> CATransition {
         let transition = CATransition()
         transition.type = CATransitionType.push
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
         transition.fillMode = CAMediaTimingFillMode.forwards
-        transition.duration = 0.5
+        transition.duration = RevlumViewController.transitionDuration
 
         switch type {
         case .offer:
