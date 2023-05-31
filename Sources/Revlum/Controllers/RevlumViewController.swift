@@ -51,6 +51,7 @@ public final class RevlumViewController: UIViewController {
         tableView.backgroundColor = .bgColor
         tableView.allowsSelection = false
         tableView.alpha = 0
+        tableView.isHidden = true
         return tableView
     }()
 
@@ -178,6 +179,7 @@ public final class RevlumViewController: UIViewController {
                 self.surveysTableView.alpha = 0
             } completion: { _ in
                 self.surveysTableView.isHidden = true
+                self.offersTableView.isHidden = false
                 UIView.animate(withDuration: 0.2) {
                     self.offersTableView.alpha = 1
                 }
@@ -187,6 +189,7 @@ public final class RevlumViewController: UIViewController {
                 self.offersTableView.alpha = 0
             } completion: { _ in
                 self.offersTableView.isHidden = true
+                self.surveysTableView.isHidden = false
                 UIView.animate(withDuration: 0.2) {
                     self.surveysTableView.alpha = 1
                 }
