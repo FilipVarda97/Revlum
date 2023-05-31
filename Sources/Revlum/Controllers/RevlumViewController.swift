@@ -53,6 +53,7 @@ public final class RevlumViewController: UIViewController {
 
     // MARK: - Init
     public init(apiKey: String, userId: String) {
+        registerCommonFonts()
         self.apiKey = apiKey
         self.userId = userId
         super.init(nibName: nil, bundle: nil)
