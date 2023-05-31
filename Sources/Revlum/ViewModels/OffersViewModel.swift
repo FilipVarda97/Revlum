@@ -6,18 +6,27 @@
 //
 
 import UIKit
+import Combine
 
-protocol OffersViewModelDelegate: AnyObject {
-    func didLoadOffers()
-    func didFailToLoadOffers()
-    func didStartLoadingOffers()
-    func didSelectOffer(_ offer: Offer)
+// MARK: - Input/Output
+extension OffersViewModel {
+    enum Input {
+        case loadOffers(_ location: String)
+    }
+    enum Output {
+        case offersLoaded
+        case offersFailedToLoad
+        case startLoading
+        case stopLoading
+        case openOffer(_ offer: Offer)
+    }
 }
 
+// MARK: - RevlumViewModel
 class OffersViewModel: NSObject {
+    private let output = PassthroughSubject<Output, Never>()
+    private var cancellables = Set<AnyCancellable>()
     private let apiService = APIService.shared
-    weak var delegate: OffersViewModelDelegate?
-
     private var scrollViewOffset: CGPoint = CGPoint(x: 0, y: 40)
     private var cellViewModels: [OfferCellViewModel] = []
     private var offers: [Offer] = [] {
@@ -30,28 +39,40 @@ class OffersViewModel: NSObject {
         }
     }
 
+    public func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+        input
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                switch event {
+                case .loadOffers:
+                    self?.loadOffers()
+                }
+            }
+            .store(in: &cancellables)
+        return output.eraseToAnyPublisher()
+    }
+}
+
+extension OffersViewModel {
     public func loadOffers() {
         if cellViewModels.count > 0 && cellViewModels.count == offers.count { return }
+
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
 
-        delegate?.didStartLoadingOffers()
+        output.send(.startLoading)
         apiService.execute(request, expected: [Offer].self) { [weak self] result in
             switch result {
             case .success(let offers):
                 self?.offers = offers
-                self?.delegate?.didLoadOffers()
-            case .failure(let error):
-                print(error)
-                self?.delegate?.didFailToLoadOffers()
+                self?.output.send(.stopLoading)
+                self?.output.send(.offersLoaded)
+            case .failure:
+                self?.output.send(.offersFailedToLoad)
             }
         }
-    }
-
-    public func getScrollViewOffset() -> CGPoint {
-        return self.scrollViewOffset
     }
 }
 
@@ -81,6 +102,6 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 // MARK: - OfferTableViewCellDelegate
 extension OffersViewModel: OfferTableViewCellDelegate {
     func offerButtonPressed(_ indexPath: IndexPath) {
-        delegate?.didSelectOffer(offers[indexPath.row])
+        output.send(.openOffer(offers[indexPath.row]))
     }
 }

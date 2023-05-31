@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol SurveysViewModelDelegate: AnyObject {
     func didLoadSurveys()

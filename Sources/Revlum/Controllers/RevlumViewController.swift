@@ -6,13 +6,10 @@
 //
 
 import UIKit
+import Combine
 
 public final class RevlumViewController: UIViewController {
-    // MARK: - Properties
-    private let apiKey: String
-    private let userId: String
-
-    // MARK: Views
+    // MARK: - Views
     private let brandBackgroundImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -37,19 +34,38 @@ public final class RevlumViewController: UIViewController {
         spinner.color = .textMainColor
         return spinner
     }()
-    private let tableView: UITableView = {
+    private let offersTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-        tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .secondaryColor
+        tableView.backgroundColor = .red
         tableView.allowsSelection = false
         return tableView
     }()
+    private let surveysTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
+        tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .blue
+        tableView.allowsSelection = false
+        tableView.alpha = 0
+        return tableView
+    }()
 
+    // MARK: - Properties
+    private let apiKey: String
+    private let userId: String
+    private var location: String?
+
+    private let mainViewModel = MainViewModel()
     private var offersViewModel = OffersViewModel()
     private var surveysViewModel = SurveysViewModel()
+
+    private var cancellables = Set<AnyCancellable>()
+    private let mainInput = PassthroughSubject<MainViewModel.Input, Never>()
+    private let offersInput = PassthroughSubject<OffersViewModel.Input, Never>()
 
     // MARK: - Init
     public init(apiKey: String, userId: String) {
@@ -69,17 +85,19 @@ public final class RevlumViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setUpConstraints()
+        setUpActions()
+        bindMain()
+        bindOffers()
     }
 
     private func setupViews() {
-        segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
-        dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
-
-        offersViewModel.delegate = self
         surveysViewModel.delegate = self
-        tableView.delegate = offersViewModel
-        tableView.dataSource = offersViewModel
-        offersViewModel.loadOffers()
+
+        surveysTableView.delegate = surveysViewModel
+        surveysTableView.dataSource = surveysViewModel
+
+        offersTableView.delegate = offersViewModel
+        offersTableView.dataSource = offersViewModel
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .white
@@ -92,13 +110,14 @@ public final class RevlumViewController: UIViewController {
         brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        surveysTableView.translatesAutoresizingMaskIntoConstraints = false
+        offersTableView.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
                          dissmissButton,
-                         tableView,
+                         offersTableView,
                          segmentedControl,
                          spinner)
     }
@@ -128,10 +147,10 @@ public final class RevlumViewController: UIViewController {
             segmentedControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            offersTableView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            offersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            offersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            offersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             spinner.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 50),
@@ -139,27 +158,33 @@ public final class RevlumViewController: UIViewController {
         ])
     }
 
-    @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        guard let type = TransitionType(rawValue: sender.selectedSegmentIndex) else { return }
-        let transition = transition(type: type)
+    private func setUpActions() {
+        segmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+        dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
+    }
 
+    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+        guard segmentedControl.selectedSegmentIndex != sender.selectedSegmentIndex else { return }
         switch sender.selectedSegmentIndex {
         case 0:
-            tableView.delegate = offersViewModel
-            tableView.dataSource = offersViewModel
-            tableView.contentOffset = offersViewModel.getScrollViewOffset()
-            offersViewModel.loadOffers()
+            UIView.animate(withDuration: 0.2) {
+                self.surveysTableView.alpha = 0
+            } completion: { _ in
+                UIView.animate(withDuration: 0.2) {
+                    self.offersTableView.alpha = 1
+                }
+            }
         case 1:
-            tableView.delegate = surveysViewModel
-            tableView.dataSource = surveysViewModel
-            tableView.contentOffset = surveysViewModel.getScrollViewOffset()
-            surveysViewModel.loadSurveys()
+            UIView.animate(withDuration: 0.2) {
+                self.offersTableView.alpha = 0
+            } completion: { _ in
+                UIView.animate(withDuration: 0.2) {
+                    self.surveysTableView.alpha = 1
+                }
+            }
         default:
             break
         }
-
-        tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
-        tableView.reloadData()
     }
 
     @objc private func dismissPressed() {
@@ -167,29 +192,40 @@ public final class RevlumViewController: UIViewController {
     }
 }
 
-// MARK: - OffersViewModelDelegate
-extension RevlumViewController: OffersViewModelDelegate {
-    func didStartLoadingOffers() {
-        spinner.isHidden = false
-        spinner.startAnimating()
+// MARK: - OffersViewModel Main Binding
+private extension RevlumViewController {
+    private func bindMain() {
+        mainViewModel.transform(input: mainInput.eraseToAnyPublisher())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .locationFetched(let location):
+                    self?.offersInput.send(.loadOffers(location))
+                case .locationFetchFailed:
+                    self?.handleLocationFetchError()
+                }
+            }.store(in: &cancellables)
     }
 
-    func didFailToLoadOffers() {
-        DispatchQueue.main.async { [weak self] in
-            print("Error: Failed to load Offers")
-            self?.spinner.stopAnimating()
-        }
+    private func handleLocationFetchError() {
+        print("LOCATION FETCH FAILED!")
     }
+}
 
-    func didLoadOffers() {
-        DispatchQueue.main.async { [weak self] in
-            self?.spinner.stopAnimating()
-            self?.tableView.reloadData()
-        }
-    }
-
-    func didSelectOffer(_ offer: Offer) {
-        print(offer.title)
+// MARK: - OffersViewModel Offers Binding
+private extension RevlumViewController {
+    private func bindOffers() {
+        offersViewModel.transform(input: offersInput.eraseToAnyPublisher())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .offersLoaded: break
+                case .offersFailedToLoad: break
+                case .openOffer(let offer): break
+                case .startLoading: break
+                case .stopLoading: break
+                }
+            }
     }
 }
 
@@ -208,45 +244,10 @@ extension RevlumViewController: SurveysViewModelDelegate {
     }
 
     func didLoadSurveys() {
-        DispatchQueue.main.async { [weak self] in
-            guard let weakSelf = self else { return }
-            guard let type = TransitionType(rawValue: weakSelf.segmentedControl.selectedSegmentIndex) else { return }
-            let transition = weakSelf.transition(type: type)
-            weakSelf.spinner.stopAnimating()
-            weakSelf.tableView.layer.add(transition, forKey: RevlumViewController.tableViewReloadDataAnimationKey)
-            weakSelf.tableView.reloadData()
-        }
+        
     }
 
     func selectedSurvey(_ survey: Survey) {
         print(survey.title)
-    }
-}
-
-// MARK: - Transition animation
-extension RevlumViewController {
-    enum TransitionType: Int {
-        case offer = 0
-        case survey = 1
-    }
-
-    static let tableViewReloadDataAnimationKey = "UITableViewReloadDataAnimationKey"
-    static let transitionDuration = 0.5
-
-    private func transition(type: TransitionType) -> CATransition {
-        let transition = CATransition()
-        transition.type = CATransitionType.push
-        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        transition.fillMode = CAMediaTimingFillMode.forwards
-        transition.duration = RevlumViewController.transitionDuration
-
-        switch type {
-        case .offer:
-            transition.subtype = CATransitionSubtype.fromLeft
-        case .survey:
-            transition.subtype = CATransitionSubtype.fromRight
-        }
-
-        return transition
     }
 }
