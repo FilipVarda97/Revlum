@@ -164,7 +164,6 @@ public final class RevlumViewController: UIViewController {
     }
 
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
-        guard segmentedControl.selectedSegmentIndex != sender.selectedSegmentIndex else { return }
         switch sender.selectedSegmentIndex {
         case 0:
             UIView.animate(withDuration: 0.2) {
