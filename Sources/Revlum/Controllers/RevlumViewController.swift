@@ -67,6 +67,7 @@ public final class RevlumViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let mainInput = PassthroughSubject<MainViewModel.Input, Never>()
     private let offersInput = PassthroughSubject<OffersViewModel.Input, Never>()
+    private let surveysInput = PassthroughSubject<SurveysViewModel.Input, Never>()
 
     // MARK: - Init
     public init(apiKey: String, userId: String) {
@@ -93,8 +94,6 @@ public final class RevlumViewController: UIViewController {
     }
 
     private func setupViews() {
-        surveysViewModel.delegate = self
-
         surveysTableView.delegate = surveysViewModel
         surveysTableView.dataSource = surveysViewModel
 
@@ -213,6 +212,7 @@ private extension RevlumViewController {
                 switch output {
                 case .locationFetched(let location):
                     self?.offersInput.send(.loadOffers(location))
+                    self?.surveysInput.send(.loadSurveys(location))
                 case .locationFetchFailed:
                     self?.handleLocationFetchError()
                 }
@@ -234,7 +234,8 @@ private extension RevlumViewController {
                 case .offersLoaded:
                     self?.offersTableView.reloadData()
                 case .offersFailedToLoad: break
-                case .openOffer(let offer): break
+                case .openOffer(let offer):
+                    print(offer.title)
                 case .startLoading:
                     self?.spinner.startAnimating()
                 case .stopLoading:
@@ -244,25 +245,23 @@ private extension RevlumViewController {
     }
 }
 
-// MARK: - SurveysViewModelDelegate
-extension RevlumViewController: SurveysViewModelDelegate {
-    func didStartLoadingSurveys() {
-        spinner.isHidden = false
-        spinner.startAnimating()
-    }
-
-    func didFailToLoadSurveys() {
-        DispatchQueue.main.async { [weak self] in
-            print("Error: Failed to load Surveys")
-            self?.spinner.stopAnimating()
-        }
-    }
-
-    func didLoadSurveys() {
-        
-    }
-
-    func selectedSurvey(_ survey: Survey) {
-        print(survey.title)
+// MARK: - OffersViewModel Surveys Binding
+private extension RevlumViewController {
+    private func bindSurveys() {
+        surveysViewModel.transform(input: surveysInput.eraseToAnyPublisher())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .loadedSurveys:
+                    self?.surveysTableView.reloadData()
+                case .failedToLoadSurveys: break
+                case .selectedSurvey(let survey):
+                    print(survey.title)
+                case .startLoading:
+                    self?.spinner.startAnimating()
+                case .stopLoading:
+                    self?.spinner.stopAnimating()
+                }
+            }.store(in: &cancellables)
     }
 }

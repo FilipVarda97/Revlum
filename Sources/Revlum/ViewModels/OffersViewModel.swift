@@ -44,8 +44,8 @@ class OffersViewModel: NSObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 switch event {
-                case .loadOffers:
-                    self?.loadOffers()
+                case .loadOffers(let location):
+                    self?.loadOffers(location)
                 }
             }
             .store(in: &cancellables)
@@ -54,7 +54,7 @@ class OffersViewModel: NSObject {
 }
 
 extension OffersViewModel {
-    public func loadOffers() {
+    public func loadOffers(_ location: String) {
         if cellViewModels.count > 0 && cellViewModels.count == offers.count { return }
 
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
@@ -70,6 +70,7 @@ extension OffersViewModel {
                 self?.output.send(.stopLoading)
                 self?.output.send(.offersLoaded)
             case .failure:
+                self?.output.send(.stopLoading)
                 self?.output.send(.offersFailedToLoad)
             }
         }
