@@ -39,7 +39,7 @@ public final class RevlumViewController: UIViewController {
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .red
+        tableView.backgroundColor = .bgColor
         tableView.allowsSelection = false
         return tableView
     }()
@@ -48,7 +48,7 @@ public final class RevlumViewController: UIViewController {
         tableView.register(SurveyTableViewCell.self, forCellReuseIdentifier: SurveyTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .blue
+        tableView.backgroundColor = .bgColor
         tableView.allowsSelection = false
         tableView.alpha = 0
         return tableView
@@ -118,6 +118,7 @@ public final class RevlumViewController: UIViewController {
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
                          dissmissButton,
+                         surveysTableView,
                          offersTableView,
                          segmentedControl,
                          spinner)
@@ -148,6 +149,12 @@ public final class RevlumViewController: UIViewController {
             segmentedControl.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10)
         ])
         NSLayoutConstraint.activate([
+            surveysTableView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
+            surveysTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            surveysTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            surveysTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        NSLayoutConstraint.activate([
             offersTableView.topAnchor.constraint(equalTo: segmentedControl.centerYAnchor),
             offersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             offersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -170,6 +177,7 @@ public final class RevlumViewController: UIViewController {
             UIView.animate(withDuration: 0.2) {
                 self.surveysTableView.alpha = 0
             } completion: { _ in
+                self.surveysTableView.isHidden = true
                 UIView.animate(withDuration: 0.2) {
                     self.offersTableView.alpha = 1
                 }
@@ -178,6 +186,7 @@ public final class RevlumViewController: UIViewController {
             UIView.animate(withDuration: 0.2) {
                 self.offersTableView.alpha = 0
             } completion: { _ in
+                self.offersTableView.isHidden = true
                 UIView.animate(withDuration: 0.2) {
                     self.surveysTableView.alpha = 1
                 }
@@ -219,13 +228,16 @@ private extension RevlumViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
                 switch output {
-                case .offersLoaded: break
+                case .offersLoaded:
+                    self?.offersTableView.reloadData()
                 case .offersFailedToLoad: break
                 case .openOffer(let offer): break
-                case .startLoading: break
-                case .stopLoading: break
+                case .startLoading:
+                    self?.spinner.startAnimating()
+                case .stopLoading:
+                    self?.spinner.stopAnimating()
                 }
-            }
+            }.store(in: &cancellables)
     }
 }
 
