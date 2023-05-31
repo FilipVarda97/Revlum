@@ -88,6 +88,7 @@ public final class RevlumViewController: UIViewController {
         setUpActions()
         bindMain()
         bindOffers()
+        mainInput.send(.openSdk)
     }
 
     private func setupViews() {
