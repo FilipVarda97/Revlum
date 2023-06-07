@@ -160,7 +160,7 @@ class BaseTableViewCell: UITableViewCell {
             selectionButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             selectionButton.rightAnchor.constraint(equalTo: containerView.rightAnchor),
             selectionButton.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            selectionButton.heightAnchor.constraint(equalToConstant: 48)
+            selectionButton.heightAnchor.constraint(equalToConstant: 47)
         ])
     }
 

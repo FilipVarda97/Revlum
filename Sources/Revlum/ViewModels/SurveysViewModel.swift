@@ -87,7 +87,7 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 153
+        return 169
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
