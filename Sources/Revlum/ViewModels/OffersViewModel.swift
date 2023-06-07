@@ -99,7 +99,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 42
+            return 60
         } else {
             return 169
         }
