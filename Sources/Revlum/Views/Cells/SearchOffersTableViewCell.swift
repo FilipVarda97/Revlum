@@ -39,6 +39,7 @@ class SearchOffersTableViewCell: UITableViewCell {
         searchBar.layer.cornerRadius = 5
         searchBar.placeholder = "Search offers..."
         searchBar.searchTextField.backgroundColor = .white
+        searchBar.barTintColor = .clear
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
