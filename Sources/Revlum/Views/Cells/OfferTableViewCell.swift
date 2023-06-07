@@ -17,7 +17,7 @@ final class OfferTableViewCell: UITableViewCell {
     private let containerView = UIView()
     private let offerImageView = UIImageView()
     private let titleLabel = UILabel(text: "")
-    private let descriptionLabel = UILabel(text: "")
+    private let descriptionLabel = UILabel(text: "", font: .systemFont(ofSize: 12), numberOfLines: 2)
     private let platforms: [UIImage] = [UIImage]()
     private let offerButton = UIButton()
     var indexPath: IndexPath?
@@ -51,6 +51,7 @@ final class OfferTableViewCell: UITableViewCell {
         offerButton.layer.cornerRadius = 10
         offerButton.backgroundColor = .primaryColor
         offerButton.setTitleColor(.white, for: .normal)
+        offerButton.titleLabel?.font = .systemFont(ofSize: 14)
         offerButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
 
         offerImageView.layer.cornerRadius = 5
