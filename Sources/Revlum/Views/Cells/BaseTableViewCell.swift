@@ -132,8 +132,8 @@ class BaseTableViewCell: UITableViewCell {
                                                  constant: cellType.imageInset.left),
             cellImageView.topAnchor.constraint(equalTo: containerView.topAnchor,
                                                 constant: cellType.imageInset.top),
-            cellImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
-                                                   constant: cellType.imageInset.bottom),
+            cellImageView.bottomAnchor.constraint(equalTo: selectionButton.topAnchor,
+                                                   constant: -cellType.imageInset.bottom),
             cellImageView.widthAnchor.constraint(equalToConstant: cellType.imageWidth)
         ])
         NSLayoutConstraint.activate([
