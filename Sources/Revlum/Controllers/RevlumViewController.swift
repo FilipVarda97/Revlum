@@ -37,6 +37,7 @@ public final class RevlumViewController: UIViewController {
     private let offersTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
+        tableView.register(SearchOffersTableViewCell.self, forCellReuseIdentifier: SearchOffersTableViewCell.reuseIdentifier)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .secondaryColor
