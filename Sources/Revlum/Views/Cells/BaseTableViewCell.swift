@@ -133,7 +133,7 @@ class BaseTableViewCell: UITableViewCell {
             cellImageView.topAnchor.constraint(equalTo: containerView.topAnchor,
                                                 constant: cellType.imageInset.top),
             cellImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,
-                                                   constant: -cellType.imageInset.bottom),
+                                                   constant: cellType.imageInset.bottom),
             cellImageView.widthAnchor.constraint(equalToConstant: cellType.imageWidth)
         ])
         NSLayoutConstraint.activate([
