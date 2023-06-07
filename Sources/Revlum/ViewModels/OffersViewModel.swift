@@ -92,7 +92,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
+        return 153
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

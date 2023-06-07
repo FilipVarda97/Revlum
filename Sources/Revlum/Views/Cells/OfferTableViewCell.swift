@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class OfferTableViewCell: BaseTableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
     private var viewModel: OffersViewModel?
@@ -20,7 +19,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
-        selectionButton.setTitle(viewModel.offerRevenue, for: .normal)
+        selectionButton.setTitle("+" + viewModel.offerRevenue, for: .normal)
 
         viewModel.fetchImage { [weak self] result in
             switch result {
