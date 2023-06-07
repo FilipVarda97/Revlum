@@ -44,8 +44,7 @@ class SearchOffersTableViewCell: UITableViewCell {
         filterButton.setTitleColor(.black, for: .normal)
         filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
         filterButton.contentHorizontalAlignment = .left
-        filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-        filterButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
 
         contentView.addSubviews(searchBar,
                                 filterButton)
@@ -56,14 +55,14 @@ class SearchOffersTableViewCell: UITableViewCell {
         filterButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            searchBar.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            searchBar.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 11),
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            searchBar.rightAnchor.constraint(equalTo: filterButton.leftAnchor, constant: 4),
         ])
         NSLayoutConstraint.activate([
-            filterButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            filterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
-            filterButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            filterButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            filterButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -11),
             filterButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
