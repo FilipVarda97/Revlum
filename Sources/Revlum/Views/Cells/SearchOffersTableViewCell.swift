@@ -39,7 +39,6 @@ class SearchOffersTableViewCell: UITableViewCell {
         searchBar.layer.cornerRadius = 5
         searchBar.placeholder = "Search offers..."
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.barTintColor = .clear
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
@@ -78,8 +77,8 @@ class SearchOffersTableViewCell: UITableViewCell {
 extension UISearchBar {
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        if let searchBarBackground = subviews.first?.subviews.first(where: { $0 is UISearchBarBackground }) {
-            searchBarBackground.backgroundColor = .clear
+        if let backgroundSubview = self.subviews.first?.subviews.first {
+            backgroundSubview.backgroundColor = .clear
         }
     }
 }
