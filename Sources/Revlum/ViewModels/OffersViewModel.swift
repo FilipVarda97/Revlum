@@ -53,6 +53,7 @@ class OffersViewModel: NSObject {
     }
 }
 
+//MARK: - Loading offers
 extension OffersViewModel {
     public func loadOffers(_ location: String) {
         if cellViewModels.count > 0 && cellViewModels.count == offers.count { return }
@@ -101,8 +102,8 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - OfferTableViewCellDelegate
-extension OffersViewModel: OfferTableViewCellDelegate {
-    func offerButtonPressed(_ indexPath: IndexPath) {
-        output.send(.openOffer(offers[indexPath.row]))
+extension OffersViewModel: RevlumCellDelegate {
+    func buttonPressed(_ selectedIndexPath: IndexPath) {
+        output.send(.openOffer(offers[selectedIndexPath.row]))
     }
 }
