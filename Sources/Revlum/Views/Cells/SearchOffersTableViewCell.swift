@@ -61,7 +61,7 @@ class SearchOffersTableViewCell: UITableViewCell {
             searchBar.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 11),
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            searchBar.rightAnchor.constraint(equalTo: filterButton.leftAnchor, constant: 4),
+            searchBar.rightAnchor.constraint(equalTo: filterButton.leftAnchor, constant: -4),
         ])
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -72,5 +72,14 @@ class SearchOffersTableViewCell: UITableViewCell {
 
     @objc func filterButtonPressed() {
         delegate?.filterButtonPressed()
+    }
+}
+
+extension UISearchBar {
+    open override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if let searchBarBackground = subviews.first?.subviews.first(where: { $0 is UISearchBarBackground }) {
+            searchBarBackground.backgroundColor = .clear
+        }
     }
 }
