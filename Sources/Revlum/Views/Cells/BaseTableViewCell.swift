@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  BaseTableViewCell.swift
 //  
 //
 //  Created by Filip Varda on 07.06.2023..
@@ -169,4 +169,3 @@ class BaseTableViewCell: UITableViewCell {
         delegate?.buttonPressed(selectedIndexPath)
     }
 }
-

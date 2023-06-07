@@ -31,4 +31,9 @@ extension UIImage {
         let image = UIImage(named: "desktop-icon", in: bundle, compatibleWith: nil)
         return image!
     }()
+    static let filterIcon: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "filterIcon", in: bundle, compatibleWith: nil)
+        return image!
+    }()
 }

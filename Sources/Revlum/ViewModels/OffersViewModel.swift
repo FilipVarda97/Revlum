@@ -81,18 +81,28 @@ extension OffersViewModel {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return offers.count
+        return cellViewModels.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-        cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
-        cell.delegate = self
-        return cell
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchOffersTableViewCell.reuseIdentifier) as? SearchOffersTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
+            cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
+            cell.delegate = self
+            return cell
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 169
+        if indexPath.row == 0 {
+            return 42
+        } else {
+            return 169
+        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -105,5 +115,11 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 extension OffersViewModel: RevlumCellDelegate {
     func buttonPressed(_ selectedIndexPath: IndexPath) {
         output.send(.openOffer(offers[selectedIndexPath.row]))
+    }
+}
+
+extension OffersViewModel: SearchCellDelegate {
+    func filterButtonPressed() {
+        print("Filter pressed!")
     }
 }
