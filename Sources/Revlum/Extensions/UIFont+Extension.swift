@@ -9,7 +9,7 @@ import UIKit
 
 public func registerCommonFonts() {
     let fonts = [
-        "Inter-Black",
+        "Inter-Black.tff",
         "Inter-Bold.ttf",
         "Inter-ExtraBold.ttf",
         "Inter-ExtraLight.ttf",
