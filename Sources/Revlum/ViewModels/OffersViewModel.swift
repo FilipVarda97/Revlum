@@ -19,6 +19,7 @@ extension OffersViewModel {
         case startLoading
         case stopLoading
         case openOffer(_ offer: Offer)
+        case filterPressed
     }
 }
 
@@ -120,6 +121,6 @@ extension OffersViewModel: RevlumCellDelegate {
 
 extension OffersViewModel: SearchCellDelegate {
     func filterButtonPressed() {
-        print("Filter pressed!")
+        output.send(.filterPressed)
     }
 }

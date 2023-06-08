@@ -202,6 +202,10 @@ public final class RevlumViewController: UIViewController {
     @objc private func dismissPressed() {
         dismiss(animated: true)
     }
+
+    private func forceEndEditing() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - OffersViewModel Main Binding
@@ -241,6 +245,8 @@ private extension RevlumViewController {
                     self?.spinner.startAnimating()
                 case .stopLoading:
                     self?.spinner.stopAnimating()
+                case .filterPressed:
+                    self?.forceEndEditing()
                 }
             }.store(in: &cancellables)
     }
