@@ -40,6 +40,7 @@ class SearchOffersTableViewCell: UITableViewCell {
                                                                    attributes: [.foregroundColor: UIColor.darkGray])
         searchTextField.borderStyle = .none
         searchTextField.textColor = .textMainColor
+        searchTextField.textContainerInset = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17)
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
@@ -47,7 +48,7 @@ class SearchOffersTableViewCell: UITableViewCell {
         filterButton.setTitleColor(.black, for: .normal)
         filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
         filterButton.contentHorizontalAlignment = .left
-        filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2)
+        filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
 
         contentView.addSubviews(searchTextField,
                                 filterButton)
@@ -61,7 +62,7 @@ class SearchOffersTableViewCell: UITableViewCell {
             searchTextField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 11),
             searchTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             searchTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            searchTextField.rightAnchor.constraint(equalTo: filterButton.leftAnchor, constant: -4),
+            searchTextField.rightAnchor.constraint(equalTo: filterButton.leftAnchor, constant: -16),
         ])
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
