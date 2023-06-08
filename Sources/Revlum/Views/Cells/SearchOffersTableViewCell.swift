@@ -9,13 +9,14 @@ import UIKit
 
 protocol SearchCellDelegate: AnyObject {
     func filterButtonPressed()
+    func textFieldTextChanged(_ text: String)
 }
 
 class SearchOffersTableViewCell: UITableViewCell {
     static let reuseIdentifier = "SearchOffersTableViewCell"
 
-    private var searchTextField = CustomTextField(textInset: UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17))
-    private let filterButton = IconButton()
+    private var searchTextField = RevlumSearchBarTextField(textInset: UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17))
+    private let filterButton = RevlumIconButton()
     weak var delegate: SearchCellDelegate?
     
     // MARK: - Init
@@ -40,6 +41,7 @@ class SearchOffersTableViewCell: UITableViewCell {
                                                                    attributes: [.foregroundColor: UIColor.darkGray])
         searchTextField.borderStyle = .none
         searchTextField.textColor = .black
+        searchTextField.delegate = self
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
@@ -75,23 +77,9 @@ class SearchOffersTableViewCell: UITableViewCell {
     }
 }
 
-class CustomTextField: UITextField {
-    let textInset: UIEdgeInsets
-    
-    init(textInset: UIEdgeInsets) {
-        self.textInset = textInset
-        super.init(frame: .zero)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: textInset)
-    }
-    
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: textInset)
+// MARK: - UITextFieldDelegate
+extension SearchOffersTableViewCell: UITextFieldDelegate {
+    func textFieldTextChanged(_ text: String) {
+        delegate?.textFieldTextChanged(text)
     }
 }

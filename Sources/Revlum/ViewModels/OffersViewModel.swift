@@ -125,4 +125,8 @@ extension OffersViewModel: SearchCellDelegate {
     func filterButtonPressed() {
         output.send(.filterPressed)
     }
+
+    func textFieldTextChanged(_ text: String) {
+        print(text)
+    }
 }

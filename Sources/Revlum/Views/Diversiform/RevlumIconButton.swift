@@ -1,5 +1,5 @@
 //
-//  IconButton.swift
+//  RevlumIconButton.swift
 //  
 //
 //  Created by Filip Varda on 08.06.2023..
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IconButton: UIButton {
+class RevlumIconButton: UIButton {
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         let edgeInsets = self.imageEdgeInsets
