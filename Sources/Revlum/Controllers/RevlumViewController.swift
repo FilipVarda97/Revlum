@@ -247,6 +247,8 @@ private extension RevlumViewController {
                     self?.spinner.stopAnimating()
                 case .filterPressed:
                     self?.forceEndEditing()
+                case .forceEndEditing:
+                    self?.forceEndEditing()
                 }
             }.store(in: &cancellables)
     }

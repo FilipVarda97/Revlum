@@ -20,6 +20,7 @@ extension OffersViewModel {
         case stopLoading
         case openOffer(_ offer: Offer)
         case filterPressed
+        case forceEndEditing
     }
 }
 
@@ -109,6 +110,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollViewOffset.y == scrollView.contentOffset.y.rounded() { return }
         scrollViewOffset = CGPoint(x: 0, y: scrollView.contentOffset.y.rounded())
+        output.send(.forceEndEditing)
     }
 }
 
