@@ -79,6 +79,10 @@ class SearchOffersTableViewCell: UITableViewCell {
 
 // MARK: - UITextFieldDelegate
 extension SearchOffersTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("Begin")
+    }
+
     func textFieldTextChanged(_ text: String) {
         delegate?.textFieldTextChanged(text)
     }
