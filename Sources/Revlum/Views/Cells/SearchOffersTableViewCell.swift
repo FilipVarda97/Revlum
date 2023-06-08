@@ -73,21 +73,11 @@ class SearchOffersTableViewCell: UITableViewCell {
     }
 
     @objc func textFieldChanged() {
-        print(searchTextField.text)
+        guard let text = searchTextField.text else { return }
+        delegate?.textFieldTextChanged(text)
     }
     
     @objc func filterButtonPressed() {
         delegate?.filterButtonPressed()
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension SearchOffersTableViewCell: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Begin")
-    }
-
-    func textFieldTextChanged(_ text: String) {
-        delegate?.textFieldTextChanged(text)
     }
 }
