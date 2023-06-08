@@ -14,7 +14,7 @@ protocol SearchCellDelegate: AnyObject {
 class SearchOffersTableViewCell: UITableViewCell {
     static let reuseIdentifier = "SearchOffersTableViewCell"
 
-    private let searchTextField = UITextField()
+    private var searchTextField = CustomTextField(textInset: UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17))
     private let filterButton = IconButton()
     weak var delegate: SearchCellDelegate?
     
@@ -33,14 +33,13 @@ class SearchOffersTableViewCell: UITableViewCell {
     func setUpViews() {
         contentView.backgroundColor = .clear
         backgroundColor = .clear
-
+        
         searchTextField.backgroundColor = .white
         searchTextField.layer.cornerRadius = 5
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Search offers...",
                                                                    attributes: [.foregroundColor: UIColor.darkGray])
         searchTextField.borderStyle = .none
-        searchTextField.textColor = .textMainColor
-        searchTextField.textContainerInset = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17)
+        searchTextField.textColor = .black
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
@@ -73,5 +72,26 @@ class SearchOffersTableViewCell: UITableViewCell {
 
     @objc func filterButtonPressed() {
         delegate?.filterButtonPressed()
+    }
+}
+
+class CustomTextField: UITextField {
+    let textInset: UIEdgeInsets
+    
+    init(textInset: UIEdgeInsets) {
+        self.textInset = textInset
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textInset)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: textInset)
     }
 }
