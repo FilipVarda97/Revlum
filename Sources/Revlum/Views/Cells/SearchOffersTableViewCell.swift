@@ -41,7 +41,7 @@ class SearchOffersTableViewCell: UITableViewCell {
                                                                    attributes: [.foregroundColor: UIColor.darkGray])
         searchTextField.borderStyle = .none
         searchTextField.textColor = .black
-        searchTextField.delegate = self
+        searchTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 
         filterButton.setImage(.filterIcon, for: .normal)
         filterButton.setTitle("Filter", for: .normal)
@@ -72,6 +72,10 @@ class SearchOffersTableViewCell: UITableViewCell {
         ])
     }
 
+    @objc func textFieldChanged() {
+        print(searchTextField.text)
+    }
+    
     @objc func filterButtonPressed() {
         delegate?.filterButtonPressed()
     }
