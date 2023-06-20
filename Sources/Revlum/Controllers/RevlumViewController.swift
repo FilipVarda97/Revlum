@@ -218,8 +218,8 @@ private extension RevlumViewController {
             .sink { [weak self] output in
                 switch output {
                 case .locationFetched(let location):
-                    self?.offersInput.send(.loadOffers(location))
                     self?.surveysInput.send(.loadSurveys(location))
+                    self?.offersInput.send(.loadOffers(location))
                 case .locationFetchFailed:
                     self?.handleLocationFetchError()
                 }
