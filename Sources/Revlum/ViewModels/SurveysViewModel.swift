@@ -97,8 +97,8 @@ extension SurveysViewModel: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - SurveyTableViewCellDelegate
-extension SurveysViewModel: SurveyTableViewCellDelegate {
-    func surveyButtonPressed(_ indexPath: IndexPath) {
-        output.send(.selectedSurvey(surveys[indexPath.row]))
+extension SurveysViewModel: RevlumCellDelegate {
+    func buttonPressed(_ selectedIndexPath: IndexPath) {
+        output.send(.selectedSurvey(surveys[selectedIndexPath.row]))
     }
 }
