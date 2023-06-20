@@ -38,7 +38,8 @@ class SearchOffersTableViewCell: UITableViewCell {
         searchTextField.backgroundColor = .white
         searchTextField.layer.cornerRadius = 5
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Search offers...",
-                                                                   attributes: [.foregroundColor: UIColor.darkGray])
+                                                                   attributes: [.foregroundColor: UIColor.darkGray,
+                                                                                .font: UIFont(name: "Inter-Regular", size: 15)!])
         searchTextField.borderStyle = .none
         searchTextField.textColor = .black
         searchTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)

@@ -12,19 +12,27 @@ public final class RevlumViewController: UIViewController {
     // MARK: - Views
     private let brandBackgroundImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = .topBGImage
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private let brandLogoImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = .revlumLogo
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private let dissmissButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     private let segmentedControl: RevlumSegmentedControl = {
         let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
+        control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
     private let spinner: UIActivityIndicatorView = {
@@ -32,6 +40,7 @@ public final class RevlumViewController: UIViewController {
         spinner.hidesWhenStopped = true
         spinner.style = .large
         spinner.color = .textMainColor
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
     private let offersTableView: UITableView = {
@@ -42,6 +51,7 @@ public final class RevlumViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .secondaryColor
         tableView.allowsSelection = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     private let surveysTableView: UITableView = {
@@ -53,6 +63,7 @@ public final class RevlumViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.alpha = 0
         tableView.isHidden = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
@@ -105,18 +116,6 @@ public final class RevlumViewController: UIViewController {
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .white
-        brandBackgroundImageView.image = .topBGImage
-        brandBackgroundImageView.contentMode = .scaleToFill
-        brandLogoImageView.image = .revlumLogo
-        brandLogoImageView.contentMode = .scaleAspectFit
-
-        brandBackgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        brandLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        dissmissButton.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        surveysTableView.translatesAutoresizingMaskIntoConstraints = false
-        offersTableView.translatesAutoresizingMaskIntoConstraints = false
-        spinner.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubviews(brandBackgroundImageView,
                          brandLogoImageView,
