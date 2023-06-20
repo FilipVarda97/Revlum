@@ -39,6 +39,7 @@ class RevlumFilterView: UIView {
     }
 
     private func setUpViews() {
+        backgroundColor = .white
         iOSButton.setTitle("iOS", for: .normal)
         webButton.setTitle("Web", for: .normal)
 
