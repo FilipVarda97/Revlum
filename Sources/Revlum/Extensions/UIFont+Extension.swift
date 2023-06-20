@@ -5,9 +5,11 @@
 //  Created by Filip Varda on 31.05.2023..
 //
 
-import UIKit
+import CoreGraphics
+import CoreText
+import Foundation
 
-public func registerCommonFonts() {
+public class FontLoader {
     let fonts = [
         "Inter-Black.tff",
         "Inter-Bold.ttf",
@@ -20,28 +22,31 @@ public func registerCommonFonts() {
         "Inter-Thin.ttf"
     ]
 
-    for font in fonts {
-        UIFont.registerFont(bundle: Bundle.module, fontName: font)
-    }
-}
+    public init() {}
 
-extension UIFont {
-    /// - Parameters:
-    ///   - bundle: Bundle
-    ///   - fontName: String
-    static func registerFont(bundle: Bundle, fontName: String) {
-        let pathForResourceString = bundle.path(forResource: fontName, ofType: nil)
-        let fontData = NSData(contentsOfFile: pathForResourceString!)
-        let dataProvider = CGDataProvider(data: fontData!)
-        let fontRef = CGFont(dataProvider!)
-        var errorRef: Unmanaged<CFError>? = nil
-        
-        if let fontRef = fontRef,
-            (CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) == false) {
-            print("Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
+    public func loadFonts() {
+        fonts.forEach { registerFont($0) }
+    }
+
+    func registerFont(_ fontFileName: String) {
+        guard let fontURL = Bundle.module.url(forResource: fontFileName, withExtension: nil) else {
+            print("Failed to find font: \(fontFileName)")
+            return
         }
-        else {
-            print("Failed to register font - bundle identifier invalid.")
+
+        guard let fontDataProvider = CGDataProvider(url: fontURL as CFURL) else {
+            print("Failed to load font: \(fontFileName)")
+            return
+        }
+
+        guard let font = CGFont(fontDataProvider) else {
+            print("Failed to create CGFont: \(fontFileName)")
+            return
+        }
+
+        var error: Unmanaged<CFError>?
+        if !CTFontManagerRegisterGraphicsFont(font, &error) {
+            print("Error registering font: \(error.debugDescription)")
         }
     }
 }

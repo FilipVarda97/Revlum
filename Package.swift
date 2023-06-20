@@ -21,7 +21,8 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("Resources")
-            ]),
+            ]
+        ),
         .testTarget(
             name: "RevlumTests",
             dependencies: ["Revlum"]),

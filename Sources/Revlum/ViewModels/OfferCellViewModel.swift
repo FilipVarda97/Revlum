@@ -24,7 +24,7 @@ final class OfferCellViewModel {
     init(offer: Offer) {
         self.offer = offer
     }
-    
+
     //MARK: - Implementation
     public func fetchImage(completion: @escaping(Result<Data, Error>) -> Void) {
         guard let url = URL(string: offer.image) else {
