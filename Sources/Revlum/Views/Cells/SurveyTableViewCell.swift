@@ -48,7 +48,7 @@ final class SurveyTableViewCell: BaseTableViewCell {
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
-            stackView.bottomAnchor.constraint(equalTo: selectionButton.topAnchor, constant: 25),
+            stackView.bottomAnchor.constraint(equalTo: selectionButton.topAnchor, constant: -25),
             stackView.heightAnchor.constraint(equalToConstant: 14)
         ])
         stackView.addArrangedSubview(UIImageView(image: .starIcon))
