@@ -77,10 +77,10 @@ public final class RevlumViewController: UIViewController {
     private var offersViewModel = OffersViewModel()
     private var surveysViewModel = SurveysViewModel()
 
-    private var cancellables = Set<AnyCancellable>()
     private let mainInput = PassthroughSubject<MainViewModel.Input, Never>()
     private let offersInput = PassthroughSubject<OffersViewModel.Input, Never>()
     private let surveysInput = PassthroughSubject<SurveysViewModel.Input, Never>()
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Init
     public init(apiKey: String, userId: String) {
@@ -218,12 +218,16 @@ private extension RevlumViewController {
             .sink { [weak self] output in
                 switch output {
                 case .locationFetched(let location):
-                    self?.surveysInput.send(.loadSurveys(location))
-                    self?.offersInput.send(.loadOffers(location))
+                    self?.fetchData(location)
                 case .locationFetchFailed:
                     self?.handleLocationFetchError()
                 }
             }.store(in: &cancellables)
+    }
+
+    private func fetchData(_ location: String) {
+        surveysInput.send(.loadSurveys(location))
+        offersInput.send(.loadOffers(location))
     }
 
     private func handleLocationFetchError() {

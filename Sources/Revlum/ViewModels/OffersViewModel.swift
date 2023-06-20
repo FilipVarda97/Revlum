@@ -1,6 +1,6 @@
 //
 //  OffersViewModel.swift
-//  
+//
 //
 //  Created by Filip Varda on 07.05.2023..
 //
@@ -63,6 +63,7 @@ extension OffersViewModel {
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
+                                                                 URLQueryItem(name: "countries", value: location),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
 
         output.send(.startLoading)
