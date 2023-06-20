@@ -23,8 +23,8 @@ enum SortType {
 }
 
 class RevlumFilterView: UIView {
-    private let iOSButton = UIButton()
-    private let webButton = UIButton()
+    private let iOSButton = RevlumFilterButton(title: "iOS")
+    private let webButton = RevlumFilterButton(title: "Web")
 
     weak var delegate: RevlumFilterDelegate?
 
