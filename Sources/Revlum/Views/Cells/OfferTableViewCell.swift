@@ -13,6 +13,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
@@ -28,7 +29,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
         selectionButton.setTitle("+" + viewModel.offerRevenue, for: .normal)
-        //setUpIcons()
+        setUpIcons()
 
         viewModel.fetchImage { [weak self] result in
             switch result {
