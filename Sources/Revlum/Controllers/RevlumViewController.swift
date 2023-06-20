@@ -248,10 +248,18 @@ private extension RevlumViewController {
                     self?.spinner.stopAnimating()
                 case .filterPressed:
                     self?.forceEndEditing()
+                    self?.openFilter()
                 case .forceEndEditing:
                     self?.forceEndEditing()
                 }
             }.store(in: &cancellables)
+    }
+
+    private func openFilter() {
+        let filterVC = RevlumFilterViewController()
+        filterVC.modalPresentationStyle = .custom
+        filterVC.transitioningDelegate = self
+        present(filterVC, animated: true, completion: nil)
     }
 }
 
@@ -273,5 +281,15 @@ private extension RevlumViewController {
                     self?.spinner.stopAnimating()
                 }
             }.store(in: &cancellables)
+    }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+extension RevlumViewController: UIViewControllerTransitioningDelegate {
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        if presented is RevlumFilterViewController {
+            return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+        }
+        return nil
     }
 }
