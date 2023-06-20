@@ -66,6 +66,7 @@ public final class RevlumViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    private var filterView: RevlumFilterView?
 
     // MARK: - Properties
     private let apiKey: String
@@ -256,10 +257,28 @@ private extension RevlumViewController {
     }
 
     private func openFilter() {
-        let filterVC = RevlumFilterViewController()
-        filterVC.modalPresentationStyle = .custom
-        filterVC.transitioningDelegate = self
-        present(filterVC, animated: true, completion: nil)
+        guard self.filterView == nil else { return }
+
+        let filterView = RevlumFilterView()
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        filterView.delegate = self
+        view.addSubview(filterView)
+
+        NSLayoutConstraint.activate([
+            filterView.heightAnchor.constraint(equalToConstant: 290),
+            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 290)
+        ])
+
+        self.filterView = filterView
+
+        view.layoutIfNeeded()
+
+        UIView.animate(withDuration: 0.5, animations: {
+            filterView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.view.layoutIfNeeded()
+        })
     }
 }
 
@@ -284,12 +303,7 @@ private extension RevlumViewController {
     }
 }
 
-// MARK: - UIViewControllerTransitioningDelegate
-extension RevlumViewController: UIViewControllerTransitioningDelegate {
-    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        if presented is RevlumFilterViewController {
-            return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
-        }
-        return nil
-    }
+extension RevlumViewController: RevlumFilterDelegate {
+    func filterSelected(type: FilterType) {}
+    func sortSelected(sort: SortType) {}
 }
