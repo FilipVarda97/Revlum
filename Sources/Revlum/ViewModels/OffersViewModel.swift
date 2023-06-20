@@ -94,7 +94,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-            cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
+            cell.configure(with: cellViewModels[indexPath.row - 1], indexPath: indexPath)
             cell.delegate = self
             return cell
         }
