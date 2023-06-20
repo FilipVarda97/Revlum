@@ -10,6 +10,12 @@ import Foundation
 
 /// ViewModel that manages OfferTableViewCell logic
 final class OfferCellViewModel {
+    enum OfferType: String {
+        case ios = "ios"
+        case desktop = "desktop"
+        case all = "all"
+    }
+
     public var offerTitle: String {
         return offer.title
     }
@@ -18,6 +24,9 @@ final class OfferCellViewModel {
     }
     public var offerRevenue: String {
         return offer.revenue
+    }
+    public var offerPlatform: OfferType {
+        return OfferType(rawValue: offer.platform) ?? .ios
     }
     private let offer: Offer
 

@@ -9,17 +9,22 @@ import UIKit
 
 final class OfferTableViewCell: BaseTableViewCell {
     static let reuseIdentifier = "OfferTableViewCell"
-    private var viewModel: OffersViewModel?
+    private var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        return stackView
+    }()
 
-    override func setUpViews() {
-        super.setUpViews()
-    }
+    private var viewModel: OfferCellViewModel?
 
     public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath) {
+        self.viewModel = viewModel
         self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
         selectionButton.setTitle("+" + viewModel.offerRevenue, for: .normal)
+        setUpIcons()
 
         viewModel.fetchImage { [weak self] result in
             switch result {
@@ -31,6 +36,26 @@ final class OfferTableViewCell: BaseTableViewCell {
                 print("Error Loading Image")
                 break
             }
+        }
+    }
+
+    private func setUpIcons() {
+        guard let viewModel = viewModel else { return }
+        contentView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
+            stackView.bottomAnchor.constraint(equalTo: cellImageView.bottomAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 34)
+        ])
+
+        switch viewModel.offerPlatform {
+        case .ios:
+            stackView.addArrangedSubview(UIImageView(image: .iosIcon))
+        case .desktop:
+            stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
+        case .all:
+            stackView.addArrangedSubview(UIImageView(image: .iosIcon))
+            stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
         }
     }
 }
