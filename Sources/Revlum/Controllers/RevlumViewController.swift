@@ -105,6 +105,7 @@ public final class RevlumViewController: UIViewController {
         setUpActions()
         bindMain()
         bindOffers()
+        bindSurveys()
         mainInput.send(.openSdk)
     }
 
