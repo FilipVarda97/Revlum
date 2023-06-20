@@ -57,6 +57,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         case .ios:
             stackView.addArrangedSubview(UIImageView(image: .iosIcon))
         case .desktop:
+            stackView.addArrangedSubview(UIImageView(image: .iosIcon))
             stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
         case .all:
             stackView.addArrangedSubview(UIImageView(image: .iosIcon))
