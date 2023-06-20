@@ -18,6 +18,10 @@ final class OfferTableViewCell: BaseTableViewCell {
 
     private var viewModel: OfferCellViewModel?
 
+    override func setUpViews() {
+        super.setUpViews()
+    }
+
     public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath) {
         self.viewModel = viewModel
         self.indexPath = indexPath
