@@ -24,6 +24,8 @@ class RevlumFilterViewController: UIViewController {
     private func setUpViews() {
         iOSButton.setTitle("iOS", for: .normal)
         webButton.setTitle("Web", for: .normal)
+
+        view.addSubviews(iOSButton, webButton)
     }
 
     private func setUpConstraints() {
