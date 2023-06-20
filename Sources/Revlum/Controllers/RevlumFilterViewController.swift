@@ -34,8 +34,10 @@ class RevlumFilterViewController: UIViewController {
             iOSButton.widthAnchor.constraint(equalToConstant: 100),
             iOSButton.heightAnchor.constraint(equalToConstant: 40),
             iOSButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
 
-            webButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+        NSLayoutConstraint.activate([
+            webButton.topAnchor.constraint(equalTo: iOSButton.bottomAnchor, constant: 20),
             webButton.widthAnchor.constraint(equalToConstant: 100),
             webButton.heightAnchor.constraint(equalToConstant: 40),
             webButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
