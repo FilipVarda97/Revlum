@@ -45,7 +45,7 @@ class SearchOffersTableViewCell: UITableViewCell {
         searchTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 
         filterButton.setImage(.filterIcon, for: .normal)
-        filterButton.setTitle("Filter", for: .normal)
+        filterButton.setTitle(" Filter", for: .normal)
         filterButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         filterButton.setTitleColor(.black, for: .normal)
         filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)

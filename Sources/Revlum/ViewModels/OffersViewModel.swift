@@ -118,7 +118,7 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
 // MARK: - OfferTableViewCellDelegate
 extension OffersViewModel: RevlumCellDelegate {
     func buttonPressed(_ selectedIndexPath: IndexPath) {
-        output.send(.openOffer(offers[selectedIndexPath.row]))
+        output.send(.openOffer(offers[selectedIndexPath.row - 1]))
     }
 }
 
