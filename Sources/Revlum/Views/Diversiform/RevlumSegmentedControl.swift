@@ -39,6 +39,7 @@ class RevlumSegmentedControl: UISegmentedControl {
             backgroundView.clipsToBounds = true
         }
         removeBorders()
+        setupSelectedBackgroundView()
     }
 
     private func setupSelectedBackgroundView() {
