@@ -109,7 +109,7 @@ extension RevlumOfferDetailsViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -136,7 +136,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
