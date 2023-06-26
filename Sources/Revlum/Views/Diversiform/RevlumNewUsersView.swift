@@ -25,18 +25,21 @@ class RevlumNewUsersView: UIView {
     private func setupViews() {
         addSubview(label)
         backgroundColor = .newUsersOpacityColor
-        layer.cornerRadius = frame.height / 2
         translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: label.intrinsicContentSize.width + 18),
-            widthAnchor.constraint(equalToConstant: label.intrinsicContentSize.height + 10),
-
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.centerXAnchor.constraint(equalTo: centerXAnchor)
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 9),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -9)
         ])
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.height / 2
     }
 }
