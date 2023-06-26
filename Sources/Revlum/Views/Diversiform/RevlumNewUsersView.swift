@@ -32,11 +32,11 @@ class RevlumNewUsersView: UIView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: label.intrinsicContentSize.width + 18),
+            widthAnchor.constraint(equalToConstant: label.intrinsicContentSize.height + 10),
+
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 9),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -9),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+            label.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
