@@ -108,8 +108,11 @@ extension RevlumOfferDetailsViewController {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else {
                 return UITableViewCell()
@@ -136,16 +139,22 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
         return 3
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return 169
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
         case 1:
-            return 169
-        case 2:
-            return 169
+            return 40
         default:
-            return 169
+            return 0
         }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .clear
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 169
     }
 }
