@@ -9,6 +9,7 @@ import UIKit
 
 class RevlumSegmentedControl: UISegmentedControl {
     private var selectedBackgroundView = UIView()
+    private var selectedBackgroundViewLeftAnchor: NSLayoutConstraint!
 
     // MARK: - Init
     override init(items: [Any]?) {
@@ -33,6 +34,7 @@ class RevlumSegmentedControl: UISegmentedControl {
         selectedSegmentTintColor = .red
         setTitleTextAttributes([.foregroundColor: UIColor.textDescriptionColor], for: .normal)
         setTitleTextAttributes([.foregroundColor: UIColor.textMainColor], for: .selected)
+        addTarget(self, action: #selector(updateSelectedBackgroundView), for: .valueChanged)
 
         if let backgroundView = subviews.first {
             backgroundView.layer.cornerRadius = 15
@@ -50,35 +52,22 @@ class RevlumSegmentedControl: UISegmentedControl {
         selectedBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
         selectedBackgroundView.layer.shadowRadius = 4
         selectedBackgroundView.layer.shadowOpacity = 0.2
-        insertSubview(selectedBackgroundView, at: 0)
-        updateSelectedBackgroundViewFrame()
+        addSubview(selectedBackgroundView)
+        selectedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        selectedBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
+        selectedBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        selectedBackgroundView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(numberOfSegments)).isActive = true
+        selectedBackgroundViewLeftAnchor = selectedBackgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
+        selectedBackgroundViewLeftAnchor.isActive = true
     }
 
-    private func updateSelectedBackgroundViewFrame() {
-        let segmentCount = CGFloat(numberOfSegments)
-        let width = bounds.width / segmentCount
-        let height = bounds.height - 8
-        let x = CGFloat(selectedSegmentIndex) * width + 4
-        selectedBackgroundView.frame = CGRect(x: x, y: 4, width: width - 8, height: height)
-    }
+    @objc private func updateSelectedBackgroundView() {
+        let padding = frame.width * CGFloat(selectedSegmentIndex) / CGFloat(numberOfSegments)
+        selectedBackgroundViewLeftAnchor.constant = padding
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateSelectedBackgroundViewFrame()
-    }
-       
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let previousSelectedSegmentIndex = selectedSegmentIndex
-        super.touchesEnded(touches, with: event)
-        if previousSelectedSegmentIndex != selectedSegmentIndex {
-            animateSelectedBackgroundViewMovement()
+        UIView.animate(withDuration: 0.3) {
+            self.layoutIfNeeded()
         }
-    }
-
-    private func animateSelectedBackgroundViewMovement() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.updateSelectedBackgroundViewFrame()
-        })
     }
 
     private func removeBorders() {
