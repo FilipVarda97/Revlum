@@ -29,6 +29,8 @@ class RevlumOfferDetailsViewController: UIViewController {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
