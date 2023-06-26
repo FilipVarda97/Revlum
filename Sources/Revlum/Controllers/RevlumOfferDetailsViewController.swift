@@ -51,6 +51,9 @@ class RevlumOfferDetailsViewController: UIViewController {
 // MARK: - Implementation
 extension RevlumOfferDetailsViewController {
     private func setUpViews() {
+        tableView.delegate = self
+        tableView.dataSource = self
+
         view.backgroundColor = .white
         titleContainerView.backgroundColor = .white
         titleLabel.text = offer.title
