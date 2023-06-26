@@ -27,12 +27,11 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func setupControl() {
         selectedSegmentIndex = 0
-        backgroundColor = .red
+        backgroundColor = .bgColor
+        setBackgroundImage(nil, for: .normal, barMetrics: .default)
         tintColor = .white
-        setTitleTextAttributes([.foregroundColor: UIColor.textMainColor], for: .normal)
-        setTitleTextAttributes([.foregroundColor: UIColor.textMainColor,
-                                .underlineStyle: NSUnderlineStyle.single.rawValue,
-                                .underlineColor: UIColor.primaryColor], for: .selected)
+        setTitleTextAttributes([.foregroundColor: UIColor.textDescriptionColor], for: .normal)
+        setTitleTextAttributes([.foregroundColor: UIColor.textMainColor], for: .selected)
 
         if let backgroundView = subviews.first {
             backgroundView.layer.cornerRadius = 15
