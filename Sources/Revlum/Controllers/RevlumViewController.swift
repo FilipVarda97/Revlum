@@ -99,7 +99,7 @@ public final class RevlumViewController: UIViewController {
     // MARK: - Implementation
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .secondaryColor
         setupViews()
         setUpConstraints()
         setUpActions()

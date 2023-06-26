@@ -27,7 +27,7 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func setupControl() {
         selectedSegmentIndex = 0
-        backgroundColor = .white
+        backgroundColor = .secondaryColor
         selectedSegmentTintColor = .bgColor
         setTitleTextAttributes([.foregroundColor: UIColor.textDescriptionColor], for: .normal)
         setTitleTextAttributes([.foregroundColor: UIColor.textMainColor], for: .selected)
