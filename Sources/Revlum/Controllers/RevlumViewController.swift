@@ -290,6 +290,7 @@ private extension RevlumViewController {
 
     private func openOfferDetils(_ offer: Offer) {
         let detailsVC = RevlumOfferDetailsViewController(offer: offer)
+        detailsVC.modalPresentationStyle = .pageSheet
         present(detailsVC, animated: true)
     }
 }
