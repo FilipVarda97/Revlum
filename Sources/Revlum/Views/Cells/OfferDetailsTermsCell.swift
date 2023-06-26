@@ -8,7 +8,7 @@
 import UIKit
 
 extension OfferDetailsTermsCell {
-    static let text = "Using a VPN/Proxy is prohibited.\nUsing an emulator of any kind is\nprohibited.\nYou must start and complete the offer\nfrom the same device and location./nYou must be a new user."
+    static let text = "Using a VPN/Proxy is prohibited.\nUsing an emulator of any kind is\nprohibited.\nYou must start and complete the offer\nfrom the same device and location.\nYou must be a new user."
 }
 
 class OfferDetailsTermsCell: UITableViewCell {

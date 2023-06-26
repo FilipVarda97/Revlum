@@ -21,6 +21,12 @@ class OfferDetailsDescriptionCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private let lineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .textDescriptionColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,14 +53,33 @@ class OfferDetailsDescriptionCell: UITableViewCell {
         contentView.addSubviews(titleLabel,
                                 revenuLabel,
                                 descriptionLabel,
-                                circleView)
+                                circleView,
+                                lineView)
     }
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.leftAnchor)
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            circleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            circleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            circleView.heightAnchor.constraint(equalToConstant: 12),
+            circleView.widthAnchor.constraint(equalToConstant: 12)
+            
+        ])
+        NSLayoutConstraint.activate([
+            lineView.topAnchor.constraint(equalTo: circleView.bottomAnchor, constant: -3),
+            lineView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
+            lineView.widthAnchor.constraint(equalToConstant: 1),
+            lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            revenuLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            revenuLabel.leftAnchor.constraint(equalTo: circleView.rightAnchor, constant: 30),
+            revenuLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 
