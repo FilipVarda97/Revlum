@@ -119,6 +119,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
                 return UITableViewCell()
             }
             cell.configure(with: .init(offer: offer), indexPath: indexPath, isDetail: true)
+            cell.delegate = self
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferDetailsDescriptionCell.identifier) as? OfferDetailsDescriptionCell else {
@@ -162,5 +163,12 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
         default:
             return 169
         }
+    }
+}
+
+extension RevlumOfferDetailsViewController: RevlumCellDelegate {
+    func buttonPressed(_ selectedIndexPath: IndexPath) {
+        guard let url = URL(string: offer.url) else { return }
+        UIApplication.shared.open(url)
     }
 }
