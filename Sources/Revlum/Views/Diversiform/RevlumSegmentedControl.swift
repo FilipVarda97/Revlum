@@ -41,7 +41,6 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func removeBorders() {
         setBackgroundImage(imageWithColor(color: backgroundColor ?? UIColor.clear), for: .normal, barMetrics: .default)
-        setBackgroundImage(imageWithColor(color: selectedSegmentTintColor ?? UIColor.clear), for: .selected, barMetrics: .default)
         setDividerImage(imageWithColor(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
     }
 
