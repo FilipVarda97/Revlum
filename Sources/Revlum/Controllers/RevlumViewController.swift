@@ -224,6 +224,8 @@ private extension RevlumViewController {
                     self?.fetchData(location)
                 case .locationFetchFailed:
                     self?.handleLocationFetchError()
+                case .builtUrl(let url):
+                    self?.openUrl(url)
                 }
             }.store(in: &cancellables)
     }
@@ -235,6 +237,10 @@ private extension RevlumViewController {
 
     private func handleLocationFetchError() {
         print("LOCATION FETCH FAILED!")
+    }
+
+    private func openUrl(_ url: URL) {
+        UIApplication.shared.open(url)
     }
 }
 
@@ -291,7 +297,15 @@ private extension RevlumViewController {
     private func openOfferDetils(_ offer: Offer) {
         let detailsVC = RevlumOfferDetailsViewController(offer: offer)
         detailsVC.modalPresentationStyle = .pageSheet
+        detailsVC.delegate = self
         present(detailsVC, animated: true)
+    }
+}
+
+// MARK: - RevlumDetailsViewDelegate
+extension RevlumViewController: RevlumDetailsViewDelegate {
+    func openInSafari(urlToOpen: String) {
+        mainInput.send(.buildUrlToOpen(userId, urlToBuild: urlToOpen))
     }
 }
 

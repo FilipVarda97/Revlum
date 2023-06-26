@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RevlumDetailsViewDelegate: AnyObject {
+    func openInSafari(urlToOpen: String)
+}
+
 class RevlumOfferDetailsViewController: UIViewController {
     private let titleContainerView: UIView = {
         let view = UIView()
@@ -39,6 +43,7 @@ class RevlumOfferDetailsViewController: UIViewController {
     }()
 
     private let offer: Offer
+    weak var delegate: RevlumDetailsViewDelegate?
 
     init(offer: Offer) {
         self.offer = offer
@@ -168,7 +173,6 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
 
 extension RevlumOfferDetailsViewController: RevlumCellDelegate {
     func buttonPressed(_ selectedIndexPath: IndexPath) {
-        guard let url = URL(string: offer.url) else { return }
-        UIApplication.shared.open(url)
+        delegate?.openInSafari(urlToOpen: offer.url)
     }
 }

@@ -12,10 +12,12 @@ import Combine
 extension MainViewModel {
     enum Input {
         case openSdk
+        case buildUrlToOpen(_ userId: String, urlToBuild: String)
     }
     enum Output {
         case locationFetched(_ location: String)
         case locationFetchFailed
+        case builtUrl(_ url: URL)
     }
 }
 
@@ -31,6 +33,8 @@ class MainViewModel {
                 switch event {
                 case .openSdk:
                     self?.fetchIpLocation()
+                case .buildUrlToOpen(let userId, urlToBuild: let urlToBuild):
+                    self?.buildUrl(with: userId, urlToBuild)
                 }
             }
             .store(in: &cancellables)
@@ -60,5 +64,9 @@ private extension MainViewModel {
                 self?.output.send(output)
             }
             .store(in: &cancellables)
+    }
+
+    private func buildUrl(with userID: String, _ urlToBuild: String) {
+        
     }
 }
