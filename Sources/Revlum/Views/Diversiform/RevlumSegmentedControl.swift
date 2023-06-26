@@ -56,7 +56,7 @@ class RevlumSegmentedControl: UISegmentedControl {
         selectedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         selectedBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
         selectedBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
-        selectedBackgroundView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9 / CGFloat(numberOfSegments)).isActive = true
+        selectedBackgroundView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(numberOfSegments)).isActive = true
         selectedBackgroundViewLeftAnchor = selectedBackgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
         selectedBackgroundViewLeftAnchor.isActive = true
     }
