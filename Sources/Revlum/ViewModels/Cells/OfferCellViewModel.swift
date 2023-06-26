@@ -24,8 +24,8 @@ final class OfferCellViewModel {
     }
     public var offerRevenue: NSAttributedString {
         let components = offer.revenue.components(separatedBy: " ")
-        let numberAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 14, weight: .heavy)]
-        let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 14)]
+        let numberAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 16, weight: .heavy)]
+        let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 16)]
         let numberPart = NSMutableAttributedString(string: "+ \(components[0]) ", attributes: numberAttributes)
         let textPart = NSAttributedString(string: components[1], attributes: textAttributes)
 
