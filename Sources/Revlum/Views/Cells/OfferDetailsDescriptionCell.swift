@@ -84,7 +84,8 @@ class OfferDetailsDescriptionCell: UITableViewCell {
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: revenuLabel.bottomAnchor, constant: 20),
             descriptionLabel.leftAnchor.constraint(equalTo: circleView.rightAnchor, constant: 30),
-            descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
 

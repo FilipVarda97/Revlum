@@ -57,6 +57,7 @@ extension RevlumOfferDetailsViewController {
     private func setUpViews() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
 
         view.backgroundColor = .white
         titleContainerView.backgroundColor = .white
@@ -155,6 +156,11 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 169
+        switch indexPath.section {
+        case 1:
+            return UITableView.automaticDimension
+        default:
+            return 169
+        }
     }
 }
