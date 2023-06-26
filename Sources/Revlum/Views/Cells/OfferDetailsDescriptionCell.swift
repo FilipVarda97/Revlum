@@ -74,7 +74,7 @@ class OfferDetailsDescriptionCell: UITableViewCell {
             lineView.topAnchor.constraint(equalTo: circleView.bottomAnchor, constant: -3),
             lineView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
             lineView.widthAnchor.constraint(equalToConstant: 1),
-            lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
         ])
         NSLayoutConstraint.activate([
             revenuLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
