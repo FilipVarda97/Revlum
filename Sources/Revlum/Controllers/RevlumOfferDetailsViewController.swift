@@ -115,7 +115,11 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
             cell.configure(with: .init(offer: offer), indexPath: indexPath)
             return cell
         case 1:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferDetailsDescriptionCell.identifier) as? OfferDetailsDescriptionCell else {
+                return UITableViewCell()
+            }
+            cell.configure(revenu: offer.revenue, description: offer.description)
+            return cell
         case 2:
             return UITableViewCell()
         default:
