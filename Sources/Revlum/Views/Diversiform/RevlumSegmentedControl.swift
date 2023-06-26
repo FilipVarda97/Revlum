@@ -62,7 +62,17 @@ class RevlumSegmentedControl: UISegmentedControl {
     }
 
     @objc private func updateSelectedBackgroundView() {
-        let padding = frame.width * CGFloat(selectedSegmentIndex) / CGFloat(numberOfSegments)
+        let padding: CGFloat
+        let paddingSpace: CGFloat = 4
+
+        if selectedSegmentIndex == 0 {
+            padding = paddingSpace
+        } else if selectedSegmentIndex == numberOfSegments - 1 {
+            padding = frame.width * CGFloat(selectedSegmentIndex + 1) / CGFloat(numberOfSegments) - paddingSpace
+        } else {
+            padding = frame.width * CGFloat(selectedSegmentIndex) / CGFloat(numberOfSegments)
+        }
+
         selectedBackgroundViewLeftAnchor.constant = padding
 
         UIView.animate(withDuration: 0.3) {
