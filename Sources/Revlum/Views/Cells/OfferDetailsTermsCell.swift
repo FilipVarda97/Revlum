@@ -44,12 +44,12 @@ class OfferDetailsTermsCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.leftAnchor)
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             descriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 34),
-            descriptionLabel.rightAnchor.constraint(equalTo: contentView.leftAnchor)
+            descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 }
