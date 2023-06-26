@@ -33,4 +33,14 @@ extension UIColor {
         let color = UIColor(named: "bgColor", in: bundle, compatibleWith: nil)!
         return color
     }()
+    static let newUsersOpacityColor: UIColor = {
+        let bundle = Bundle.module
+        let color = UIColor(named: "newUsersOpacityColor", in: bundle, compatibleWith: nil)!
+        return color
+    }()
+    static let newUsersColor: UIColor = {
+        let bundle = Bundle.module
+        let color = UIColor(named: "newUsersColor", in: bundle, compatibleWith: nil)!
+        return color
+    }()
 }

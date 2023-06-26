@@ -16,6 +16,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    private let newUsersView = RevlumNewUsersView()
 
     private var viewModel: OfferCellViewModel?
 
@@ -34,13 +35,13 @@ final class OfferTableViewCell: BaseTableViewCell {
             selectionButton.layer.cornerRadius = 5
             layoutIfNeeded()
         }
-
         self.viewModel = viewModel
         self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
         selectionButton.setTitle("+" + viewModel.offerRevenue, for: .normal)
         setUpIcons()
+        addNewUsersView()
 
         viewModel.fetchImage { [weak self] result in
             switch result {
@@ -73,5 +74,13 @@ final class OfferTableViewCell: BaseTableViewCell {
             stackView.addArrangedSubview(UIImageView(image: .iosIcon))
             stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
         }
+    }
+
+    private func addNewUsersView() {
+        contentView.addSubview(newUsersView)
+        NSLayoutConstraint.activate([
+            newUsersView.leftAnchor.constraint(equalTo: stackView.rightAnchor, constant: 5),
+            newUsersView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
+        ])
     }
 }
