@@ -39,7 +39,7 @@ final class OfferTableViewCell: BaseTableViewCell {
         self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
         descriptionLabel.text = viewModel.offerDescription
-        selectionButton.setTitle("+" + viewModel.offerRevenue, for: .normal)
+        selectionButton.setAttributedTitle(viewModel.offerRevenue, for: .normal)
         setUpIcons()
         addNewUsersView()
 
