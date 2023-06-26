@@ -70,7 +70,7 @@ class RevlumSegmentedControl: UISegmentedControl {
             padding = paddingSpace
         } else if selectedSegmentIndex == numberOfSegments - 1 {
             let segmentWidth = frame.width / CGFloat(numberOfSegments)
-            let leftPadding = segmentWidth * CGFloat(selectedSegmentIndex - 1)
+            let leftPadding = segmentWidth * CGFloat(selectedSegmentIndex)
             padding = leftPadding - paddingSpace
         } else {
             padding = frame.width * CGFloat(selectedSegmentIndex) / CGFloat(numberOfSegments)
