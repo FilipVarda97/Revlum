@@ -81,10 +81,15 @@ class OfferDetailsDescriptionCell: UITableViewCell {
             revenuLabel.leftAnchor.constraint(equalTo: circleView.rightAnchor, constant: 30),
             revenuLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
+        NSLayoutConstraint.activate([
+            descriptionLabel.topAnchor.constraint(equalTo: revenuLabel.bottomAnchor, constant: 20),
+            descriptionLabel.leftAnchor.constraint(equalTo: circleView.rightAnchor, constant: 30),
+            descriptionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ])
     }
 
     func configure(revenu: String, description: String) {
-        revenuLabel.text = revenu
+        revenuLabel.text = "+ " + revenu
         descriptionLabel.text = description
     }
 }
