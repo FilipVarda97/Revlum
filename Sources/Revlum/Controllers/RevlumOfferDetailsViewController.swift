@@ -93,8 +93,8 @@ extension RevlumOfferDetailsViewController {
         ])
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 38),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -38),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -104,6 +104,7 @@ extension RevlumOfferDetailsViewController {
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
