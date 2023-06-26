@@ -54,10 +54,11 @@ extension RevlumOfferDetailsViewController {
         view.backgroundColor = .white
         titleContainerView.backgroundColor = .white
         titleLabel.text = offer.title
+        titleLabel.textColor = .textMainColor
         titleLabel.font = .systemFont(ofSize: 19, weight: .bold)
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        dissmissButton.tintColor = .white
+        dissmissButton.tintColor = .textMainColor
 
         view.addSubviews(titleContainerView,
                         tableView)
