@@ -249,7 +249,7 @@ private extension RevlumViewController {
                     self?.offersTableView.reloadData()
                 case .offersFailedToLoad: break
                 case .openOffer(let offer):
-                    print(offer.title)
+                    self?.openOfferDetils(offer)
                 case .startLoading:
                     self?.spinner.startAnimating()
                 case .stopLoading:
@@ -286,6 +286,11 @@ private extension RevlumViewController {
             filterView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
             self.view.layoutIfNeeded()
         })
+    }
+
+    private func openOfferDetils(_ offer: Offer) {
+        let detailsVC = RevlumOfferDetailsViewController(offer: offer)
+        present(detailsVC, animated: true)
     }
 }
 
