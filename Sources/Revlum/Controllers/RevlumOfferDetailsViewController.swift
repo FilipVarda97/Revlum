@@ -65,7 +65,7 @@ extension RevlumOfferDetailsViewController {
             titleContainerView.heightAnchor.constraint(equalToConstant: 67)
         ])
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: titleContainerView.centerYAnchor),
             titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 38),
             titleLabel.rightAnchor.constraint(equalTo: dissmissButton.leftAnchor, constant: -10)
         ])
