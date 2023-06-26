@@ -23,7 +23,18 @@ final class OfferTableViewCell: BaseTableViewCell {
         super.setUpViews()
     }
 
-    public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath) {
+    public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath, isDetail: Bool = false) {
+        if isDetail {
+            NSLayoutConstraint.activate([
+                containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+                containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor)
+            ])
+            selectionButton.layer.cornerRadius = 5
+            layoutIfNeeded()
+        }
+
         self.viewModel = viewModel
         self.indexPath = indexPath
         titleLabel.text = viewModel.offerTitle
