@@ -59,6 +59,7 @@ extension RevlumOfferDetailsViewController {
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .textMainColor
+        dissmissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
 
         view.addSubviews(titleContainerView,
                         tableView)
@@ -85,5 +86,51 @@ extension RevlumOfferDetailsViewController {
             dissmissButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             dissmissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -18)
         ])
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    @objc private func dismissPressed() {
+        dismiss(animated: true)
+    }
+}
+
+extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: .init(offer: offer), indexPath: indexPath)
+            return cell
+        case 1:
+            return UITableViewCell()
+        case 2:
+            return UITableViewCell()
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 169
+        case 1:
+            return 169
+        case 2:
+            return 169
+        default:
+            return 169
+        }
     }
 }
