@@ -47,7 +47,7 @@ class RevlumSegmentedControl: UISegmentedControl {
     private func setupSelectedBackgroundView() {
         selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = .bgColor
-        selectedBackgroundView.layer.cornerRadius = 15
+        selectedBackgroundView.layer.cornerRadius = 10
         selectedBackgroundView.layer.shadowColor = UIColor.black.cgColor
         selectedBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1)
         selectedBackgroundView.layer.shadowRadius = 2
@@ -73,7 +73,7 @@ class RevlumSegmentedControl: UISegmentedControl {
             let leftPadding = segmentWidth * CGFloat(selectedSegmentIndex)
             padding = leftPadding - paddingSpace
         } else {
-            padding = frame.width * CGFloat(selectedSegmentIndex) / CGFloat(numberOfSegments)
+            padding = frame.width / CGFloat(numberOfSegments) * CGFloat(selectedSegmentIndex) + paddingSpace
         }
 
         selectedBackgroundViewLeftAnchor.constant = padding

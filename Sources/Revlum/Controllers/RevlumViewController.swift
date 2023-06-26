@@ -31,7 +31,7 @@ public final class RevlumViewController: UIViewController {
         return button
     }()
     private let segmentedControl: RevlumSegmentedControl = {
-        let control = RevlumSegmentedControl(items: ["Offers", "Surveys"])
+        let control = RevlumSegmentedControl(items: ["Offers", "Surveys", "Something"])
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
