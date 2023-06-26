@@ -8,7 +8,7 @@
 import UIKit
 
 class RevlumSegmentedControl: UISegmentedControl {
-    private var selectedBackgroundView: UIView!
+    private var selectedBackgroundView = UIView()
 
     // MARK: - Init
     override init(items: [Any]?) {
