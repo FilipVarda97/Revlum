@@ -32,6 +32,7 @@ class RevlumOfferDetailsViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
+        tableView.register(OfferDetailsDescriptionCell.self, forCellReuseIdentifier: OfferDetailsDescriptionCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
