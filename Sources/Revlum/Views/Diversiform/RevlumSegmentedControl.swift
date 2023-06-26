@@ -46,11 +46,11 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func setupSelectedBackgroundView() {
         selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = .red // Replace with the desired background color
+        selectedBackgroundView.backgroundColor = .bgColor
         selectedBackgroundView.layer.cornerRadius = 15
         selectedBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        selectedBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        selectedBackgroundView.layer.shadowRadius = 4
+        selectedBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        selectedBackgroundView.layer.shadowRadius = 2
         selectedBackgroundView.layer.shadowOpacity = 0.2
         addSubview(selectedBackgroundView)
         selectedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
