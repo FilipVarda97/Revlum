@@ -45,6 +45,7 @@ final class SurveyTableViewCell: BaseTableViewCell {
     }
     
     private func setUpIcons() {
+        if stackView.arrangedSubviews.count > 0 { return }
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
