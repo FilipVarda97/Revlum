@@ -33,6 +33,8 @@ class OfferDetailsTermsCell: UITableViewCell {
     private func setUpViews() {
         contentView.backgroundColor = .clear
         backgroundColor = .clear
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubviews(titleLabel,
                                 descriptionLabel)
