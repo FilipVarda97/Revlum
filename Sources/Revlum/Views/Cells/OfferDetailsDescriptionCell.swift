@@ -35,6 +35,9 @@ class OfferDetailsDescriptionCell: UITableViewCell {
 
     // MARK: - Implementation
     private func setUpViews() {
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+
         circleView.frame.size = CGSize(width: 12, height: 12)
         circleView.layer.cornerRadius = circleView.frame.height / 2
         
