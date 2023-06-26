@@ -123,7 +123,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferDetailsDescriptionCell.identifier) as? OfferDetailsDescriptionCell else {
                 return UITableViewCell()
             }
-            cell.configure(revenu: offer.revenue, description: offer.description)
+            cell.configure(revenu: offer.revenue, description: offer.description + offer.description + offer.description)
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferDetailsTermsCell.identifier) as? OfferDetailsTermsCell else {
