@@ -56,6 +56,7 @@ class SurveysViewModel: NSObject {
         guard let apiKey = RevlumUserDefaultsService.getValue(of: String.self, for: .apiKey) else { return }
         let request = APIRequest(httpMethod: .get, queryParams: [URLQueryItem(name: "apikey", value: apiKey),
                                                                  URLQueryItem(name: "category", value: "offer"),
+                                                                 URLQueryItem(name: "countries", value: location),
                                                                  URLQueryItem(name: "platform", value: "ios,desktop,all")])
 
         output.send(.startLoading)
