@@ -33,6 +33,7 @@ class RevlumOfferDetailsViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
         tableView.register(OfferDetailsDescriptionCell.self, forCellReuseIdentifier: OfferDetailsDescriptionCell.identifier)
+        tableView.register(OfferDetailsTermsCell.self, forCellReuseIdentifier: OfferDetailsTermsCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -122,7 +123,10 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
             cell.configure(revenu: offer.revenue, description: offer.description)
             return cell
         case 2:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferDetailsTermsCell.identifier) as? OfferDetailsTermsCell else {
+                return UITableViewCell()
+            }
+            return cell
         default:
             return UITableViewCell()
         }

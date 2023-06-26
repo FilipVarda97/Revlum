@@ -42,16 +42,16 @@ class OfferDetailsDescriptionCell: UITableViewCell {
         circleView.layer.cornerRadius = circleView.frame.height / 2
         
         contentView.addSubviews(titleLabel,
-                    revenuLabel,
-                    descriptionLabel,
-                    circleView)
+                                revenuLabel,
+                                descriptionLabel,
+                                circleView)
     }
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            descriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            descriptionLabel.rightAnchor.constraint(equalTo: contentView.leftAnchor)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.leftAnchor)
         ])
     }
 
