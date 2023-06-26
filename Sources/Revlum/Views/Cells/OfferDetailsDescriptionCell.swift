@@ -37,6 +37,9 @@ class OfferDetailsDescriptionCell: UITableViewCell {
     private func setUpViews() {
         contentView.backgroundColor = .clear
         backgroundColor = .clear
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        revenuLabel.translatesAutoresizingMaskIntoConstraints = false
 
         circleView.frame.size = CGSize(width: 12, height: 12)
         circleView.layer.cornerRadius = circleView.frame.height / 2
