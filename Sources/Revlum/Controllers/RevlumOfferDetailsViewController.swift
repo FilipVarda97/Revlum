@@ -42,6 +42,7 @@ class RevlumOfferDetailsViewController: UIViewController {
 // MARK: - Implementation
 extension RevlumOfferDetailsViewController {
     private func setUpViews() {
+        view.backgroundColor = .white
         titleContainerView.backgroundColor = .white
         titleLabel.text = offer.title
         titleLabel.font = .systemFont(ofSize: 19, weight: .bold)
