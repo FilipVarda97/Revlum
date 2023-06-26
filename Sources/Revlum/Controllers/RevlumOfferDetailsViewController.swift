@@ -142,7 +142,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 1:
-            return 40
+            return 30
         default:
             return 0
         }
