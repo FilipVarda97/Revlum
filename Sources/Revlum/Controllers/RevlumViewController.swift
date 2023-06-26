@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+// MARK: - Properties
 public final class RevlumViewController: UIViewController {
     // MARK: - Views
     private let brandBackgroundImageView: UIImageView = {
@@ -68,15 +69,14 @@ public final class RevlumViewController: UIViewController {
     }()
     private var filterView: RevlumFilterView?
 
-    // MARK: - Properties
     private let apiKey: String
     private let userId: String
     private var location: String?
-
+    
     private let mainViewModel = MainViewModel()
     private var offersViewModel = OffersViewModel()
     private var surveysViewModel = SurveysViewModel()
-
+    
     private let mainInput = PassthroughSubject<MainViewModel.Input, Never>()
     private let offersInput = PassthroughSubject<OffersViewModel.Input, Never>()
     private let surveysInput = PassthroughSubject<SurveysViewModel.Input, Never>()
@@ -86,17 +86,19 @@ public final class RevlumViewController: UIViewController {
     public init(apiKey: String, userId: String) {
         let fontLoader = FontLoader()
         fontLoader.loadFonts()
-
+        
         self.apiKey = apiKey
         self.userId = userId
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("Revlum does not support this initializer")
     }
+}
 
-    // MARK: - Implementation
+// MARK: - Implementation
+extension RevlumViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondaryColor
@@ -165,7 +167,7 @@ public final class RevlumViewController: UIViewController {
             offersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
-            spinner.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 50),
+            spinner.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 100),
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
