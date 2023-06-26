@@ -67,6 +67,11 @@ private extension MainViewModel {
     }
 
     private func buildUrl(with userID: String, _ urlToBuild: String) {
-        
+        var url = urlToBuild
+        url = url.replacingOccurrences(of: "{userID}", with: userID)
+        guard let builtUrl = URL(string: url) else {
+            return
+        }
+        output.send(.builtUrl(builtUrl))
     }
 }
