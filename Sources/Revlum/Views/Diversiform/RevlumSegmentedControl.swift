@@ -27,7 +27,7 @@ class RevlumSegmentedControl: UISegmentedControl {
 
     private func setupControl() {
         selectedSegmentIndex = 0
-        backgroundColor = .bgColor
+        backgroundColor = .red
         selectedSegmentTintColor = .white
         setTitleTextAttributes([.foregroundColor: UIColor.textDescriptionColor], for: .normal)
         setTitleTextAttributes([.foregroundColor: UIColor.textMainColor], for: .selected)
@@ -36,7 +36,6 @@ class RevlumSegmentedControl: UISegmentedControl {
             backgroundView.layer.cornerRadius = 15
             backgroundView.clipsToBounds = true
         }
-        
         removeBorders()
     }
 
