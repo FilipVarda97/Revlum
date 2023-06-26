@@ -16,13 +16,13 @@ final class SurveyTableViewCell: BaseTableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private var viewModel: SurveyCellViewModel?
-    
+
     override func setUpViews() {
         super.setUpViews()
     }
-    
+
     public func configure(with viewModel: SurveyCellViewModel, indexPath: IndexPath) {
         self.viewModel = viewModel
         self.indexPath = indexPath
@@ -30,7 +30,7 @@ final class SurveyTableViewCell: BaseTableViewCell {
         descriptionLabel.text = viewModel.surveyDescription
         selectionButton.setTitle("+" + viewModel.surveyRevenue, for: .normal)
         setUpIcons()
-        
+
         viewModel.fetchImage { [weak self] result in
             switch result {
             case .success(let imageData):
@@ -43,7 +43,7 @@ final class SurveyTableViewCell: BaseTableViewCell {
             }
         }
     }
-    
+
     private func setUpIcons() {
         if stackView.arrangedSubviews.count > 0 { return }
         contentView.addSubview(stackView)
