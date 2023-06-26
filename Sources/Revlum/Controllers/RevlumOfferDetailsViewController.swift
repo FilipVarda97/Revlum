@@ -8,8 +8,16 @@
 import UIKit
 
 class RevlumOfferDetailsViewController: UIViewController {
-    private let titleContainerView = UIView()
-    private let titleLabel = UILabel()
+    private let titleContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     private let dissmissButton: UIButton = {
         let button = UIButton()
@@ -22,6 +30,7 @@ class RevlumOfferDetailsViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = false
         tableView.register(OfferTableViewCell.self, forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
