@@ -75,7 +75,7 @@ class RevlumSegmentedControl: UISegmentedControl {
         } else {
             let segmentWidth = frame.width / CGFloat(numberOfSegments) - paddingSpace * 2
             let leftPadding = segmentWidth * CGFloat(selectedSegmentIndex)
-            padding = leftPadding
+            padding = leftPadding + paddingSpace
         }
 
         selectedBackgroundViewLeftAnchor.constant = padding
