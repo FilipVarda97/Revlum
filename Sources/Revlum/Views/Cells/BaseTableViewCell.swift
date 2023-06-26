@@ -56,7 +56,7 @@ class BaseTableViewCell: UITableViewCell {
     let containerView = UIView()
     let visualDescriptionContainerView = UIView()
     let cellImageView = UIImageView()
-    let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 15))
+    let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 15, weight: .semibold))
     let descriptionLabel = UILabel(text: "", font: .systemFont(ofSize: 13))
     let selectionButton = UIButton()
     var indexPath: IndexPath?
