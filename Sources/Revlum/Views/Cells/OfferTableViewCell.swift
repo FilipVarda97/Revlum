@@ -26,12 +26,7 @@ final class OfferTableViewCell: BaseTableViewCell {
 
     public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath, isDetail: Bool = false) {
         if isDetail {
-            NSLayoutConstraint.activate([
-                containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 38),
-                containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -38)
-            ])
+            
             selectionButton.layer.cornerRadius = 5
             layoutIfNeeded()
         }

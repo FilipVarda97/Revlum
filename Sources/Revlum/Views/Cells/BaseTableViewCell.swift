@@ -59,6 +59,10 @@ class BaseTableViewCell: UITableViewCell {
     let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 15, weight: .semibold))
     let descriptionLabel = UILabel(text: "", font: .systemFont(ofSize: 13))
     let selectionButton = UIButton()
+
+    var leftContainerConstraint: NSLayoutConstraint?
+    var rightContainerConstraint: NSLayoutConstraint?
+
     var indexPath: IndexPath?
     var cellType: RevlumCellType = .offers
 
@@ -117,15 +121,16 @@ class BaseTableViewCell: UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         selectionButton.translatesAutoresizingMaskIntoConstraints = false
 
+        rightContainerConstraint = containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
+        leftContainerConstraint = containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10)
+        rightContainerConstraint?.isActive = true
+        leftContainerConstraint?.isActive = true
+
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor,
                                                constant: 8),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                  constant: -8),
-            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor,
-                                                 constant: -10),
-            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor,
-                                                constant: 10)
+                                                  constant: -8)
         ])
         NSLayoutConstraint.activate([
             cellImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor,
