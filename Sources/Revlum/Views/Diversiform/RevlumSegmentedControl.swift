@@ -49,13 +49,13 @@ class RevlumSegmentedControl: UISegmentedControl {
         selectedBackgroundView.backgroundColor = .bgColor
         selectedBackgroundView.layer.cornerRadius = 10
         selectedBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        selectedBackgroundView.layer.shadowOffset = CGSize(width: 8, height: 8)
+        selectedBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1)
         selectedBackgroundView.layer.shadowRadius = 2
         selectedBackgroundView.layer.shadowOpacity = 0.2
         addSubview(selectedBackgroundView)
         selectedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        selectedBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
-        selectedBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        selectedBackgroundView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 4).isActive = true
+        selectedBackgroundView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -4).isActive = true
         selectedBackgroundView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(numberOfSegments)).isActive = true
         selectedBackgroundViewLeftAnchor = selectedBackgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
         selectedBackgroundViewLeftAnchor.isActive = true
