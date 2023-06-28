@@ -16,6 +16,7 @@ class RevlumFilterButton: UIButton {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        isEnabled = true
         updateAppearance()
     }
 
@@ -40,11 +41,11 @@ class RevlumFilterButton: UIButton {
         if isSelected {
             setTitleColor(.primaryColor, for: .normal)
             layer.borderColor = UIColor.primaryColor.cgColor
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+            titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         } else {
-            self.setTitleColor(.textMainColor, for: .normal)
-            self.layer.borderColor = UIColor.separatorColor.cgColor
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            setTitleColor(.textMainColor, for: .normal)
+            layer.borderColor = UIColor.separatorColor.cgColor
+            titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         }
     }
 }
