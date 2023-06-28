@@ -14,8 +14,8 @@ protocol RevlumFilterDelegate: AnyObject {
 }
 
 enum FilterType: String {
-    case iOS
-    case web
+    case ios = "iOS"
+    case web = "Web"
 }
 
 enum SortType {
@@ -47,7 +47,7 @@ class RevlumFilterView: UIView {
     weak var delegate: RevlumFilterDelegate?
 
     // MARK: - Init
-    init(filterType: FilterType = .iOS, sortType: SortType = .descending) {
+    init(filterType: FilterType = .ios, sortType: SortType = .descending) {
         super.init(frame: .zero)
         setUpViews()
     }
@@ -107,7 +107,7 @@ class RevlumFilterView: UIView {
     }
 
     @objc private func iosButtonTapped() {
-        delegate?.filterSelected(filter: .iOS)
+        delegate?.filterSelected(filter: .ios)
     }
 
     @objc private func webButtonTapped() {
