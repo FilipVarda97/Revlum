@@ -39,6 +39,7 @@ class RevlumFilterView: UIView {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.register(RevlumSortItem.self, forCellReuseIdentifier: RevlumSortItem.identifier)
+        tableView.register(RevlumDeviceFilterItem.self, forCellReuseIdentifier: RevlumDeviceFilterItem.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
