@@ -41,4 +41,9 @@ extension UIImage {
         let image = UIImage(named: "filterIcon", in: bundle, compatibleWith: nil)
         return image!
     }()
+    static let checkIcon: UIImage = {
+        let bundle = Bundle.module
+        let image = UIImage(named: "check-icon", in: bundle, compatibleWith: nil)
+        return image!
+    }()
 }
