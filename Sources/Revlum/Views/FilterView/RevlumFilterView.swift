@@ -62,6 +62,8 @@ class RevlumFilterView: UIView {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 120
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .textMainColor
@@ -144,7 +146,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         case 0, 1:
             return 40
         case 2:
-            return 120
+            return UITableView.automaticDimension
         default: break
         }
         return 0
