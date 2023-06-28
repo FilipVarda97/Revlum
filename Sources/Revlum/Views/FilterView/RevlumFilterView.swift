@@ -134,4 +134,13 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
+        cell.isSelected = true
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
+        cell.isSelected = false
+    }
 }

@@ -70,7 +70,8 @@ class RevlumSortItem: UITableViewCell {
 
     private func updateViews() {
         titleLabel.font = isSelected ? .systemFont(ofSize: 12, weight: .semibold) : .systemFont(ofSize: 12, weight: .regular)
-        checkImageView.isHidden = isSelected ? false : true
+        checkImageView.isHidden = !isSelected
+        backgroundColor = isSelected ? .selectedSortBgColor : .clear
     }
 
     func configure(title: String) {

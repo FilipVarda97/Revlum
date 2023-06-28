@@ -48,4 +48,9 @@ extension UIColor {
         let color = UIColor(named: "separatorColor", in: bundle, compatibleWith: nil)!
         return color
     }()
+    static let selectedSortBgColor: UIColor = {
+        let bundle = Bundle.module
+        let color = UIColor(named: "selectedSortBgColor", in: bundle, compatibleWith: nil)!
+        return color
+    }()
 }
