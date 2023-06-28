@@ -27,6 +27,14 @@ class RevlumFilterView: UIView {
     // MARK: - Properties
     private let titleContainerView = UIView()
     private let titleLabel = UILabel(text: "Sort by", font: .systemFont(ofSize: 19, weight: .semibold), textColor: .textMainColor, textAlignment: .center)
+    private let iOSButton = RevlumFilterButton(title: "iOS")
+    private let webButton = RevlumFilterButton(title: "Web")
+    private let dissmissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false
@@ -35,14 +43,6 @@ class RevlumFilterView: UIView {
         tableView.register(RevlumSortItem.self, forCellReuseIdentifier: RevlumSortItem.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
-    }()
-    private let iOSButton = RevlumFilterButton(title: "iOS")
-    private let webButton = RevlumFilterButton(title: "Web")
-    private let dissmissButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
 
     weak var delegate: RevlumFilterDelegate?
@@ -82,8 +82,7 @@ class RevlumFilterView: UIView {
         webButton.translatesAutoresizingMaskIntoConstraints = false
 
         addSubviews(titleContainerView,
-                    iOSButton,
-                    webButton)
+                    tableView)
 
         titleContainerView.addSubviews(titleLabel,
                                        dissmissButton)
@@ -107,16 +106,10 @@ class RevlumFilterView: UIView {
             dissmissButton.widthAnchor.constraint(equalToConstant: 40)
         ])
         NSLayoutConstraint.activate([
-            iOSButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            iOSButton.widthAnchor.constraint(equalToConstant: 100),
-            iOSButton.heightAnchor.constraint(equalToConstant: 40),
-            iOSButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-        ])
-        NSLayoutConstraint.activate([
-            webButton.topAnchor.constraint(equalTo: iOSButton.bottomAnchor, constant: 20),
-            webButton.widthAnchor.constraint(equalToConstant: 100),
-            webButton.heightAnchor.constraint(equalToConstant: 40),
-            webButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            tableView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
