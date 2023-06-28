@@ -10,11 +10,12 @@ import UIKit
 class RevlumDeviceFilterItem: UITableViewCell {
     static let identifier = "RevlumDeviceFilterItem"
 
-    private let titleLabel = UILabel(text: "Device", font: .systemFont(ofSize: 12), textColor: .textMainColor)
+    private let titleLabel = UILabel(text: "Device", font: .systemFont(ofSize: 16, weight: .semibold), textColor: .textMainColor)
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()

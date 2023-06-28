@@ -16,8 +16,6 @@ class RevlumFilterButton: UIButton {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        layer.borderWidth = 2
-        layer.cornerRadius = bounds.height / 2
         updateAppearance()
     }
 
@@ -32,10 +30,16 @@ class RevlumFilterButton: UIButton {
         }
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.borderWidth = 2
+        layer.cornerRadius = bounds.height / 2
+    }
+
     private func updateAppearance() {
         if isSelected {
-            self.setTitleColor(.primaryColor, for: .normal)
-            self.layer.borderColor = UIColor.primaryColor.cgColor
+            setTitleColor(.primaryColor, for: .normal)
+            layer.borderColor = UIColor.primaryColor.cgColor
             self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         } else {
             self.setTitleColor(.separatorColor, for: .normal)
