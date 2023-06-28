@@ -9,7 +9,7 @@ import UIKit
 
 protocol RevlumFilterDelegate: AnyObject {
     func closeFilterView()
-    func filterSelected(type: FilterType)
+    func filterSelected(filter: FilterType)
     func sortSelected(sort: SortType)
 }
 
@@ -88,9 +88,8 @@ class RevlumFilterView: UIView {
         NSLayoutConstraint.activate([
             dissmissButton.centerYAnchor.constraint(equalTo: titleContainerView.centerYAnchor),
             dissmissButton.rightAnchor.constraint(equalTo: titleContainerView.rightAnchor, constant: -18),
-            titleContainerView.leftAnchor.constraint(equalTo: leftAnchor),
-            titleContainerView.rightAnchor.constraint(equalTo: rightAnchor),
-            titleContainerView.heightAnchor.constraint(equalToConstant: 50)
+            dissmissButton.heightAnchor.constraint(equalToConstant: 40),
+            dissmissButton.widthAnchor.constraint(equalToConstant: 40)
         ])
         NSLayoutConstraint.activate([
             iOSButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
@@ -107,21 +106,11 @@ class RevlumFilterView: UIView {
     }
 
     @objc private func iosButtonTapped() {
-        filterSelected(type: .ios)
+        delegate?.filterSelected(filter: .ios)
     }
 
     @objc private func webButtonTapped() {
-        filterSelected(type: .web)
-    }
-
-    private func filterSelected(type: FilterType) {
-        switch type {
-        case .ios:
-            print("ios selected")
-        case .web:
-            print("web selected")
-        }
-        delegate?.filterSelected(type: type)
+        delegate?.filterSelected(filter: .web)
     }
 
     @objc func closeFilter() {

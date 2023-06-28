@@ -342,7 +342,7 @@ extension RevlumViewController: RevlumFilterDelegate {
             self.filterView = nil
         })
     }
-    func filterSelected(type: FilterType) {
+    func filterSelected(filter: FilterType) {
         
     }
     func sortSelected(sort: SortType) {
