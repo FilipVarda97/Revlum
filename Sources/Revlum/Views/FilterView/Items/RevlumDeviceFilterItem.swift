@@ -55,7 +55,7 @@ class RevlumDeviceFilterItem: UITableViewCell {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.leftRightOffset),
-            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constants.leftRightOffset),
+            stackView.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: -Constants.leftRightOffset),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
