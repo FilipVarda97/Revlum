@@ -65,6 +65,11 @@ class RevlumDeviceFilterItem: UITableViewCell {
             let button = RevlumFilterButton(title: title)
             button.isSelected = false
             button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
+
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.widthAnchor.constraint(equalToConstant: 120).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+
             return button
         }
         buttons.forEach { stackView.addArrangedSubview($0) }
