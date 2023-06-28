@@ -45,7 +45,7 @@ class RevlumSortItem: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         checkImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.addSubviews(titleLabel, checkImageView)
+        contentView.addSubviews(titleLabel, checkImageView, separatorView)
     }
 
     private func setUpConstraints() {
