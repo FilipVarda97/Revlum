@@ -43,4 +43,9 @@ extension UIColor {
         let color = UIColor(named: "newUsersColor", in: bundle, compatibleWith: nil)!
         return color
     }()
+    static let separatorColor: UIColor = {
+        let bundle = Bundle.module
+        let color = UIColor(named: "separatorColor", in: bundle, compatibleWith: nil)!
+        return color
+    }()
 }

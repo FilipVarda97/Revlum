@@ -24,8 +24,18 @@ enum SortType {
 }
 
 class RevlumFilterView: UIView {
+    // MARK: - Properties
     private let titleContainerView = UIView()
     private let titleLabel = UILabel(text: "Sort by", font: .systemFont(ofSize: 19, weight: .semibold), textColor: .textMainColor, textAlignment: .center)
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
+        tableView.register(RevlumSortItem.self, forCellReuseIdentifier: RevlumSortItem.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     private let iOSButton = RevlumFilterButton(title: "iOS")
     private let webButton = RevlumFilterButton(title: "Web")
     private let dissmissButton: UIButton = {
@@ -37,6 +47,7 @@ class RevlumFilterView: UIView {
 
     weak var delegate: RevlumFilterDelegate?
 
+    // MARK: - Init
     init(filterType: FilterType = .ios, sortType: SortType = .descending) {
         super.init(frame: .zero)
         setUpViews()
@@ -47,8 +58,12 @@ class RevlumFilterView: UIView {
         fatalError("Revlum does not support this initializer")
     }
 
+    // MARK: - Implementation
     private func setUpViews() {
         backgroundColor = .white
+
+        tableView.delegate = self
+        tableView.dataSource = self
 
         dissmissButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
         dissmissButton.tintColor = .textMainColor
@@ -115,5 +130,25 @@ class RevlumFilterView: UIView {
 
     @objc func closeFilter() {
         delegate?.closeFilterView()
+    }
+}
+
+// MARK: TableView Delegate/Data Source
+extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumSortItem.identifier) as? RevlumSortItem else {
+            return UITableViewCell()
+        }
+        switch indexPath.row {
+        case 0:
+            cell.configure(title: "High to Low")
+        case 1:
+            cell.configure(title: "Low to High")
+        default: break
+        }
+        return cell
     }
 }
