@@ -26,7 +26,8 @@ final class OfferTableViewCell: BaseTableViewCell {
 
     public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath, isDetail: Bool = false) {
         if isDetail {
-            
+            leftContainerConstraint?.constant = 38
+            rightContainerConstraint?.constant = -38
             selectionButton.layer.cornerRadius = 5
             layoutIfNeeded()
         }
