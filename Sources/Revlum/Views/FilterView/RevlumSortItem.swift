@@ -62,7 +62,7 @@ class RevlumSortItem: UITableViewCell {
         ])
         NSLayoutConstraint.activate([
             separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separatorView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: -Constants.leftRightOffset),
+            separatorView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.leftRightOffset),
             separatorView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constants.leftRightOffset),
             separatorView.heightAnchor.constraint(equalToConstant: Constants.separatorHeight)
         ])
