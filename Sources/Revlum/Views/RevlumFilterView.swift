@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RevlumFilterDelegate: AnyObject {
-    func filterViewClosed()
+    func closeFilterView()
     func filterSelected(type: FilterType)
     func sortSelected(sort: SortType)
 }
@@ -125,14 +125,6 @@ class RevlumFilterView: UIView {
     }
 
     @objc func closeFilter() {
-        guard let superview = superview else { return }
-
-        UIView.animate(withDuration: 0.5, animations: {
-            self.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: 290).isActive = true
-            superview.layoutIfNeeded()
-        }, completion: { _ in
-            self.removeFromSuperview()
-            self.delegate?.filterViewClosed()
-        })
+        delegate?.closeFilterView()
     }
 }

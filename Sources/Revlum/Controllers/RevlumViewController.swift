@@ -302,7 +302,7 @@ private extension RevlumViewController {
     }
 }
 
-// MARK: - RevlumDetailsViewDelegate
+// MARK: - Revlum Details View Delegate
 extension RevlumViewController: RevlumDetailsViewDelegate {
     func openInSafari(urlToOpen: String) {
         mainInput.send(.buildUrlToOpen(userId, urlToBuild: urlToOpen))
@@ -330,9 +330,17 @@ private extension RevlumViewController {
     }
 }
 
+// MARK: - Revlum Filter Delegate
 extension RevlumViewController: RevlumFilterDelegate {
-    func filterViewClosed() {
-        filterView = nil
+    func closeFilterView() {
+        guard let filterView = self.filterView else { return }
+
+        UIView.animate(withDuration: 0.3, animations: {
+            filterView.alpha = 0
+        }, completion: { _ in
+            filterView.removeFromSuperview()
+            self.filterView = nil
+        })
     }
     func filterSelected(type: FilterType) {
         
