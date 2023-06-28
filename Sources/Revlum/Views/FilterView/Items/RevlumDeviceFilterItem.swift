@@ -67,7 +67,7 @@ class RevlumDeviceFilterItem: UITableViewCell {
             button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
 
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.widthAnchor.constraint(equalToConstant: 120).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 100).isActive = true
             button.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
             return button
