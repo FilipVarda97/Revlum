@@ -102,8 +102,8 @@ extension RevlumOfferDetailsViewController {
         ])
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 38),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -38),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
