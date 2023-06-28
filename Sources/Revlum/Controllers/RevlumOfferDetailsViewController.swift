@@ -124,7 +124,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else {
                 return UITableViewCell()
             }
-            cell.configure(with: .init(offer: offer), indexPath: indexPath)
+            cell.configure(with: .init(offer: offer), indexPath: indexPath, isDetail: true)
             cell.delegate = self
             return cell
         case 1:
