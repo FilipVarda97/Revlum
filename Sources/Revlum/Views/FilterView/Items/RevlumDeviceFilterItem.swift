@@ -22,8 +22,6 @@ class RevlumDeviceFilterItem: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .default
-        backgroundColor = .clear
         setUpViews()
         setUpConstraints()
     }
@@ -35,6 +33,7 @@ class RevlumDeviceFilterItem: UITableViewCell {
     // MARK: - Implementation
     private func setUpViews() {
         selectionStyle = .none
+        backgroundColor = .clear
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubviews(titleLabel, stackView)
