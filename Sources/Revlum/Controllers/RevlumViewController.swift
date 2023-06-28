@@ -331,6 +331,13 @@ private extension RevlumViewController {
 }
 
 extension RevlumViewController: RevlumFilterDelegate {
-    func filterSelected(type: FilterType) {}
-    func sortSelected(sort: SortType) {}
+    func filterViewClosed() {
+        filterView = nil
+    }
+    func filterSelected(type: FilterType) {
+        
+    }
+    func sortSelected(sort: SortType) {
+        
+    }
 }

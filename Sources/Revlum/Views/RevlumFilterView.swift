@@ -8,6 +8,7 @@
 import UIKit
 
 protocol RevlumFilterDelegate: AnyObject {
+    func filterViewClosed()
     func filterSelected(type: FilterType)
     func sortSelected(sort: SortType)
 }
@@ -18,8 +19,8 @@ enum FilterType {
 }
 
 enum SortType {
-    case highToLow
-    case lowToHigh
+    case descending
+    case ascending
 }
 
 class RevlumFilterView: UIView {
@@ -36,7 +37,7 @@ class RevlumFilterView: UIView {
 
     weak var delegate: RevlumFilterDelegate?
 
-    init(filterType: FilterType = .ios, sortType: SortType = .highToLow) {
+    init(filterType: FilterType = .ios, sortType: SortType = .descending) {
         super.init(frame: .zero)
         setUpViews()
         setUpConstraints()
@@ -131,6 +132,7 @@ class RevlumFilterView: UIView {
             superview.layoutIfNeeded()
         }, completion: { _ in
             self.removeFromSuperview()
+            self.delegate?.filterViewClosed()
         })
     }
 }
