@@ -1,5 +1,5 @@
 //
-//  RevlumFilterItem.swift
+//  RevlumDeviceFilterItem.swift
 //  
 //
 //  Created by Filip Varda on 28.06.2023..
@@ -8,7 +8,7 @@
 import UIKit
 
 class RevlumDeviceFilterItem: UITableViewCell {
-    static let identifier = "RevlumFilterItem"
+    static let identifier = "RevlumDeviceFilterItem"
 
     private let titleLabel = UILabel(text: "Device", font: .systemFont(ofSize: 12), textColor: .textMainColor)
     private let stackView: UIStackView = {
@@ -47,8 +47,9 @@ class RevlumDeviceFilterItem: UITableViewCell {
         ])
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.leftRightOffset),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constants.leftRightOffset)
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.leftRightOffset),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constants.leftRightOffset),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
 
