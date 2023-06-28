@@ -27,8 +27,6 @@ class RevlumFilterView: UIView {
     // MARK: - Properties
     private let titleContainerView = UIView()
     private let titleLabel = UILabel(text: "Sort by", font: .systemFont(ofSize: 19, weight: .semibold), textColor: .textMainColor, textAlignment: .center)
-    private let iOSButton = RevlumFilterButton(title: "iOS")
-    private let webButton = RevlumFilterButton(title: "Web")
     private let dissmissButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
@@ -51,7 +49,6 @@ class RevlumFilterView: UIView {
     init(filterType: FilterType = .ios, sortType: SortType = .descending) {
         super.init(frame: .zero)
         setUpViews()
-        setUpConstraints()
     }
 
     required init(coder: NSCoder) {
@@ -69,23 +66,16 @@ class RevlumFilterView: UIView {
         dissmissButton.tintColor = .textMainColor
         dissmissButton.addTarget(self, action: #selector(closeFilter), for: .touchUpInside)
 
-        iOSButton.setTitle("iOS", for: .normal)
-        webButton.setTitle("Web", for: .normal)
-
-        iOSButton.addTarget(self, action: #selector(iosButtonTapped), for: .touchUpInside)
-        webButton.addTarget(self, action: #selector(webButtonTapped), for: .touchUpInside)
-
         titleContainerView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         dissmissButton.translatesAutoresizingMaskIntoConstraints = false
-        iOSButton.translatesAutoresizingMaskIntoConstraints = false
-        webButton.translatesAutoresizingMaskIntoConstraints = false
 
         addSubviews(titleContainerView,
                     tableView)
-
         titleContainerView.addSubviews(titleLabel,
                                        dissmissButton)
+
+        setUpConstraints()
     }
 
     private func setUpConstraints() {
