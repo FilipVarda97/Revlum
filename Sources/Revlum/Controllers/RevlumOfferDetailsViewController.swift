@@ -12,6 +12,7 @@ protocol RevlumDetailsViewDelegate: AnyObject {
 }
 
 class RevlumOfferDetailsViewController: UIViewController {
+    // MARK: - Properties
     private let titleContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +47,7 @@ class RevlumOfferDetailsViewController: UIViewController {
     private let offer: Offer
     weak var delegate: RevlumDetailsViewDelegate?
 
+    // MARK: - Init
     init(offer: Offer) {
         self.offer = offer
         super.init(nibName: nil, bundle: nil)
@@ -172,6 +174,7 @@ extension RevlumOfferDetailsViewController: UITableViewDelegate, UITableViewData
     }
 }
 
+// MARK: - RevlumCellDelegate
 extension RevlumOfferDetailsViewController: RevlumCellDelegate {
     func buttonPressed(_ selectedIndexPath: IndexPath) {
         delegate?.openInSafari(urlToOpen: offer.url)

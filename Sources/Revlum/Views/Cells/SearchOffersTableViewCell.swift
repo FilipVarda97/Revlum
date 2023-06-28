@@ -8,8 +8,7 @@
 import UIKit
 
 protocol SearchCellDelegate: AnyObject {
-    func filterButtonPressed()
-    func textFieldTextChanged(_ text: String)
+    func textFieldTextChanged(_ searchText: String)
 }
 
 class SearchOffersTableViewCell: UITableViewCell {
@@ -48,7 +47,6 @@ class SearchOffersTableViewCell: UITableViewCell {
         filterButton.setTitle(" Filter", for: .normal)
         filterButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         filterButton.setTitleColor(.black, for: .normal)
-        filterButton.addTarget(self, action: #selector(filterButtonPressed), for: .touchUpInside)
         filterButton.contentHorizontalAlignment = .left
         filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
 
@@ -76,9 +74,5 @@ class SearchOffersTableViewCell: UITableViewCell {
     @objc func textFieldChanged() {
         guard let text = searchTextField.text else { return }
         delegate?.textFieldTextChanged(text)
-    }
-    
-    @objc func filterButtonPressed() {
-        delegate?.filterButtonPressed()
     }
 }

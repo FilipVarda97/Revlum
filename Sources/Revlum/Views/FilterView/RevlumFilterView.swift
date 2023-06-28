@@ -60,6 +60,7 @@ class RevlumFilterView: UIView {
     private func setUpViews() {
         backgroundColor = .white
 
+        translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension

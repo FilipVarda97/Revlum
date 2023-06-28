@@ -67,6 +67,7 @@ public final class RevlumViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    private var blockerView: UIView?
     private var filterView: RevlumFilterView?
 
     private let apiKey: String
@@ -210,7 +211,7 @@ extension RevlumViewController {
     }
 }
 
-// MARK: - OffersViewModel Main Binding
+// MARK: - MainViewModel Main Binding
 private extension RevlumViewController {
     private func bindMain() {
         mainViewModel.transform(input: mainInput.eraseToAnyPublisher())
@@ -270,7 +271,6 @@ private extension RevlumViewController {
         guard self.filterView == nil else { return }
 
         let filterView = RevlumFilterView()
-        filterView.translatesAutoresizingMaskIntoConstraints = false
         filterView.delegate = self
         view.addSubview(filterView)
 
@@ -280,13 +280,11 @@ private extension RevlumViewController {
             filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 290)
         ])
-
         self.filterView = filterView
-
         view.layoutIfNeeded()
 
         UIView.animate(withDuration: 0.5, animations: {
-            filterView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.filterView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
             self.view.layoutIfNeeded()
         })
     }
@@ -299,14 +297,7 @@ private extension RevlumViewController {
     }
 }
 
-// MARK: - Revlum Details View Delegate
-extension RevlumViewController: RevlumDetailsViewDelegate {
-    func openInSafari(urlToOpen: String) {
-        mainInput.send(.buildUrlToOpen(userId, urlToBuild: urlToOpen))
-    }
-}
-
-// MARK: - OffersViewModel Surveys Binding
+// MARK: - SurveyViewModel Surveys Binding
 private extension RevlumViewController {
     private func bindSurveys() {
         surveysViewModel.transform(input: surveysInput.eraseToAnyPublisher())
@@ -324,6 +315,13 @@ private extension RevlumViewController {
                     self?.spinner.stopAnimating()
                 }
             }.store(in: &cancellables)
+    }
+}
+
+// MARK: - Revlum Details View Delegate
+extension RevlumViewController: RevlumDetailsViewDelegate {
+    func openInSafari(urlToOpen: String) {
+        mainInput.send(.buildUrlToOpen(userId, urlToBuild: urlToOpen))
     }
 }
 

@@ -12,6 +12,9 @@ import Combine
 extension OffersViewModel {
     enum Input {
         case loadOffers(_ location: String)
+        case filterOffers(_ filterType: FilterType)
+        case sortOffers(_ sortType: SortType)
+        case searchOffers(_ searchText: String?)
     }
     enum Output {
         case offersLoaded
@@ -29,15 +32,16 @@ class OffersViewModel: NSObject {
     private let output = PassthroughSubject<Output, Never>()
     private var cancellables = Set<AnyCancellable>()
     private let apiService = APIService.shared
-    private var scrollViewOffset: CGPoint = CGPoint(x: 0, y: 40)
     private var cellViewModels: [OfferCellViewModel] = []
+
     private var offers: [Offer] = [] {
         didSet {
-            cellViewModels.removeAll()
-            for offer in offers {
-                let viewModel = OfferCellViewModel(offer: offer)
-                cellViewModels.append(viewModel)
-            }
+            updateCellViewModels()
+        }
+    }
+    private var filteredOffers: [Offer]? {
+        didSet {
+            updateCellViewModels()
         }
     }
 
@@ -48,10 +52,46 @@ class OffersViewModel: NSObject {
                 switch event {
                 case .loadOffers(let location):
                     self?.loadOffers(location)
+                case .filterOffers(let filterType):
+                    self?.filterOffers(filterType)
+                case .sortOffers(let sortType):
+                    self?.sortOffers(sortType)
+                case .searchOffers(let searchText):
+                    self?.searchOffers(searchText)
                 }
             }
             .store(in: &cancellables)
         return output.eraseToAnyPublisher()
+    }
+}
+
+private extension OffersViewModel {
+    private func updateCellViewModels() {
+        guard filteredOffers != nil else {
+            cellViewModels.removeAll()
+            offers.forEach {
+                let viewModel = OfferCellViewModel(offer: $0)
+                cellViewModels.append(viewModel)
+            }
+            return
+        }
+        cellViewModels.removeAll()
+        filteredOffers!.forEach {
+            let viewModel = OfferCellViewModel(offer: $0)
+            cellViewModels.append(viewModel)
+        }
+    }
+
+    private func filterOffers(_ filterType: FilterType) {
+        
+    }
+
+    private func sortOffers(_ sortType: SortType) {
+        
+    }
+
+    private func searchOffers(_ searchText: String?) {
+        
     }
 }
 
@@ -109,8 +149,6 @@ extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollViewOffset.y == scrollView.contentOffset.y.rounded() { return }
-        scrollViewOffset = CGPoint(x: 0, y: scrollView.contentOffset.y.rounded())
         output.send(.forceEndEditing)
     }
 }
@@ -128,6 +166,9 @@ extension OffersViewModel: SearchCellDelegate {
     }
 
     func textFieldTextChanged(_ text: String) {
-        print(text)
+        let filteredOffers = offers.filter { offer in
+            offer.title.hasPrefix(text)
+        }
+        offers = filteredOffers
     }
 }
