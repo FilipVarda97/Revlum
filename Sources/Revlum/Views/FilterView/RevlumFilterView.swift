@@ -129,7 +129,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
             }
             cell.configure(title: indexPath.row == 0 ? "High to Low" : "Low to High")
             return cell
-        } else if indexPath.row == 0 {
+        } else if indexPath.row == 2 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumDeviceFilterItem.identifier) as?  RevlumDeviceFilterItem else {
                 return UITableViewCell()
             }
