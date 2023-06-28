@@ -60,8 +60,8 @@ class OfferDetailsDescriptionCell: UITableViewCell {
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 38),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -38)
         ])
         NSLayoutConstraint.activate([
             circleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
