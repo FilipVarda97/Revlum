@@ -119,21 +119,25 @@ class RevlumFilterView: UIView {
 // MARK: TableView Delegate/Data Source
 extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumSortItem.identifier) as? RevlumSortItem else {
-            return UITableViewCell()
+        if indexPath.row == 0 || indexPath.row == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumSortItem.identifier) as? RevlumSortItem else {
+                return UITableViewCell()
+            }
+            cell.configure(title: indexPath.row == 0 ? "High to Low" : "Low to High")
+            return cell
+        } else if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumDeviceFilterItem.identifier) as?  RevlumDeviceFilterItem else {
+                return UITableViewCell()
+            }
+            cell.configure(with: ["iOS", "Web"])
+            return cell
         }
-        switch indexPath.row {
-        case 0:
-            cell.configure(title: "High to Low")
-        case 1:
-            cell.configure(title: "Low to High")
-        default: break
-        }
-        return cell
+        return UITableViewCell()
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.isSelected = true
