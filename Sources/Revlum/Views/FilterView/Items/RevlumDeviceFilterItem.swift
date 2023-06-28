@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RevlumDeviceFilterDelegate: AnyObject {
+    func filterSelected(type: FilterType)
+}
+
 class RevlumDeviceFilterItem: UITableViewCell {
     static let identifier = "RevlumDeviceFilterItem"
 
@@ -15,10 +19,12 @@ class RevlumDeviceFilterItem: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+
+    weak var delegate: RevlumDeviceFilterDelegate?
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,9 +64,19 @@ class RevlumDeviceFilterItem: UITableViewCell {
         let buttons = filterButtonTitles.map { title in
             let button = RevlumFilterButton(title: title)
             button.isSelected = false
+            button.addTarget(self, action: #selector(buttonTapped(sender:)), for: .touchUpInside)
             return button
         }
         buttons.forEach { stackView.addArrangedSubview($0) }
+    }
+
+    @objc func buttonTapped(sender: RevlumFilterButton) {
+        guard let senderTitle = sender.titleLabel?.text,
+              let type = FilterType(rawValue: senderTitle),
+              let subviews = stackView.arrangedSubviews as? [RevlumFilterButton] else { return }
+        subviews.forEach { $0.isSelected = false }
+        sender.isSelected = true
+        delegate?.filterSelected(type: type)
     }
 }
 

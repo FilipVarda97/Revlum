@@ -42,7 +42,7 @@ class RevlumFilterButton: UIButton {
             layer.borderColor = UIColor.primaryColor.cgColor
             self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         } else {
-            self.setTitleColor(.separatorColor, for: .normal)
+            self.setTitleColor(.textMainColor, for: .normal)
             self.layer.borderColor = UIColor.separatorColor.cgColor
             self.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         }
