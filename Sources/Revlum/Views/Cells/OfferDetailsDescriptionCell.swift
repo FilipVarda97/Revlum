@@ -65,7 +65,7 @@ class OfferDetailsDescriptionCell: UITableViewCell {
         ])
         NSLayoutConstraint.activate([
             circleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
-            circleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            circleView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 38),
             circleView.heightAnchor.constraint(equalToConstant: 12),
             circleView.widthAnchor.constraint(equalToConstant: 12)
             
