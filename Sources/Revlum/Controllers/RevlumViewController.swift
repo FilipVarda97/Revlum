@@ -83,10 +83,7 @@ public final class RevlumViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Init
-    public init(apiKey: String, userId: String) {
-        let fontLoader = FontLoader()
-        fontLoader.loadFonts()
-        
+    public init(apiKey: String, userId: String) {        
         self.apiKey = apiKey
         self.userId = userId
         super.init(nibName: nil, bundle: nil)
