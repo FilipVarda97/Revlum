@@ -10,7 +10,7 @@ import UIKit
 class RevlumSortItem: UITableViewCell {
     static let identifier = "RevlumSortItem"
 
-    private let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 12), textColor: .textMainColor)
+    private let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 16), textColor: .textMainColor)
     private let checkImageView = UIImageView()
     private let separatorView: UIView = {
         let view = UIView()
