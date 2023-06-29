@@ -101,14 +101,6 @@ class RevlumFilterView: UIView {
         ])
     }
 
-    @objc private func iosButtonTapped() {
-        delegate?.filterSelected(filter: .ios)
-    }
-
-    @objc private func webButtonTapped() {
-        delegate?.filterSelected(filter: .web)
-    }
-
     @objc func closeFilter() {
         delegate?.closeFilterView()
     }
@@ -131,6 +123,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(with: ["iOS", "Web"])
+            cell.delegate = self
             return cell
         }
         return UITableViewCell()
@@ -153,7 +146,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         if cell.isSelected {
             tableView.deselectRow(at: indexPath, animated: true)
             cell.updateViews()
-            print("None")
+            delegate?.sortSelected(sort: .none)
             return nil
         } else {
             return indexPath
@@ -164,7 +157,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 2 { return }
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.updateViews()
-        print("Selected cell at indexPath.row: \(indexPath.row)")
+        delegate?.sortSelected(sort: indexPath.row == 0 ? .descending : .ascending)
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -172,5 +165,11 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.isSelected = false
         cell.updateViews()
+    }
+}
+// MARK: - RevlumDeviceFilterDelegate
+extension RevlumFilterView: RevlumDeviceFilterDelegate {
+    func filterSelected(type: FilterType) {
+        delegate?.filterSelected(filter: type)
     }
 }
