@@ -266,7 +266,7 @@ private extension RevlumViewController {
                     self?.openFilter(sortType, filterType)
                 case .forceEndEditing:
                     self?.forceEndEditing()
-                case .reloadAllIndexesExceptFirst:
+                case .reloadTable:
                     print("Reload")
                 }
             }.store(in: &cancellables)

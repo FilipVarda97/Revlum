@@ -24,7 +24,7 @@ extension OffersViewModel {
         case openOffer(_ offer: Offer)
         case openFilterView(_ selectedSortType: SortType, _ selectedFilterType: FilterType)
         case forceEndEditing
-        case reloadAllIndexesExceptFirst
+        case reloadTable
     }
 }
 
@@ -37,7 +37,6 @@ class OffersViewModel: NSObject {
 
     private var selectedFilterType: FilterType = .none
     private var selectedSortType: SortType = .none
-    private var shouldReload: Bool = false
 
     private var offers: [Offer] = [] {
         didSet {
@@ -81,9 +80,7 @@ private extension OffersViewModel {
                 cellViewModels.append(viewModel)
             }
         }
-        if shouldReload {
-            output.send(.reloadAllIndexesExceptFirst)
-        }
+        output.send(.reloadTable)
     }
 
     private func filterOffers(_ filterType: FilterType) {
@@ -145,18 +142,14 @@ private extension OffersViewModel {
     private func searchOffers(_ searchText: String?) {
         guard let searchText = searchText, !searchText.isEmpty else {
             filteredOffers = offers
-            sortOffers(selectedSortType)
-            updateCellViewModels()
             return
         }
-        sortOffers(selectedSortType)
-
         if filteredOffers == nil {
-            filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            filteredOffers = offers.filter { $0.title.lowercased() == searchText.lowercased() }
         } else {
-            filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
         }
-        updateCellViewModels()
+        sortOffers(selectedSortType)
     }
 }
 
@@ -176,7 +169,6 @@ extension OffersViewModel {
             switch result {
             case .success(let offers):
                 self?.offers = offers
-                self?.shouldReload = true
                 self?.output.send(.stopLoading)
                 self?.output.send(.offersLoaded)
             case .failure:
