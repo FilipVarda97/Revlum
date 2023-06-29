@@ -156,7 +156,6 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
             print("None")
             return nil
         } else {
-            print("Selecting cell at indexPath.row: \(indexPath.row)")
             return indexPath
         }
     }
@@ -173,6 +172,5 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.isSelected = false
         cell.updateViews()
-        print("None")
     }
 }
