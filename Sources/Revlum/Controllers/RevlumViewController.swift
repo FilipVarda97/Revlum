@@ -277,7 +277,7 @@ private extension RevlumViewController {
         filterView.delegate = self
         view.addSubview(filterView)
 
-        filterBottomConstraint = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        filterBottomConstraint = filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
             filterView.leftAnchor.constraint(equalTo: view.leftAnchor),
             filterView.rightAnchor.constraint(equalTo: view.rightAnchor),
