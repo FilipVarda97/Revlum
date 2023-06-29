@@ -75,6 +75,9 @@ class RevlumFilterView: UIView {
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 290)
+        ])
+        NSLayoutConstraint.activate([
             titleContainerView.topAnchor.constraint(equalTo: topAnchor),
             titleContainerView.leftAnchor.constraint(equalTo: leftAnchor),
             titleContainerView.rightAnchor.constraint(equalTo: rightAnchor),

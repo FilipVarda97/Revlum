@@ -69,6 +69,7 @@ public final class RevlumViewController: UIViewController {
     }()
     private var blockerView: UIView?
     private var filterView: RevlumFilterView?
+    private var filterBottomConstraint: NSLayoutConstraint?
 
     private let apiKey: String
     private let userId: String
@@ -276,18 +277,18 @@ private extension RevlumViewController {
         filterView.delegate = self
         view.addSubview(filterView)
 
+        filterBottomConstraint = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([
-            filterView.heightAnchor.constraint(equalToConstant: 290),
-            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 290)
+            filterView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            filterView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            filterBottomConstraint!
         ])
         self.filterView = filterView
         view.layoutIfNeeded()
 
-        UIView.animate(withDuration: 0.5, animations: {
-            self.filterView!.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.filterBottomConstraint?.constant = 290
+            self?.view.layoutIfNeeded()
         })
     }
 
@@ -330,13 +331,16 @@ extension RevlumViewController: RevlumDetailsViewDelegate {
 // MARK: - Revlum Filter Delegate
 extension RevlumViewController: RevlumFilterDelegate {
     func closeFilterView() {
-        guard let filterView = self.filterView else { return }
+        guard let filterView = self.filterView,
+              let filterBottomConstraint = filterBottomConstraint else { return }
 
         UIView.animate(withDuration: 0.3, animations: {
             filterView.alpha = 0
+            filterBottomConstraint.constant = 0
         }, completion: { _ in
             filterView.removeFromSuperview()
             self.filterView = nil
+            self.filterBottomConstraint = nil
         })
     }
     func filterSelected(filter: FilterType) {
