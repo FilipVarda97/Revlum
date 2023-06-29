@@ -150,6 +150,7 @@ private extension OffersViewModel {
               selectedSortType == .none,
               selectedFilterType == .none else {
             filteredOffers = offers
+            sortOffers(selectedSortType)
             return
         }
 
