@@ -71,6 +71,7 @@ final class OfferTableViewCell: BaseTableViewCell {
             stackView.addArrangedSubview(UIImageView(image: .iosIcon))
             stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
         }
+        areIconsSet = true
     }
 
     private func addNewUsersView() {
