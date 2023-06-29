@@ -97,23 +97,39 @@ private extension OffersViewModel {
         case .none:
             filteredOffers = offers
         }
-        updateCellViewModels()
+        sortOffers(selectedSortType)
     }
 
     private func sortOffers(_ sortType: SortType) {
         self.selectedSortType = sortType
         switch sortType {
         case .ascending:
-            filteredOffers = filteredOffers?.sorted {
-                let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
-                let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
-                return revenue1 < revenue2
+            if selectedFilterType == .none {
+                filteredOffers = offers.sorted {
+                    let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                    let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                    return revenue1 < revenue2
+                }
+            } else {
+                filteredOffers = filteredOffers?.sorted {
+                    let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                    let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                    return revenue1 < revenue2
+                }
             }
         case .descending:
-            filteredOffers = filteredOffers?.sorted {
-                let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
-                let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
-                return revenue1 > revenue2
+            if selectedFilterType == .none {
+                filteredOffers = offers.sorted {
+                    let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                    let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                    return revenue1 < revenue2
+                }
+            } else {
+                filteredOffers = filteredOffers?.sorted {
+                    let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                    let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                    return revenue1 < revenue2
+                }
             }
         case .none:
             if selectedFilterType == .none {
