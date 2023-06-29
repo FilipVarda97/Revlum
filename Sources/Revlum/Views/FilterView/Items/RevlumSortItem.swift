@@ -39,6 +39,7 @@ class RevlumSortItem: UITableViewCell {
     // MARK: - Implementation
     private func setUpViews() {
         selectionStyle = .none
+        backgroundColor = .clear
         checkImageView.image = .checkIcon
         checkImageView.contentMode = .scaleToFill
 
