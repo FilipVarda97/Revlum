@@ -267,7 +267,7 @@ private extension RevlumViewController {
                 case .forceEndEditing:
                     self?.forceEndEditing()
                 case .reloadTable:
-                    print("Reload")
+                    self?.offersTableView.reloadData()
                 }
             }.store(in: &cancellables)
     }
