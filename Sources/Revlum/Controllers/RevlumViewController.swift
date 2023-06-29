@@ -267,16 +267,7 @@ private extension RevlumViewController {
                 case .forceEndEditing:
                     self?.forceEndEditing()
                 case .reloadAllIndexesExceptFirst:
-                    let numberOfRows = self?.offersTableView.numberOfRows(inSection: 1) ?? 0
-                    let numberOfResults = self?.offersViewModel.cellViewModels.count ?? 0
-                    var indexPaths = [IndexPath]()
-                    for row in 0..<min(numberOfRows, numberOfResults) {
-                        let indexPath = IndexPath(row: row, section: 1)
-                        if row != 0 {
-                            indexPaths.append(indexPath)
-                        }
-                    }
-                    self?.offersTableView.reloadRows(at: indexPaths, with: .automatic)
+                    print("Reload")
                 }
             }.store(in: &cancellables)
     }

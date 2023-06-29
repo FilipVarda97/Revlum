@@ -33,7 +33,7 @@ class OffersViewModel: NSObject {
     private let output = PassthroughSubject<Output, Never>()
     private var cancellables = Set<AnyCancellable>()
     private let apiService = APIService.shared
-    var cellViewModels: [OfferCellViewModel] = []
+    private var cellViewModels: [OfferCellViewModel] = []
 
     private var selectedFilterType: FilterType = .none
     private var selectedSortType: SortType = .none
@@ -45,7 +45,6 @@ class OffersViewModel: NSObject {
         }
     }
     private var filteredOffers: [Offer]?
-    private var searchResultOffers: [Offer]?
 
     public func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
@@ -71,18 +70,13 @@ class OffersViewModel: NSObject {
 private extension OffersViewModel {
     private func updateCellViewModels() {
         cellViewModels.removeAll()
-        if let searchResultOffers = searchResultOffers {
-            searchResultOffers.forEach {
-                let viewModel = OfferCellViewModel(offer: $0)
-                cellViewModels.append(viewModel)
-            }
-        } else if let filteredOffers = filteredOffers {
-            filteredOffers.forEach {
+        if filteredOffers == nil {
+            offers.forEach {
                 let viewModel = OfferCellViewModel(offer: $0)
                 cellViewModels.append(viewModel)
             }
         } else {
-            offers.forEach {
+            filteredOffers!.forEach {
                 let viewModel = OfferCellViewModel(offer: $0)
                 cellViewModels.append(viewModel)
             }
@@ -150,14 +144,17 @@ private extension OffersViewModel {
 
     private func searchOffers(_ searchText: String?) {
         guard let searchText = searchText, !searchText.isEmpty else {
-            searchResultOffers = nil
-            filterOffers(selectedFilterType)
+            filteredOffers = offers
+            sortOffers(selectedSortType)
+            updateCellViewModels()
             return
         }
-        if let filteredOffers = filteredOffers {
-            searchResultOffers = filteredOffers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        sortOffers(selectedSortType)
+
+        if filteredOffers == nil {
+            filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         } else {
-            searchResultOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
         updateCellViewModels()
     }
@@ -192,33 +189,29 @@ extension OffersViewModel {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellViewModels.count
+        return cellViewModels.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-        cell.configure(with: cellViewModels[indexPath.row], indexPath: indexPath)
-        cell.delegate = self
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SearchOffersTableHeaderView.reuseIdentifier) as? SearchOffersTableHeaderView else { return UIView() }
-        headerView.delegate = self
-        return headerView
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchOffersTableViewCell.reuseIdentifier) as? SearchOffersTableViewCell else { return UITableViewCell() }
+            cell.delegate = self
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
+            cell.configure(with: cellViewModels[indexPath.row - 1], indexPath: indexPath)
+            cell.delegate = self
+            return cell
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 169
+        if indexPath.row == 0 {
+            return 60
+        } else {
+            return 169
+        }
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
