@@ -19,6 +19,7 @@ final class OfferTableViewCell: BaseTableViewCell {
     private let newUsersView = RevlumNewUsersView()
 
     private var viewModel: OfferCellViewModel?
+    private var areIconsSet: Bool = false
 
     override func setUpViews() {
         super.setUpViews()
@@ -53,7 +54,7 @@ final class OfferTableViewCell: BaseTableViewCell {
     }
 
     private func setUpIcons() {
-        guard let viewModel = viewModel else { return }
+        guard let viewModel = viewModel, !areIconsSet else { return }
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
