@@ -153,8 +153,10 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         if cell.isSelected {
             tableView.deselectRow(at: indexPath, animated: true)
             cell.updateViews()
+            print("None")
             return nil
         } else {
+            print("Selecting cell at indexPath.row: \(indexPath.row)")
             return indexPath
         }
     }
@@ -163,6 +165,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 2 { return }
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.updateViews()
+        print("Selected cell at indexPath.row: \(indexPath.row)")
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -170,5 +173,6 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
         cell.isSelected = false
         cell.updateViews()
+        print("None")
     }
 }
