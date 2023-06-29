@@ -80,8 +80,7 @@ private extension OffersViewModel {
                 cellViewModels.append(viewModel)
             }
         }
-
-        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count + 1))
+        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
     }
 
     private func filterOffers(_ filterType: FilterType) {
