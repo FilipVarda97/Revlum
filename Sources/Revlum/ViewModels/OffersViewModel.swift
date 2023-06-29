@@ -133,7 +133,7 @@ private extension OffersViewModel {
                 }
             }
         case .none:
-            if selectedFilterType == .none {
+            if selectedFilterType == .none && !isSearching {
                 filteredOffers = nil
             }
         }
