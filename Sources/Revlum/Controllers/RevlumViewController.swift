@@ -275,19 +275,29 @@ private extension RevlumViewController {
 
         let filterView = RevlumFilterView()
         filterView.delegate = self
-        view.addSubview(filterView)
 
-        filterBottomConstraint = filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let blockerView = UIView(frame: .zero)
+        blockerView.backgroundColor = .blockerColor
+        blockerView.alpha = 0
+        blockerView.frame = view.bounds
+        
+        view.addSubviews(blockerView, filterView)
+
+        filterBottomConstraint = filterView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 290)
         NSLayoutConstraint.activate([
             filterView.leftAnchor.constraint(equalTo: view.leftAnchor),
             filterView.rightAnchor.constraint(equalTo: view.rightAnchor),
             filterBottomConstraint!
         ])
+
+        self.blockerView = blockerView
         self.filterView = filterView
+
         view.layoutIfNeeded()
 
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.filterBottomConstraint?.constant = 0
+            self?.blockerView?.alpha = 1
             self?.view.layoutIfNeeded()
         })
     }
@@ -332,14 +342,18 @@ extension RevlumViewController: RevlumDetailsViewDelegate {
 extension RevlumViewController: RevlumFilterDelegate {
     func closeFilterView() {
         guard let filterView = self.filterView,
-              let filterBottomConstraint = filterBottomConstraint else { return }
+              let filterBottomConstraint = filterBottomConstraint,
+              let filterBlockerView = self.blockerView else { return }
 
         UIView.animate(withDuration: 0.3, animations: {
             filterBottomConstraint.constant = 290
+            filterBlockerView.alpha = 0
+            self.view.layoutSubviews()
         }, completion: { _ in
             filterView.removeFromSuperview()
             self.filterView = nil
             self.filterBottomConstraint = nil
+            self.blockerView = nil
         })
     }
     func filterSelected(filter: FilterType) {

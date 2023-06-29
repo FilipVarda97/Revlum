@@ -53,4 +53,9 @@ extension UIColor {
         let color = UIColor(named: "selectedSortBgColor", in: bundle, compatibleWith: nil)!
         return color
     }()
+    static let blockerColor: UIColor = {
+        let bundle = Bundle.module
+        let color = UIColor(named: "blockerColor", in: bundle, compatibleWith: nil)!
+        return color
+    }()
 }
