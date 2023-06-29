@@ -147,9 +147,12 @@ private extension OffersViewModel {
             filteredOffers = offers
             return
         }
-
-        filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
-        updateCellViewModels()
+        if filteredOffers == nil {
+            filteredOffers = offers.filter { $0.title.lowercased() == searchText.lowercased() }
+        } else {
+            filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
+        }
+        sortOffers(selectedSortType)
     }
 }
 
