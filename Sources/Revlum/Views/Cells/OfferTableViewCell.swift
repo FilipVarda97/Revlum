@@ -54,7 +54,7 @@ final class OfferTableViewCell: BaseTableViewCell {
     }
 
     private func setUpIcons() {
-        guard let viewModel = viewModel, !areIconsSet else { return }
+        guard let viewModel = viewModel, areIconsSet == false else { return }
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
