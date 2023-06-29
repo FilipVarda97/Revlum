@@ -33,7 +33,7 @@ class OffersViewModel: NSObject {
     private let output = PassthroughSubject<Output, Never>()
     private var cancellables = Set<AnyCancellable>()
     private let apiService = APIService.shared
-    private var cellViewModels: [OfferCellViewModel] = []
+    var cellViewModels: [OfferCellViewModel] = []
 
     private var selectedFilterType: FilterType = .none
     private var selectedSortType: SortType = .none
@@ -45,6 +45,7 @@ class OffersViewModel: NSObject {
         }
     }
     private var filteredOffers: [Offer]?
+    private var searchResultOffers: [Offer]?
 
     public func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
@@ -70,13 +71,18 @@ class OffersViewModel: NSObject {
 private extension OffersViewModel {
     private func updateCellViewModels() {
         cellViewModels.removeAll()
-        if filteredOffers == nil {
-            offers.forEach {
+        if let searchResultOffers = searchResultOffers {
+            searchResultOffers.forEach {
+                let viewModel = OfferCellViewModel(offer: $0)
+                cellViewModels.append(viewModel)
+            }
+        } else if let filteredOffers = filteredOffers {
+            filteredOffers.forEach {
                 let viewModel = OfferCellViewModel(offer: $0)
                 cellViewModels.append(viewModel)
             }
         } else {
-            filteredOffers!.forEach {
+            offers.forEach {
                 let viewModel = OfferCellViewModel(offer: $0)
                 cellViewModels.append(viewModel)
             }
@@ -144,17 +150,14 @@ private extension OffersViewModel {
 
     private func searchOffers(_ searchText: String?) {
         guard let searchText = searchText, !searchText.isEmpty else {
-            filteredOffers = offers
-            sortOffers(selectedSortType)
-            updateCellViewModels()
+            searchResultOffers = nil
+            filterOffers(selectedFilterType)
             return
         }
-        sortOffers(selectedSortType)
-
-        if filteredOffers == nil {
-            filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+        if let filteredOffers = filteredOffers {
+            searchResultOffers = filteredOffers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         } else {
-            filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            searchResultOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
         updateCellViewModels()
     }
@@ -189,6 +192,10 @@ extension OffersViewModel {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellViewModels.count
     }
