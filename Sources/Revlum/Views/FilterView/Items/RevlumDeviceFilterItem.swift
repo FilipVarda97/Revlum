@@ -66,7 +66,7 @@ class RevlumDeviceFilterItem: UITableViewCell {
         ])
     }
 
-    func configure(with filterButtonTitles: [String]) {
+    func configure(with filterButtonTitles: [String], selectedFilter: FilterType) {
         let buttons = filterButtonTitles.map { title in
             let button = RevlumFilterButton(title: title)
             button.isSelected = false
@@ -79,6 +79,16 @@ class RevlumDeviceFilterItem: UITableViewCell {
             return button
         }
         buttons.forEach { stackView.addArrangedSubview($0) }
+
+        guard let subviews = stackView.arrangedSubviews as? [RevlumFilterButton] else { return }
+        subviews.forEach { $0.isSelected = false }
+        switch selectedFilter {
+        case .ios:
+            subviews[0].isSelected = true
+        case .web:
+            subviews[1].isSelected = true
+        case .none: break
+        }
     }
 
     @objc func buttonTapped(sender: RevlumFilterButton) {

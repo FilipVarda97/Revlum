@@ -22,7 +22,7 @@ extension OffersViewModel {
         case startLoading
         case stopLoading
         case openOffer(_ offer: Offer)
-        case openFilterView
+        case openFilterView(_ selectedSortType: SortType, _ selectedFilterType: FilterType)
         case forceEndEditing
         case reloadTable
     }
@@ -219,11 +219,11 @@ extension OffersViewModel: RevlumCellDelegate {
     }
 }
 
+// MARK: - SearchCellDelegate
 extension OffersViewModel: SearchCellDelegate {
     func openFilterViewPressed() {
-        output.send(.openFilterView)
+        output.send(.openFilterView(selectedSortType, selectedFilterType))
     }
-
     func textFieldTextChanged(_ text: String) {
         searchOffers(text)
     }

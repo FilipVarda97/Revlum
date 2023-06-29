@@ -259,9 +259,9 @@ private extension RevlumViewController {
                     self?.spinner.startAnimating()
                 case .stopLoading:
                     self?.spinner.stopAnimating()
-                case .openFilterView:
+                case .openFilterView(let sortType, let filterType):
                     self?.forceEndEditing()
-                    self?.openFilter()
+                    self?.openFilter(sortType, filterType)
                 case .forceEndEditing:
                     self?.forceEndEditing()
                 case .reloadTable:
@@ -270,10 +270,10 @@ private extension RevlumViewController {
             }.store(in: &cancellables)
     }
 
-    private func openFilter() {
+    private func openFilter(_ sortType: SortType, _ filterType: FilterType) {
         guard self.filterView == nil else { return }
 
-        let filterView = RevlumFilterView()
+        let filterView = RevlumFilterView(filterType: filterType, sortType: sortType)
         filterView.delegate = self
 
         let blockerView = UIView(frame: .zero)

@@ -36,10 +36,14 @@ class RevlumFilterView: UIView {
     }()
 
     weak var delegate: RevlumFilterDelegate?
+    private var selectedFilterType: FilterType = .none
+    private var selectedSortType: SortType = .none
 
     // MARK: - Init
-    init(filterType: FilterType = .ios, sortType: SortType = .descending) {
+    init(filterType: FilterType, sortType: SortType) {
         super.init(frame: .zero)
+        self.selectedSortType = sortType
+        self.selectedFilterType = filterType
         setUpViews()
     }
 
@@ -117,6 +121,13 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(title: indexPath.row == 0 ? "High to Low" : "Low to High")
+            if indexPath.row == 0 && selectedSortType == .descending {
+                cell.setSelected(true, animated: true)
+                cell.isSelected = true
+            } else if indexPath.row == 1 && selectedSortType == .ascending {
+                cell.setSelected(true, animated: true)
+                cell.isSelected = true
+            }
             return cell
         } else if indexPath.row == 2 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumDeviceFilterItem.identifier) as?  RevlumDeviceFilterItem else {
