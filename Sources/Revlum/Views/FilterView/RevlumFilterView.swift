@@ -160,9 +160,9 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         cell.updateViews()
     }
 
-    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return indexPath }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
+        cell.isSelected = false
         cell.updateViews()
-        return indexPath
     }
 }
