@@ -13,18 +13,6 @@ protocol RevlumFilterDelegate: AnyObject {
     func sortSelected(sort: SortType)
 }
 
-enum FilterType: String {
-    case ios = "iOS"
-    case web = "Web"
-    case none
-}
-
-enum SortType {
-    case descending
-    case ascending
-    case none
-}
-
 class RevlumFilterView: UIView {
     // MARK: - Properties
     private let titleContainerView = UIView()
@@ -157,11 +145,10 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
+        if cell.isSelected {
+            cell.isSelected = false
+            return
+        }
         cell.isSelected = true
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
-        cell.isSelected = false
     }
 }

@@ -11,6 +11,12 @@ protocol RevlumDeviceFilterDelegate: AnyObject {
     func filterSelected(type: FilterType)
 }
 
+enum FilterType: String {
+    case ios = "iOS"
+    case web = "Web"
+    case none
+}
+
 class RevlumDeviceFilterItem: UITableViewCell {
     static let identifier = "RevlumDeviceFilterItem"
 

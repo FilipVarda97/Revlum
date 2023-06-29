@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum SortType {
+    case descending
+    case ascending
+    case none
+}
+
 class RevlumSortItem: UITableViewCell {
     static let identifier = "RevlumSortItem"
 
