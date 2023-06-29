@@ -40,11 +40,14 @@ class RevlumSortItem: UITableViewCell {
     private func setUpViews() {
         selectionStyle = .none
         backgroundColor = .clear
+
         checkImageView.image = .checkIcon
         checkImageView.contentMode = .scaleToFill
+        checkImageView.isHidden = true
+        checkImageView.translatesAutoresizingMaskIntoConstraints = false
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
 
         contentView.addSubviews(titleLabel, checkImageView, separatorView)
     }
