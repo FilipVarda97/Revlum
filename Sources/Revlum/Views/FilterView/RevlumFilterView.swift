@@ -133,7 +133,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RevlumDeviceFilterItem.identifier) as?  RevlumDeviceFilterItem else {
                 return UITableViewCell()
             }
-            cell.configure(with: ["iOS", "Web"])
+            cell.configure(with: ["iOS", "Web"], selectedFilter: selectedFilterType)
             cell.delegate = self
             return cell
         }
