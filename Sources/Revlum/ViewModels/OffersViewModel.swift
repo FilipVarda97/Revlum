@@ -35,6 +35,9 @@ class OffersViewModel: NSObject {
     private let apiService = APIService.shared
     private var cellViewModels: [OfferCellViewModel] = []
 
+    private var selectedFilterType: FilterType = .none
+    private var selectedSortType: SortType = .none
+
     private var offers: [Offer] = [] {
         didSet {
             updateCellViewModels()
@@ -68,6 +71,7 @@ class OffersViewModel: NSObject {
 
 private extension OffersViewModel {
     private func updateCellViewModels() {
+        print("Updating: Filter - \(selectedFilterType), Sort - \(selectedSortType)")
         cellViewModels.removeAll()
         if filteredOffers == nil {
             offers.forEach {
@@ -84,25 +88,37 @@ private extension OffersViewModel {
     }
 
     private func filterOffers(_ filterType: FilterType) {
+        self.selectedFilterType = filterType
         switch filterType {
         case .ios:
             filteredOffers = offers.filter { $0.platform == "ios" }
         case .web:
             filteredOffers = offers.filter { $0.platform == "desktop" }
         case .none:
-            filteredOffers = offers.filter { $0.platform == "all" }
+            filteredOffers = offers
         }
         updateCellViewModels()
     }
 
     private func sortOffers(_ sortType: SortType) {
+        self.selectedSortType = sortType
         switch sortType {
         case .ascending:
-            filteredOffers = filteredOffers?.sorted { $0.revenue < $1.revenue }
+            filteredOffers = filteredOffers?.sorted {
+                let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                return revenue1 < revenue2
+            }
         case .descending:
-            filteredOffers = filteredOffers?.sorted { $0.revenue > $1.revenue }
+            filteredOffers = filteredOffers?.sorted {
+                let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
+                let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
+                return revenue1 > revenue2
+            }
         case .none:
-            break
+            if selectedFilterType == .none {
+                filteredOffers = offers
+            }
         }
         updateCellViewModels()
     }
