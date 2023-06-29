@@ -24,7 +24,7 @@ extension OffersViewModel {
         case openOffer(_ offer: Offer)
         case openFilterView(_ selectedSortType: SortType, _ selectedFilterType: FilterType)
         case forceEndEditing
-        case reloadTable
+        case reloadAllIndexesExceptFirst(_ numberOfItems: Int)
     }
 }
 
@@ -80,7 +80,8 @@ private extension OffersViewModel {
                 cellViewModels.append(viewModel)
             }
         }
-        output.send(.reloadTable)
+
+        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
     }
 
     private func filterOffers(_ filterType: FilterType) {
