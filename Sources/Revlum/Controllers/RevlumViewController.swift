@@ -280,6 +280,8 @@ private extension RevlumViewController {
         blockerView.backgroundColor = .blockerColor
         blockerView.alpha = 0
         blockerView.frame = view.bounds
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeFilterView))
+        blockerView.addGestureRecognizer(tap)
         
         view.addSubviews(blockerView, filterView)
 
@@ -340,7 +342,7 @@ extension RevlumViewController: RevlumDetailsViewDelegate {
 
 // MARK: - Revlum Filter Delegate
 extension RevlumViewController: RevlumFilterDelegate {
-    func closeFilterView() {
+    @objc func closeFilterView() {
         guard let filterView = self.filterView,
               let filterBottomConstraint = filterBottomConstraint,
               let filterBlockerView = self.blockerView else { return }
