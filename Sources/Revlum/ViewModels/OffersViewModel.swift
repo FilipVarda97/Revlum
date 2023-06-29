@@ -74,6 +74,7 @@ private extension OffersViewModel {
                 let viewModel = OfferCellViewModel(offer: $0)
                 cellViewModels.append(viewModel)
             }
+            output.send(.reloadTable)
             return
         }
         cellViewModels.removeAll()
