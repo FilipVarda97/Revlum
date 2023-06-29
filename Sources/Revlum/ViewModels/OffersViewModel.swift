@@ -144,12 +144,14 @@ private extension OffersViewModel {
             filteredOffers = offers
             return
         }
+        sortOffers(selectedSortType)
+
         if filteredOffers == nil {
             filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         } else {
             filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
-        sortOffers(selectedSortType)
+        updateCellViewModels()
     }
 }
 
