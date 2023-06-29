@@ -43,11 +43,7 @@ class OffersViewModel: NSObject {
             updateCellViewModels()
         }
     }
-    private var filteredOffers: [Offer]? {
-        didSet {
-            updateCellViewModels()
-        }
-    }
+    private var filteredOffers: [Offer]?
 
     public func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
@@ -69,6 +65,7 @@ class OffersViewModel: NSObject {
     }
 }
 
+// MARK: - Sort/Filter/Search
 private extension OffersViewModel {
     private func updateCellViewModels() {
         cellViewModels.removeAll()
@@ -148,9 +145,9 @@ private extension OffersViewModel {
             return
         }
         if filteredOffers == nil {
-            filteredOffers = offers.filter { $0.title.lowercased() == searchText.lowercased() }
+            filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         } else {
-            filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
+            filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
         sortOffers(selectedSortType)
     }
