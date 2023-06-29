@@ -264,12 +264,9 @@ private extension RevlumViewController {
                     self?.openFilter(sortType, filterType)
                 case .forceEndEditing:
                     self?.forceEndEditing()
-                case .reloadAllIndexesExceptFirst(let numberOfItems):
-                    var indexPaths: [IndexPath] = []
-                    for i in 1..<numberOfItems {
-                        indexPaths.append(IndexPath(row: i, section: 0))
-                    }
-                    self?.offersTableView.reloadRows(at: indexPaths, with: .automatic)
+                case .reloadAllIndexesExceptFirst:
+                    let allButFirst = (self?.offersTableView.indexPathsForVisibleRows ?? []).filter { $0.section != 0 || $0.row != 0 }
+                    self?.offersTableView.reloadRows(at: allButFirst, with: .automatic)
                 }
             }.store(in: &cancellables)
     }

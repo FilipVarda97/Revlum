@@ -24,7 +24,7 @@ extension OffersViewModel {
         case openOffer(_ offer: Offer)
         case openFilterView(_ selectedSortType: SortType, _ selectedFilterType: FilterType)
         case forceEndEditing
-        case reloadAllIndexesExceptFirst(_ numberOfItems: Int)
+        case reloadAllIndexesExceptFirst
     }
 }
 
@@ -82,7 +82,7 @@ private extension OffersViewModel {
             }
         }
         if shouldReload {
-            output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
+            output.send(.reloadAllIndexesExceptFirst)
         }
     }
 
