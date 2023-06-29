@@ -26,6 +26,7 @@ class RevlumFilterView: UIView {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false
+        tableView.allowsMultipleSelection = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.register(RevlumSortItem.self, forCellReuseIdentifier: RevlumSortItem.identifier)
@@ -145,13 +146,12 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
-        cell.isSelected = true
-        cell.updateViews()
-    }
-
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? RevlumSortItem else { return }
-        cell.isSelected = false
+        if cell.isSelected {
+            tableView.deselectRow(at: indexPath, animated: true)
+            cell.isSelected = false
+        } else {
+            cell.isSelected = true
+        }
         cell.updateViews()
     }
 }
