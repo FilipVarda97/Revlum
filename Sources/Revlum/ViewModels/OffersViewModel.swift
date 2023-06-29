@@ -109,7 +109,7 @@ private extension OffersViewModel {
         switch sortType {
         case .ascending:
             if selectedFilterType == .none {
-                filteredOffers = offers.sorted {
+                offers = offers.sorted {
                     let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
                     let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
                     return revenue1 < revenue2
@@ -126,18 +126,18 @@ private extension OffersViewModel {
                 offers = offers.sorted {
                     let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
                     let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
-                    return revenue1 < revenue2
+                    return revenue1 > revenue2
                 }
             } else {
                 filteredOffers = filteredOffers?.sorted {
                     let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
                     let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
-                    return revenue1 < revenue2
+                    return revenue1 > revenue2
                 }
             }
         case .none:
             if selectedFilterType == .none {
-                filteredOffers = offers
+                filteredOffers = nil
             }
         }
         updateCellViewModels()
