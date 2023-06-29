@@ -45,7 +45,7 @@ public final class RevlumViewController: UIViewController {
         return spinner
     }()
     private let offersTableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .secondaryColor
@@ -53,8 +53,8 @@ public final class RevlumViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(OfferTableViewCell.self,
                            forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-        tableView.register(SearchOffersTableViewCell.self,
-                           forCellReuseIdentifier: SearchOffersTableViewCell.reuseIdentifier)
+        tableView.register(SearchOffersTableHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: SearchOffersTableHeaderView.reuseIdentifier)
         return tableView
     }()
     private let surveysTableView: UITableView = {

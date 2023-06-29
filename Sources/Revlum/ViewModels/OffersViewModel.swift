@@ -182,28 +182,28 @@ extension OffersViewModel {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension OffersViewModel: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellViewModels.count + 1
+        return cellViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchOffersTableViewCell.reuseIdentifier) as? SearchOffersTableViewCell else { return UITableViewCell() }
-            cell.delegate = self
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
-            cell.configure(with: cellViewModels[indexPath.row - 1], indexPath: indexPath)
-            cell.delegate = self
-            return cell
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: OfferTableViewCell.reuseIdentifier) as? OfferTableViewCell else { return UITableViewCell() }
+        cell.configure(with: cellViewModels[indexPath.row - 1], indexPath: indexPath)
+        cell.delegate = self
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 60
-        } else {
-            return 169
-        }
+        return 169
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SearchOffersTableHeaderView.reuseIdentifier) as? SearchOffersTableHeaderView else { return nil }
+        view.delegate = self
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -219,7 +219,7 @@ extension OffersViewModel: RevlumCellDelegate {
 }
 
 // MARK: - SearchCellDelegate
-extension OffersViewModel: SearchCellDelegate {
+extension OffersViewModel: SearchHeaderDelegate {
     func openFilterViewPressed() {
         output.send(.openFilterView(selectedSortType, selectedFilterType))
     }
