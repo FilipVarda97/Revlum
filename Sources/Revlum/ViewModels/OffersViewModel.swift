@@ -142,6 +142,8 @@ private extension OffersViewModel {
     private func searchOffers(_ searchText: String?) {
         guard let searchText = searchText, !searchText.isEmpty else {
             filteredOffers = offers
+            sortOffers(selectedSortType)
+            updateCellViewModels()
             return
         }
         sortOffers(selectedSortType)
