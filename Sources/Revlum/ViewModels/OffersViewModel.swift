@@ -154,9 +154,9 @@ private extension OffersViewModel {
         }
 
         if filteredOffers == nil {
-            filteredOffers = offers.filter { $0.title.lowercased() == searchText.lowercased() }
+            filteredOffers = offers.filter { $0.title.lowercased().contains(searchText.lowercased())  }
         } else {
-            filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
+            filteredOffers = filteredOffers?.filter { $0.title.lowercased().contains(searchText.lowercased()) }
         }
         sortOffers(selectedSortType)
     }
