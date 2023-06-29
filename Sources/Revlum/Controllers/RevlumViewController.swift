@@ -53,8 +53,8 @@ public final class RevlumViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(OfferTableViewCell.self,
                            forCellReuseIdentifier: OfferTableViewCell.reuseIdentifier)
-        tableView.register(SearchOffersTableHeaderView.self,
-                           forHeaderFooterViewReuseIdentifier: SearchOffersTableHeaderView.reuseIdentifier)
+        tableView.register(SearchOffersTableViewCell.self,
+                           forCellReuseIdentifier: SearchOffersTableViewCell.reuseIdentifier)
         return tableView
     }()
     private let surveysTableView: UITableView = {
