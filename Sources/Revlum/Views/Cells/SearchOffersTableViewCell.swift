@@ -12,16 +12,16 @@ protocol SearchCellDelegate: AnyObject {
     func openFilterViewPressed()
 }
 
-class SearchOffersTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "SearchOffersTableViewCell"
+class SearchOffersTableHeaderView: UITableViewHeaderFooterView {
+    static let reuseIdentifier = "SearchOffersTableHeaderView"
 
     private var searchTextField = RevlumSearchBarTextField(textInset: UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17))
     private let filterButton = RevlumIconButton()
     weak var delegate: SearchCellDelegate?
     
     // MARK: - Init
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setUpViews()
         setUpConstraints()
     }
