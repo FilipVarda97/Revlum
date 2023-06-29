@@ -25,12 +25,6 @@ class RevlumSortItem: UITableViewCell {
         return view
     }()
 
-    override var isSelected: Bool {
-        didSet {
-            updateViews()
-        }
-    }
-
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,7 +68,7 @@ class RevlumSortItem: UITableViewCell {
         ])
     }
 
-    private func updateViews() {
+    func updateViews() {
         titleLabel.font = isSelected ? .systemFont(ofSize: 16, weight: .semibold) : .systemFont(ofSize: 16, weight: .regular)
         checkImageView.isHidden = !isSelected
         backgroundColor = isSelected ? .selectedSortBgColor : .clear
