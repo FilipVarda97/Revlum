@@ -9,6 +9,7 @@ import UIKit
 
 protocol SearchCellDelegate: AnyObject {
     func textFieldTextChanged(_ searchText: String)
+    func openFilterViewPressed()
 }
 
 class SearchOffersTableViewCell: UITableViewCell {
@@ -49,6 +50,7 @@ class SearchOffersTableViewCell: UITableViewCell {
         filterButton.setTitleColor(.black, for: .normal)
         filterButton.contentHorizontalAlignment = .left
         filterButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
+        filterButton.addTarget(self, action: #selector(openFilterPressed), for: .touchUpInside)
 
         contentView.addSubviews(searchTextField,
                                 filterButton)
@@ -74,5 +76,9 @@ class SearchOffersTableViewCell: UITableViewCell {
     @objc func textFieldChanged() {
         guard let text = searchTextField.text else { return }
         delegate?.textFieldTextChanged(text)
+    }
+
+    @objc private func openFilterPressed() {
+        delegate?.openFilterViewPressed()
     }
 }

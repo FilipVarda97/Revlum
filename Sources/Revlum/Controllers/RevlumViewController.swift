@@ -258,7 +258,7 @@ private extension RevlumViewController {
                     self?.spinner.startAnimating()
                 case .stopLoading:
                     self?.spinner.stopAnimating()
-                case .filterPressed:
+                case .openFilterView:
                     self?.forceEndEditing()
                     self?.openFilter()
                 case .forceEndEditing:
@@ -338,9 +338,9 @@ extension RevlumViewController: RevlumFilterDelegate {
         })
     }
     func filterSelected(filter: FilterType) {
-        
+        offersInput.send(.filterOffers(filter))
     }
     func sortSelected(sort: SortType) {
-        
+        offersInput.send(.sortOffers(sort))
     }
 }

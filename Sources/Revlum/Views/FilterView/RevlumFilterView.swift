@@ -16,11 +16,13 @@ protocol RevlumFilterDelegate: AnyObject {
 enum FilterType: String {
     case ios = "iOS"
     case web = "Web"
+    case none
 }
 
 enum SortType {
     case descending
     case ascending
+    case none
 }
 
 class RevlumFilterView: UIView {

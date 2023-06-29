@@ -22,7 +22,7 @@ extension OffersViewModel {
         case startLoading
         case stopLoading
         case openOffer(_ offer: Offer)
-        case filterPressed
+        case openFilterView
         case forceEndEditing
     }
 }
@@ -83,15 +83,37 @@ private extension OffersViewModel {
     }
 
     private func filterOffers(_ filterType: FilterType) {
-        
+        switch filterType {
+        case .ios:
+            filteredOffers = offers.filter { $0.platform == "ios" }
+        case .web:
+            filteredOffers = offers.filter { $0.platform == "desktop" }
+        case .none:
+            filteredOffers = offers.filter { $0.platform == "all" }
+        }
+        updateCellViewModels()
     }
 
     private func sortOffers(_ sortType: SortType) {
-        
+        switch sortType {
+        case .ascending:
+            filteredOffers = filteredOffers?.sorted { $0.revenue < $1.revenue }
+        case .descending:
+            filteredOffers = filteredOffers?.sorted { $0.revenue > $1.revenue }
+        case .none:
+            break
+        }
+        updateCellViewModels()
     }
 
     private func searchOffers(_ searchText: String?) {
-        
+        guard let searchText = searchText, !searchText.isEmpty else {
+            filteredOffers = offers
+            return
+        }
+
+        filteredOffers = filteredOffers?.filter { $0.title.lowercased() == searchText.lowercased() }
+        updateCellViewModels()
     }
 }
 
@@ -161,14 +183,11 @@ extension OffersViewModel: RevlumCellDelegate {
 }
 
 extension OffersViewModel: SearchCellDelegate {
-    func filterButtonPressed() {
-        output.send(.filterPressed)
+    func openFilterViewPressed() {
+        output.send(.openFilterView)
     }
 
     func textFieldTextChanged(_ text: String) {
-        let filteredOffers = offers.filter { offer in
-            offer.title.hasPrefix(text)
-        }
-        offers = filteredOffers
+        searchOffers(text)
     }
 }
