@@ -24,6 +24,7 @@ extension OffersViewModel {
         case openOffer(_ offer: Offer)
         case openFilterView
         case forceEndEditing
+        case reloadTable
     }
 }
 
@@ -80,6 +81,7 @@ private extension OffersViewModel {
             let viewModel = OfferCellViewModel(offer: $0)
             cellViewModels.append(viewModel)
         }
+        output.send(.reloadTable)
     }
 
     private func filterOffers(_ filterType: FilterType) {
