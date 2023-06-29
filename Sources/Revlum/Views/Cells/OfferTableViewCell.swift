@@ -19,10 +19,20 @@ final class OfferTableViewCell: BaseTableViewCell {
     private let newUsersView = RevlumNewUsersView()
 
     private var viewModel: OfferCellViewModel?
-    private var areIconsSet: Bool = false
 
     override func setUpViews() {
         super.setUpViews()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellImageView.image = nil
+        titleLabel.text = nil
+        descriptionLabel.text = nil
+        selectionButton.setAttributedTitle(nil, for: .normal)
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        newUsersView.removeFromSuperview()
+        viewModel = nil
     }
 
     public func configure(with viewModel: OfferCellViewModel, indexPath: IndexPath, isDetail: Bool = false) {
@@ -54,7 +64,7 @@ final class OfferTableViewCell: BaseTableViewCell {
     }
 
     private func setUpIcons() {
-        guard let viewModel = viewModel, areIconsSet == false else { return }
+        guard let viewModel = viewModel else { return }
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 13),
@@ -71,7 +81,6 @@ final class OfferTableViewCell: BaseTableViewCell {
             stackView.addArrangedSubview(UIImageView(image: .iosIcon))
             stackView.addArrangedSubview(UIImageView(image: .desktopIcon))
         }
-        areIconsSet = true
     }
 
     private func addNewUsersView() {
