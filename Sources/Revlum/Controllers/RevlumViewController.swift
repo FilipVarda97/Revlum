@@ -287,7 +287,7 @@ private extension RevlumViewController {
         view.layoutIfNeeded()
 
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            self?.filterBottomConstraint?.constant = 290
+            self?.filterBottomConstraint?.constant = 0
             self?.view.layoutIfNeeded()
         })
     }
@@ -335,8 +335,7 @@ extension RevlumViewController: RevlumFilterDelegate {
               let filterBottomConstraint = filterBottomConstraint else { return }
 
         UIView.animate(withDuration: 0.3, animations: {
-            filterView.alpha = 0
-            filterBottomConstraint.constant = 0
+            filterBottomConstraint.constant = 290
         }, completion: { _ in
             filterView.removeFromSuperview()
             self.filterView = nil
