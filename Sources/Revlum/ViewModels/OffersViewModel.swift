@@ -95,9 +95,13 @@ private extension OffersViewModel {
         case .web:
             filteredOffers = offers.filter { $0.platform == "desktop" }
         case .none:
-            filteredOffers = offers
+            filteredOffers = nil
         }
-        sortOffers(selectedSortType)
+        if selectedSortType != .none {
+            sortOffers(selectedSortType)
+        } else {
+            updateCellViewModels()
+        }
     }
 
     private func sortOffers(_ sortType: SortType) {
@@ -119,7 +123,7 @@ private extension OffersViewModel {
             }
         case .descending:
             if selectedFilterType == .none {
-                filteredOffers = offers.sorted {
+                offers = offers.sorted {
                     let revenue1 = Double($0.revenue.components(separatedBy: " ")[0]) ?? 0
                     let revenue2 = Double($1.revenue.components(separatedBy: " ")[0]) ?? 0
                     return revenue1 < revenue2
