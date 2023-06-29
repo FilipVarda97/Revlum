@@ -124,9 +124,11 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 && selectedSortType == .descending {
                 tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 cell.isSelected = true
+                cell.updateViews()
             } else if indexPath.row == 1 && selectedSortType == .ascending {
                 tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 cell.isSelected = true
+                cell.updateViews()
             }
             return cell
         } else if indexPath.row == 2 {
