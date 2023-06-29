@@ -14,7 +14,7 @@ extension OffersViewModel {
         case loadOffers(_ location: String)
         case filterOffers(_ filterType: FilterType)
         case sortOffers(_ sortType: SortType)
-        case searchOffers(_ searchText: String?)
+        case searchOffers(_ searchText: String)
     }
     enum Output {
         case offersLoaded
@@ -37,6 +37,7 @@ class OffersViewModel: NSObject {
 
     private var selectedFilterType: FilterType = .none
     private var selectedSortType: SortType = .none
+    private var isSearching: Bool = false
 
     private var offers: [Offer] = [] {
         didSet {
@@ -139,11 +140,19 @@ private extension OffersViewModel {
         updateCellViewModels()
     }
 
-    private func searchOffers(_ searchText: String?) {
-        guard let searchText = searchText, !searchText.isEmpty else {
+    private func searchOffers(_ searchText: String) {
+        if !searchText.isEmpty {
+            isSearching = true
+        } else {
+            isSearching = false
+        }
+        guard !searchText.isEmpty,
+              selectedSortType == .none,
+              selectedFilterType == .none else {
             filteredOffers = offers
             return
         }
+
         if filteredOffers == nil {
             filteredOffers = offers.filter { $0.title.lowercased() == searchText.lowercased() }
         } else {

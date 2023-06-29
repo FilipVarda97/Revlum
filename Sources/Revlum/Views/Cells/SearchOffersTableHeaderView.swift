@@ -1,5 +1,5 @@
 //
-//  SearchOffersTableViewCell.swift
+//  SearchOffersTableHeaderView.swift
 //  
 //
 //  Created by Filip Varda on 08.06.2023..
