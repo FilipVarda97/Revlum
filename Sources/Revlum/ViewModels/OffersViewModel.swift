@@ -37,6 +37,7 @@ class OffersViewModel: NSObject {
 
     private var selectedFilterType: FilterType = .none
     private var selectedSortType: SortType = .none
+    private var shouldReload: Bool = false
 
     private var offers: [Offer] = [] {
         didSet {
@@ -80,7 +81,9 @@ private extension OffersViewModel {
                 cellViewModels.append(viewModel)
             }
         }
-        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
+        if shouldReload {
+            output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
+        }
     }
 
     private func filterOffers(_ filterType: FilterType) {
@@ -173,6 +176,7 @@ extension OffersViewModel {
             switch result {
             case .success(let offers):
                 self?.offers = offers
+                self?.shouldReload = true
                 self?.output.send(.stopLoading)
                 self?.output.send(.offersLoaded)
             case .failure:
