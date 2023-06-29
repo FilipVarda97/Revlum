@@ -68,7 +68,7 @@ class OffersViewModel: NSObject {
 
 private extension OffersViewModel {
     private func updateCellViewModels() {
-        guard filteredOffers != nil else {
+        guard filteredOffers == nil else {
             cellViewModels.removeAll()
             offers.forEach {
                 let viewModel = OfferCellViewModel(offer: $0)
