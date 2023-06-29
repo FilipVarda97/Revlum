@@ -122,10 +122,10 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
             }
             cell.configure(title: indexPath.row == 0 ? "High to Low" : "Low to High")
             if indexPath.row == 0 && selectedSortType == .descending {
-                cell.setSelected(true, animated: true)
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 cell.isSelected = true
             } else if indexPath.row == 1 && selectedSortType == .ascending {
-                cell.setSelected(true, animated: true)
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 cell.isSelected = true
             }
             return cell
@@ -178,6 +178,7 @@ extension RevlumFilterView: UITableViewDelegate, UITableViewDataSource {
         cell.updateViews()
     }
 }
+
 // MARK: - RevlumDeviceFilterDelegate
 extension RevlumFilterView: RevlumDeviceFilterDelegate {
     func filterSelected(type: FilterType) {
