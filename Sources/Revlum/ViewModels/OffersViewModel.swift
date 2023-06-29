@@ -81,7 +81,7 @@ private extension OffersViewModel {
             }
         }
 
-        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count))
+        output.send(.reloadAllIndexesExceptFirst(cellViewModels.count + 1))
     }
 
     private func filterOffers(_ filterType: FilterType) {
