@@ -71,7 +71,6 @@ class OffersViewModel: NSObject {
 
 private extension OffersViewModel {
     private func updateCellViewModels() {
-        print("Updating: Filter - \(selectedFilterType), Sort - \(selectedSortType)")
         cellViewModels.removeAll()
         if filteredOffers == nil {
             offers.forEach {

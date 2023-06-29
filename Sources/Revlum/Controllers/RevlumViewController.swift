@@ -323,7 +323,7 @@ private extension RevlumViewController {
                     self?.surveysTableView.reloadData()
                 case .failedToLoadSurveys: break
                 case .selectedSurvey(let survey):
-                    print(survey.title)
+                    self?.openInSafari(urlToOpen: survey.url)
                 case .startLoading:
                     self?.spinner.startAnimating()
                 case .stopLoading:
